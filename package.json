@@ -1,18 +1,13 @@
 {
-  "name": "nftchain-client",
+  "name": "webbee-js--react-scripts",
+  "author": "maccarian",
+  "email": "hi@maccarianagency.com",
   "version": "1.0.0",
-  "description": "NFTChain client",
-  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/NFTChain/NFTChain-client.git"
   },
-  "author": "Liam & Ben",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/NFTChain/NFTChain-client/issues"
-  },
-  "homepage": "https://github.com/NFTChain/NFTChain-client#readme",
+  "private": true,
   "scripts": {
     "start": "react-scripts start",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
