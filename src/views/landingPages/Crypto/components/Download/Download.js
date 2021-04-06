@@ -11,7 +11,6 @@ const Download = () => {
   const isSm = useMediaQuery(theme.breakpoints.up('sm'), {
     defaultMatches: true,
   });
-  // const browserWindowWidth = window.innerWidth;
 
   return (
     <Box>
