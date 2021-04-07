@@ -13,18 +13,12 @@ import Link from '@material-ui/core/Link';
 import { register } from '../../../../../actions/register';
 
 const validationSchema = yup.object({
-  firstName: yup
-    .string('Enter your first name')
+  username: yup
+    .string('Enter your username')
     .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your first name'),
-  lastName: yup
-    .string('Enter your last name')
-    .trim()
-    .min(2, 'Please enter a valid name')
-    .max(50, 'Please enter a valid name')
-    .required('Please specify your last name'),
+    .min(2, 'Please enter a valid username')
+    .max(50, 'Please enter a valid username')
+    .required('Please specify your  username'),
   email: yup
     .string('Enter your email')
     .trim()
@@ -38,8 +32,7 @@ const validationSchema = yup.object({
 
 const Form = ({ register }) => {
   const initialValues = {
-    firstName: '',
-    lastName: '',
+    username: '',
     email: '',
     password: '',
   };
@@ -81,36 +74,19 @@ const Form = ({ register }) => {
       </Box>
       <form onSubmit={formik.handleSubmit}>
         <Grid container spacing={4}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12}>
             <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-              Enter your first name
+              Enter your username
             </Typography>
             <TextField
-              label="First name *"
+              label="Username *"
               variant="outlined"
-              name={'firstName'}
+              name={'username'}
               fullWidth
-              value={formik.values.firstName}
+              value={formik.values.username}
               onChange={formik.handleChange}
-              error={
-                formik.touched.firstName && Boolean(formik.errors.firstName)
-              }
-              helperText={formik.touched.firstName && formik.errors.firstName}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Typography variant={'subtitle2'} sx={{ marginBottom: 2 }}>
-              Enter your last name
-            </Typography>
-            <TextField
-              label="Last name *"
-              variant="outlined"
-              name={'lastName'}
-              fullWidth
-              value={formik.values.lastName}
-              onChange={formik.handleChange}
-              error={formik.touched.lastName && Boolean(formik.errors.lastName)}
-              helperText={formik.touched.lastName && formik.errors.lastName}
+              error={formik.touched.username && Boolean(formik.errors.username)}
+              helperText={formik.touched.username && formik.errors.username}
             />
           </Grid>
           <Grid item xs={12}>

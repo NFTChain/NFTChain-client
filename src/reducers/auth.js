@@ -1,6 +1,6 @@
 import * as types from '../actions/types/auth';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = localStorage.getItem('user');
 const defaultAuthState = user ? { loggedIn: true, user } : {};
 
 export default (state = defaultAuthState, action) => {
