@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { signup } from '../../../../../actions/auth';
+import { register } from '../../../../../actions/register';
 
 const validationSchema = yup.object({
   firstName: yup
@@ -36,8 +36,7 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
-const Form = (props, { signup }) => {
-  console.log(props);
+const Form = ({ register }) => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -46,7 +45,7 @@ const Form = (props, { signup }) => {
   };
 
   const onSubmit = (values) => {
-    signup(values);
+    register(values);
   };
 
   const formik = useFormik({
@@ -203,11 +202,11 @@ const Form = (props, { signup }) => {
 };
 
 Form.propTypes = {
-  signup: PropTypes.func,
+  register: PropTypes.func,
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  signup: (user) => dispatch(signup(user)),
+  register: (user) => dispatch(register(user)),
 });
 
 export default connect(undefined, mapDispatchToProps)(Form);

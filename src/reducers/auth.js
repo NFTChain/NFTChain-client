@@ -1,21 +1,24 @@
 import * as types from '../actions/types/auth';
 
-const defaultAuthState = {
-  user: {},
-};
+let user = JSON.parse(localStorage.getItem('user'));
+const defaultAuthState = user ? { loggedIn: true, user } : {};
 
 export default (state = defaultAuthState, action) => {
   switch (action.type) {
-    case types.LOGIN:
+    case types.LOGIN_REQUEST:
       return {
-        ...state,
+        loggingIn: true,
         user: action.user,
       };
-    case types.SIGNUP:
+    case types.LOGIN_SUCCESS:
       return {
-        ...state,
+        loggedIn: true,
         user: action.user,
       };
+    case types.LOGIN_FAILURE:
+      return {};
+    case types.LOGOUT:
+      return {};
     default:
       return state;
   }

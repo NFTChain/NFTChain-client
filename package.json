@@ -39,6 +39,7 @@
     "@material-ui/icons": "^5.0.0-alpha.28",
     "@material-ui/lab": "^5.0.0-alpha.28",
     "aos": "^2.3.4",
+    "axios": "^0.21.1",
     "clsx": "^1.0.4",
     "date-fns": "^2.19.0",
     "formik": "^2.2.6",
@@ -58,6 +59,7 @@
     "react-typed": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
