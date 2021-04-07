@@ -1,4 +1,4 @@
-import * as types from '../actions/types/register';
+import * as types from '../constants/register';
 
 export default (state = {}, action) => {
   switch (action.type) {
