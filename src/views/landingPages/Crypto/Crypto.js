@@ -10,7 +10,6 @@ import {
   Features,
   Hero,
   Roadmap,
-  Team,
   WhitePaper,
 } from './components';
 
@@ -47,9 +46,6 @@ const Crypto = ({ themeMode }) => {
           ></path>
         </Box>
       </Box>
-      <Container paddingTop={'0 !important'}>
-        <Team />
-      </Container>
       <Container paddingTop={'0 !important'}>
         <WhitePaper themeMode={themeMode} />
       </Container>

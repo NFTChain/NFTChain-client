@@ -4,6 +4,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import { Chart } from 'react-google-charts';
 
 const Download = () => {
   const theme = useTheme();
@@ -23,7 +24,7 @@ const Download = () => {
           color={'secondary'}
           align={'center'}
         >
-          Readmap
+          Tokenomics
         </Typography>
         <Box
           component={Typography}
@@ -32,7 +33,28 @@ const Download = () => {
           align={'center'}
           gutterBottom
         >
-          Sync your banking data anywhere.
+          Team tokens will be locked for multiple months.
+        </Box>
+        <Box align={'center'}>
+          <Chart
+            width={'100%'}
+            height={'300px'}
+            chartType="PieChart"
+            loader={<div>Loading Chart</div>}
+            data={[
+              ['Reason', 'Percentage of token supply'],
+              ['Token Sale', 70],
+              ['Team', 10],
+              ['Development', 10],
+              ['Marketing', 10],
+            ]}
+            options={{
+              is3D: true,
+              backgroundColor: theme.palette.alternate.main,
+              legend: { position: 'top', maxLines: 3, alignment: 'center' },
+            }}
+            rootProps={{ 'data-testid': '2' }}
+          />
         </Box>
         <Typography
           variant={'h6'}
@@ -40,8 +62,10 @@ const Download = () => {
           color={'textSecondary'}
           align={'center'}
         >
-          Compliance, financial reviews, tax auditing, and any financial task
-          has never been easier.
+          Depending on the amount we collect during the presale, over 50% of the
+          collected funds will go into the liquidty pool, locked for over 1
+          year. Rest of the funds will go into marketing and artists to boost
+          the activity on our NFT marketplace.
         </Typography>
       </Box>
       <Box
