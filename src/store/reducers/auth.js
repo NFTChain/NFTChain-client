@@ -1,4 +1,4 @@
-import * as types from '../constants/auth';
+import * as types from '../actionTypes/auth';
 
 let user = localStorage.getItem('user');
 const defaultAuthState = user ? { loggedIn: true, user } : {};

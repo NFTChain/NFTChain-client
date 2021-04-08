@@ -10,7 +10,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import { register } from '../../../../../actions/register';
+import { register } from '../../../../../store/actions/register';
 
 const validationSchema = yup.object({
   username: yup
