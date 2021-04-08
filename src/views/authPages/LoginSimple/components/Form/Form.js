@@ -24,14 +24,13 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
-const Form = ({ login }) => {
+const Form = ({ login, error }) => {
   const initialValues = {
     email: '',
     password: '',
   };
 
   const onSubmit = (values) => {
-    console.log(values);
     login(values);
   };
 
@@ -121,6 +120,7 @@ const Form = ({ login }) => {
             />
           </Grid>
           <Grid item container xs={12}>
+            {error && <p style={{ color: '#ef4845' }}>{error}</p>}
             <Box
               display="flex"
               flexDirection={{ xs: 'column', sm: 'row' }}
@@ -156,10 +156,15 @@ const Form = ({ login }) => {
 
 Form.propTypes = {
   login: PropTypes.func,
+  error: PropTypes.string,
 };
+
+const mapStateToProps = (state) => ({
+  error: state.auth.message,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   login: (user) => dispatch(login(user)),
 });
 
-export default connect(undefined, mapDispatchToProps)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);

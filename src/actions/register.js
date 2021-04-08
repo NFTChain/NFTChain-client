@@ -17,10 +17,8 @@ export const register = (user) => (dispatch) => {
       dispatch(success());
       history.push('/page-login-simple');
       window.location.reload();
-      alert('registration success');
     })
     .catch((err) => {
-      dispatch(failure(err));
-      alert('registration failed');
+      dispatch(failure(err.response.data.message));
     });
 };

@@ -18,11 +18,9 @@ export const login = (user) => (dispatch) => {
       localStorage.setItem('user', res.data.token);
       history.push('/');
       window.location.reload();
-      alert('login success');
     })
     .catch((err) => {
-      dispatch(failure(err));
-      alert('login failed');
+      dispatch(failure(err.response.data.message));
     });
 };
 

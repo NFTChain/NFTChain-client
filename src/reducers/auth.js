@@ -16,7 +16,9 @@ export default (state = defaultAuthState, action) => {
         user: action.user,
       };
     case types.LOGIN_FAILURE:
-      return {};
+      return {
+        message: action.error,
+      };
     case types.LOGOUT:
       return {};
     default:
