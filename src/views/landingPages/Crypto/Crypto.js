@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -12,9 +12,23 @@ import {
   Roadmap,
   WhitePaper,
 } from './components';
+import getBlockchain from 'getBlockchain';
 
 const Crypto = ({ themeMode }) => {
+  const [token, setToken] = useState(undefined);
   const theme = useTheme();
+
+  useEffect(() => {
+    const init = async () => {
+      const { token } = await getBlockchain();
+      setToken(token);
+    };
+    init();
+  }, []);
+
+  if (!token) return <Box>LOADINGLOADINGLOADINGLOADINGLOADINGLOADING</Box>;
+
+  console.log(token);
 
   return (
     <Box>
