@@ -1,4 +1,4 @@
-import * as types from '../actions/types/register';
+import * as types from '../constants/register';
 
 export default (state = {}, action) => {
   switch (action.type) {
@@ -7,7 +7,9 @@ export default (state = {}, action) => {
     case types.REGISTER_SUCCESS:
       return {};
     case types.REGISTER_FAILURE:
-      return {};
+      return {
+        message: action.error,
+      };
     default:
       return state;
   }

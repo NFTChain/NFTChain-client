@@ -1,7 +1,6 @@
 {
-  "name": "webbee-js--react-scripts",
-  "author": "maccarian",
-  "email": "hi@maccarianagency.com",
+  "name": "nft-chain",
+  "author": "Ben & Liam",
   "version": "1.0.0",
   "repository": {
     "type": "git",
@@ -10,6 +9,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
+    "test": "react-scripts test",
     "build": "cross-env GENERATE_SOURCEMAP=false react-scripts build",
     "prettier:fix": "prettier './src/**/*.js' --write",
     "eslint:fix": "eslint ./src --fix",

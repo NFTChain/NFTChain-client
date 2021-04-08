@@ -1,6 +1,6 @@
-import * as types from '../actions/types/auth';
+import * as types from '../constants/auth';
 
-let user = JSON.parse(localStorage.getItem('user'));
+let user = localStorage.getItem('user');
 const defaultAuthState = user ? { loggedIn: true, user } : {};
 
 export default (state = defaultAuthState, action) => {
@@ -16,7 +16,9 @@ export default (state = defaultAuthState, action) => {
         user: action.user,
       };
     case types.LOGIN_FAILURE:
-      return {};
+      return {
+        message: action.error,
+      };
     case types.LOGOUT:
       return {};
     default:
