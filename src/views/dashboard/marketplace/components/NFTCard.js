@@ -5,12 +5,10 @@ import Button from '@material-ui/core/Button';
 import TelegramIcon from '@material-ui/icons/Telegram';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { Link } from 'react-router-dom';
-import CoachModal from './CoachModal';
-import Rating from './Rating';
-import { mapExperience } from '../../../../utils/mappers';
+import NFTModal from './NFTModal';
 import devices from '../../../../utils/devices';
 
-const StyledCoachCard = styled.div`
+const StyledNFTCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -110,41 +108,20 @@ const StyledCoachCard = styled.div`
   }
 `;
 
-export const CoachCard = (props) => {
+export const NFTCard = (props) => {
   const { coach, saveCoach, getFeedback, feedback, savePeer } = props;
   return (
-    <StyledCoachCard className="coach-card">
+    <StyledNFTCard className="coach-card">
       <div className="header">
-        <div className="header-text">
-          <h3>{`${coach.first_name} ${coach.last_name}`}</h3>
-          <p>${coach.hourly_rate} per hour</p>
-        </div>
         <div className="header-photo">
           <Avatar className="picture" alt="Coach" src={coach.avatar_url} />
         </div>
       </div>
 
-      <div className="bullet-points">
-        <p className="location-bullet">
-          <i className="fas fa-map-marker-alt location-icon" />
-          {'   '}
-          {coach.location}
-        </p>
-        <p className="experience-bullet">
-          <i className="fas fa-street-view experience-icon" />
-          {'  '}
-          {mapExperience(coach.experience_level)}
-        </p>
-      </div>
-      <div className="description">
-        <p>{`${coach.description && coach.description.slice(0, 90)}...`}</p>
-      </div>
-
       <div className="reviews">
-        <Rating rating={coach.rating} size="small" />
-        <CoachModal
+        <NFTModal
           coach={coach}
-          getFeedback={getFeedback}
+          getFeedback={null} // show more info about nft here
           feedback={feedback}
         />
       </div>
@@ -171,8 +148,8 @@ export const CoachCard = (props) => {
           </Button>
         </Link>
       </div>
-    </StyledCoachCard>
+    </StyledNFTCard>
   );
 };
 
-export default CoachCard;
+export default NFTCard;

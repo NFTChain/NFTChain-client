@@ -6,7 +6,6 @@ import 'antd/lib/modal/style/index.css';
 import 'antd/lib/divider/style/index.css';
 import Avatar from '@material-ui/core/Avatar';
 import uuid from 'uuid';
-import Rating from './Rating';
 
 const StyledCoachModal = styled.div`
   .see-more {
@@ -16,7 +15,7 @@ const StyledCoachModal = styled.div`
   }
 `;
 
-export default function App(props) {
+export default function NFTModal(props) {
   const { getFeedback, coach, feedback } = props;
   const [visible, setVisible] = React.useState(false);
 
@@ -68,7 +67,6 @@ export default function App(props) {
                   >
                     <p>{feedback.appointment_topic}</p>
                     <p>{feedback.appointment_datetime.slice(0, 15)}</p>
-                    <Rating rating={feedback.rating} />
                   </div>
                   <p>{feedback.feedback}</p>
                 </div>

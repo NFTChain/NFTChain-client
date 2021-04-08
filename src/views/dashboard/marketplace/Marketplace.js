@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/index.css';
-import CoachCard from './components/CoachCard';
+import NFTCard from './components/NFTCard';
 import SelectPrice from './components/SelectPrice';
 import SelectExperience from './components/SelectExperience';
 import SearchForKeyword from './components/SearchForKeyword';
@@ -129,12 +129,12 @@ const Marketplace = (props) => {
       </div>
       <div className="coaches">
         {coaches.slice(minValue, maxValue).map((coach) => (
-          <CoachCard
+          <NFTCard
             key={coach.email}
             coach={coach}
-            saveCoach={() => saveCoach(coach)}
-            getFeedback={getFeedback}
-            feedback={feedback}
+            saveCoach={null}
+            getFeedback={null}
+            feedback={null}
             savePeer={() =>
               savePeer(
                 {
