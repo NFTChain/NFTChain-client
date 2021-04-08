@@ -62,17 +62,7 @@ const Routes = () => {
           />
         )}
       />
-      <Route
-        exact
-        path="/dashboard"
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={Dashboard}
-            layout={MainLayout}
-          />
-        )}
-      />
+      <Route exact path="/dashboard" component={Dashboard} />
       <Redirect to="/page-not-found" />
     </Switch>
   );
