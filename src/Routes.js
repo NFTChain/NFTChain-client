@@ -4,6 +4,9 @@ import WithLayout from 'WithLayout';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
+// Not found page
+import NotFound from './views/NotFound/NotFound';
+
 // Landing pages
 import { Crypto as CryptoView } from './views/landingPages';
 import Dashboard from './views/dashboard/Dashboard';
@@ -63,6 +66,17 @@ const Routes = () => {
         )}
       />
       <Route exact path="/dashboard" component={Dashboard} />
+      <Route
+        exact
+        path="/page-not-found"
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={NotFound}
+            layout={MainLayout}
+          />
+        )}
+      />
       <Redirect to="/page-not-found" />
     </Switch>
   );
