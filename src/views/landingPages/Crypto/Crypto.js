@@ -12,7 +12,7 @@ import {
   Roadmap,
   WhitePaper,
 } from './components';
-import getBlockchain from 'getBlockchain';
+import getBlockchain from 'utils/getBlockchain';
 
 const Crypto = ({ themeMode }) => {
   const [token, setToken] = useState(undefined);
