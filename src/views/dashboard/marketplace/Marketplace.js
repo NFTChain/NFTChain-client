@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Pagination from 'antd/lib/pagination';
 import 'antd/lib/pagination/style/index.css';
-import CoachCard from './components/Cards/CoachCard';
-import SelectPrice from './components/Inputs/SelectPrice';
-import SelectExperience from './components/Inputs/SelectExperience';
-import SearchForKeyword from './components/Inputs/SearchForKeyword';
-// import devices from '../../utils/devices';
+import CoachCard from './components/CoachCard';
+import SelectPrice from './components/SelectPrice';
+import SelectExperience from './components/SelectExperience';
+import SearchForKeyword from './components/SearchForKeyword';
+import devices from '../../../utils/devices';
 
 const coaches = [
   {

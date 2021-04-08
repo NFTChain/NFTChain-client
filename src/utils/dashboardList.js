@@ -9,8 +9,6 @@ import PeopleIcon from '@material-ui/icons/People';
 import BarChartIcon from '@material-ui/icons/BarChart';
 import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
-import CodeIcon from '@material-ui/icons/Code';
-import GradeIcon from '@material-ui/icons/Grade';
 import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({

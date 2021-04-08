@@ -1,13 +1,14 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
+import Marketplace from './views/dashboard/marketplace/Marketplace';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
 // Not found page
-import NotFound from './views/NotFound/NotFound';
+import NotFound from './views/notFound/NotFound';
 
-// Landing pages
+// Landing pages./views/landingPage
 import { Crypto as CryptoView } from './views/landingPages';
 import Dashboard from './views/dashboard/Dashboard';
 
@@ -17,6 +18,12 @@ import {
   SignupSimple as SignupSimpleView,
   ForgotPasswordSimple as ForgotPasswordSimpleView,
 } from './views/authPages';
+
+const routes = (
+  <Switch>
+    <Route path={'/marketplace'} component={Marketplace} />
+  </Switch>
+);
 
 const Routes = () => {
   return (
@@ -65,7 +72,7 @@ const Routes = () => {
           />
         )}
       />
-      <Route exact path="/dashboard" component={Dashboard} />
+      <Dashboard routes={routes} />
       <Route
         exact
         path="/page-not-found"
