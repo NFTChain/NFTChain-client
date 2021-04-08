@@ -14,6 +14,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import { ListComponent } from 'utils/dashboardList';
+import { Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -222,7 +223,7 @@ const Dashboard = (props) => {
           onClick={handleMenu}
           color="inherit"
         >
-          {user.avatar_url ? (
+          {user && user.avatar_url ? (
             <img
               src={user.avatar_url}
               alt="user_avatar"
@@ -291,7 +292,7 @@ const Dashboard = (props) => {
         </div>
         <Divider className={classes.styledDivider} />
         <ListComponent
-          role_id={props.user.role_id}
+          role_id={props.user && props.user.role_id}
           className={classes.listStyles}
         />
         <Divider className={classes.hidden} />
@@ -300,7 +301,7 @@ const Dashboard = (props) => {
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
           <Grid container spacing={3} className={classes.gridContainer}>
-            {props.routes}
+            {props.routes && props.routes}
           </Grid>
         </Container>
       </main>

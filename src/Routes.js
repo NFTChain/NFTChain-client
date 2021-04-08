@@ -6,6 +6,7 @@ import { Main as MainLayout } from './layouts';
 
 // Landing pages
 import { Crypto as CryptoView } from './views/landingPages';
+import Dashboard from './views/dashboard/Dashboard';
 
 // Authentication pages
 import {
@@ -57,6 +58,17 @@ const Routes = () => {
           <WithLayout
             {...matchProps}
             component={ForgotPasswordSimpleView}
+            layout={MainLayout}
+          />
+        )}
+      />
+      <Route
+        exact
+        path="/dashboard"
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={Dashboard}
             layout={MainLayout}
           />
         )}
