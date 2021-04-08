@@ -1,18 +1,20 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
+// Dashbord components
+import Dashboard from './views/dashboard/Dashboard';
 import Marketplace from './views/dashboard/marketplace/Marketplace';
+import CreateNFT from './views/dashboard/createNFT/CreateNFT';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
-// Not found page
+// Not found component
 import NotFound from './views/notFound/NotFound';
 
-// Landing pages./views/landingPage
-import { Crypto as CryptoView } from './views/landingPages';
-import Dashboard from './views/dashboard/Dashboard';
+// Landingpage component
+import { Crypto as CryptoView } from './views/landingPage';
 
-// Authentication pages
+// Authentication component
 import {
   LoginSimple as LoginSimpleView,
   SignupSimple as SignupSimpleView,
@@ -22,6 +24,7 @@ import {
 const routes = (
   <Switch>
     <Route path={'/marketplace'} component={Marketplace} />
+    <Route path={'/createNFT'} component={CreateNFT} />
   </Switch>
 );
 
