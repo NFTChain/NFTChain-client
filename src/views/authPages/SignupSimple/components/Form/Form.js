@@ -1,13 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
+import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
+import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
+import { register } from '../../../../../actions/register';
 
 const validationSchema = yup.object({
   firstName: yup
@@ -33,7 +36,7 @@ const validationSchema = yup.object({
     .min(8, 'The password should have at minimum length of 8'),
 });
 
-const Form = () => {
+const Form = ({ register }) => {
   const initialValues = {
     firstName: '',
     lastName: '',
@@ -42,7 +45,7 @@ const Form = () => {
   };
 
   const onSubmit = (values) => {
-    return values;
+    register(values);
   };
 
   const formik = useFormik({
@@ -198,4 +201,12 @@ const Form = () => {
   );
 };
 
-export default Form;
+Form.propTypes = {
+  register: PropTypes.func,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  register: (user) => dispatch(register(user)),
+});
+
+export default connect(undefined, mapDispatchToProps)(Form);
