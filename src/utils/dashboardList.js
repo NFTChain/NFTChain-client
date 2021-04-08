@@ -99,6 +99,14 @@ export const ListComponent = (props) => {
             <ListItemText primary="Chats" />
           </CustomListItem>
         </Link>
+        <Link to="/createNFT" className={classes.listItem}>
+          <CustomListItem button>
+            <ListItemIcon>
+              <QuestionAnswerIcon />
+            </ListItemIcon>
+            <ListItemText primary="Create NFT" />
+          </CustomListItem>
+        </Link>
       </div>
     </List>
   );
