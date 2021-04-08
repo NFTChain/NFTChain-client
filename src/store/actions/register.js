@@ -1,5 +1,5 @@
 import axios from 'axios';
-import * as types from '../constants/register';
+import * as types from '../actionTypes/register';
 import { history } from '../helpers/history';
 
 const url = 'http://localhost:5000';
