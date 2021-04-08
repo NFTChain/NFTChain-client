@@ -13,7 +13,7 @@ import CodeIcon from '@material-ui/icons/Code';
 import GradeIcon from '@material-ui/icons/Grade';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   listItem: {
     textDecoration: 'none',
     color: 'black',
@@ -56,67 +56,49 @@ const customListItemStyles = {
 
 const CustomListItem = withStyles(customListItemStyles)(ListItem);
 
-export const ListComponent = props => {
+export const ListComponent = (props) => {
   const classes = useStyles();
   return (
     <List>
       <div>
-        <Link to='/dashboard' className={classes.listItem}>
+        <Link to="/dashboard" className={classes.listItem}>
           <CustomListItem button>
             <ListItemIcon>
               <DashboardIcon className={classes.listIcon} />
             </ListItemIcon>
-            <ListItemText primary='Dashboard' />
+            <ListItemText primary="Dashboard" />
           </CustomListItem>
         </Link>
-        {props.role_id === 1 ? (
-          <Link to='/marketplace' className={classes.listItem}>
-            <CustomListItem button>
-              <ListItemIcon>
-                <PeopleIcon />
-              </ListItemIcon>
-              <ListItemText primary='Find Coaches' />
-            </CustomListItem>
-          </Link>
-        ) : null}
-        <Link to='/feedback' className={classes.listItem}>
+        <Link to="/marketplace" className={classes.listItem}>
+          <CustomListItem button>
+            <ListItemIcon>
+              <PeopleIcon />
+            </ListItemIcon>
+            <ListItemText primary="Find Coaches" />
+          </CustomListItem>
+        </Link>
+        <Link to="/transactions" className={classes.listItem}>
           <CustomListItem button>
             <ListItemIcon>
               <BarChartIcon />
             </ListItemIcon>
-            <ListItemText primary='Your Feedback' />
+            <ListItemText primary="Your Feedback" />
           </CustomListItem>
         </Link>
-        <Link to='/FAQ/general' className={classes.listItem}>
+        <Link to="/FAQ/general" className={classes.listItem}>
           <CustomListItem button>
             <ListItemIcon>
               <LiveHelpIcon />
             </ListItemIcon>
-            <ListItemText primary='FAQ' />
+            <ListItemText primary="FAQ" />
           </CustomListItem>
         </Link>
-        <Link to='/chat' className={classes.listItem}>
+        <Link to="/chat" className={classes.listItem}>
           <CustomListItem button>
             <ListItemIcon>
               <QuestionAnswerIcon />
             </ListItemIcon>
-            <ListItemText primary='Chats' />
-          </CustomListItem>
-        </Link>
-        <Link to='/code' className={classes.listItem}>
-          <CustomListItem button>
-            <ListItemIcon>
-              <CodeIcon />
-            </ListItemIcon>
-            <ListItemText primary='Code' />
-          </CustomListItem>
-        </Link>
-        <Link to='/challenges' className={classes.listItem}>
-          <CustomListItem button>
-            <ListItemIcon>
-              <GradeIcon className={classes.listIcon} />
-            </ListItemIcon>
-            <ListItemText primary='Challenges' />
+            <ListItemText primary="Chats" />
           </CustomListItem>
         </Link>
       </div>
