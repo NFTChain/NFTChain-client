@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Pagination from 'antd/lib/pagination';
@@ -98,7 +99,7 @@ const StyledMarketplace = styled.div`
   }
 `;
 
-const Marketplace = (props) => {
+const Marketplace = () => {
   const [minValue, setMinValue] = useState(0);
   const [maxValue, setMaxValue] = useState(6);
 
@@ -135,16 +136,7 @@ const Marketplace = (props) => {
             saveCoach={null}
             getFeedback={null}
             feedback={null}
-            savePeer={() =>
-              savePeer(
-                {
-                  email: coach.email,
-                  name: `${coach.first_name} ${coach.last_name}`,
-                  avatar_url: coach.avatar_url,
-                },
-                props,
-              )
-            }
+            savePeer={null}
           />
         ))}
       </div>

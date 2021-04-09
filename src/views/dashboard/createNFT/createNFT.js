@@ -10,15 +10,15 @@ const CreateNFT = () => {
     setImages(images.concat(picture));
   };
 
-  const yeah = (file) => {
-    console.log('yeah', file);
-  };
+  // const yeah = (file) => {
+  //   console.log('yeah', file);
+  // };
 
   const uploadImages = () => {
     const uploadImagesPromise = images.map((image) => {
       const data = new FormData();
       data.append('image', image, image.name);
-      return axios.post('http://localhost:5000/nft/uplopadNFT', data);
+      return axios.post('http://localhost:5000/nft/upload', data);
     });
 
     axios
@@ -35,7 +35,7 @@ const CreateNFT = () => {
         onChange={onDrop}
         imgExtension={['.jpg', 'png', '.gif', '.gif']}
         maxFileSize={5242880}
-        onChange={yeah}
+        // onChange={yeah}
         withPreview={true}
       />
       <button onClick={uploadImages}>Upload maaaaan</button>

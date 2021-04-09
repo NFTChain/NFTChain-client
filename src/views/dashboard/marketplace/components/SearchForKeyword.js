@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -20,7 +21,7 @@ const SearchStyled = styled.div`
   }
 `;
 
-const BootstrapInput = withStyles(theme => ({
+const BootstrapInput = withStyles((theme) => ({
   input: {
     minWidth: 130,
     borderTopLeftRadius: 20,
@@ -30,14 +31,11 @@ const BootstrapInput = withStyles(theme => ({
     borderRight: 'none',
     fontSize: 16,
     padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create([
-      'border-color',
-      'box-shadow',
-    ]),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
   },
 }))(InputBase);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
     marginTop: '-0.5rem',
@@ -49,21 +47,21 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SearchForKeyword = props => {
+const SearchForKeyword = (props) => {
   const classes = useStyles();
   return (
     <SearchStyled>
       <FormControl className={classes.margin}>
         <BootstrapInput
-          placeholder='Search for Keyword'
-          className='keyword'
+          placeholder="Search for Keyword"
+          className="keyword"
           inputProps={{ 'aria-label': 'description' }}
           onChange={props.searchForKeyword}
           input={<SearchIcon />}
         />
       </FormControl>
-      <div className='iconDiv'>
-        <i className='fas fa-search'></i>
+      <div className="iconDiv">
+        <i className="fas fa-search"></i>
       </div>
     </SearchStyled>
   );

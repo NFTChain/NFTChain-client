@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import styled from 'styled-components';
 import Modal from 'antd/lib/modal';
@@ -24,7 +25,7 @@ export default function NFTModal(props) {
     setVisible(true);
   };
 
-  const handleCancel = (e) => {
+  const handleCancel = () => {
     setVisible(false);
   };
 
