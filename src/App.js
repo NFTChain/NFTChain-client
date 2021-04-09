@@ -10,8 +10,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import 'aos/dist/aos.css';
 
-import 'scss/react-images.scss';
-import 'scss/slick-slider.scss';
+import './scss/styles.scss';
 
 const browserHistory = createBrowserHistory();
 const store = configureStore();
