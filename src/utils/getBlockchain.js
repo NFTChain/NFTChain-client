@@ -2,7 +2,7 @@ import { ethers, Contract } from 'ethers';
 import Token from './SimpleCollectible.json';
 
 const getBlockchain = () =>
-  new Promise((resolve, reject) => {
+  new Promise((resolve) => {
     window.addEventListener('load', async () => {
       if (window.ethereum) {
         await window.ethereum.enable();

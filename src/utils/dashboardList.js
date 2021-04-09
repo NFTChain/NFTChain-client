@@ -11,7 +11,7 @@ import LiveHelpIcon from '@material-ui/icons/LiveHelp';
 import QuestionAnswerIcon from '@material-ui/icons/QuestionAnswer';
 import { Link } from 'react-router-dom';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   listItem: {
     textDecoration: 'none',
     color: 'black',
@@ -54,7 +54,7 @@ const customListItemStyles = {
 
 const CustomListItem = withStyles(customListItemStyles)(ListItem);
 
-export const ListComponent = (props) => {
+export const ListComponent = () => {
   const classes = useStyles();
   return (
     <List>

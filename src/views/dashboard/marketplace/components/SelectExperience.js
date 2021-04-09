@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,7 +12,7 @@ const SelectExperienceDiv = styled.div`
   margin-left: 2rem;
 `;
 
-const BootstrapInput = withStyles(theme => ({
+const BootstrapInput = withStyles((theme) => ({
   input: {
     minWidth: 130,
     borderRadius: 20,
@@ -19,10 +20,7 @@ const BootstrapInput = withStyles(theme => ({
     border: '1px solid #ced4da',
     fontSize: 16,
     padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create([
-      'border-color',
-      'box-shadow',
-    ]),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:focus': {
       borderRadius: 20,
       borderColor: '#80bdff',
@@ -31,7 +29,7 @@ const BootstrapInput = withStyles(theme => ({
   },
 }))(InputBase);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
@@ -42,27 +40,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SelectExperience = props => {
+const SelectExperience = (props) => {
   const classes = useStyles();
 
   return (
     <SelectExperienceDiv>
       <FormControl className={classes.formControl}>
-        <InputLabel
-          className={classes.inputLabel}
-          htmlFor='grouped-select'
-        >
+        <InputLabel className={classes.inputLabel} htmlFor="grouped-select">
           Experience
         </InputLabel>
         <Select
-          defaultValue=''
+          defaultValue=""
           input={
             <BootstrapInput
-              onChange={e =>
-                props.searchForExperience(e.target.value)
-              }
-              name='experience'
-              id='experience-select'
+              onChange={(e) => props.searchForExperience(e.target.value)}
+              name="experience"
+              id="experience-select"
             />
           }
         >

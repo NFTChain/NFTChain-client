@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import styled from 'styled-components';
@@ -109,7 +110,7 @@ const StyledNFTCard = styled.div`
 `;
 
 export const NFTCard = (props) => {
-  const { coach, saveCoach, getFeedback, feedback, savePeer } = props;
+  const { coach, saveCoach, feedback, savePeer } = props;
   return (
     <StyledNFTCard className="coach-card">
       <div className="header">

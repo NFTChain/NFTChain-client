@@ -26,7 +26,7 @@ const Crypto = ({ themeMode }) => {
     init();
   }, []);
 
-  if (!token) return <Box>LOADINGLOADINGLOADINGLOADINGLOADINGLOADING</Box>;
+  // if (!token) return <Box>LOADINGLOADINGLOADINGLOADINGLOADINGLOADING</Box>;
 
   console.log(token);
 

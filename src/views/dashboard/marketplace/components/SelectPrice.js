@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -11,7 +12,7 @@ const SelectPriceDiv = styled.div`
   margin-right: 1rem;
 `;
 
-const BootstrapInput = withStyles(theme => ({
+const BootstrapInput = withStyles((theme) => ({
   input: {
     minWidth: 130,
     borderRadius: 20,
@@ -19,10 +20,7 @@ const BootstrapInput = withStyles(theme => ({
     border: '1px solid #ced4da',
     fontSize: 16,
     padding: '10px 26px 10px 12px',
-    transition: theme.transitions.create([
-      'border-color',
-      'box-shadow',
-    ]),
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
     '&:focus': {
       borderRadius: 20,
       borderColor: '#80bdff',
@@ -31,7 +29,7 @@ const BootstrapInput = withStyles(theme => ({
   },
 }))(InputBase);
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   margin: {
     margin: theme.spacing(1),
   },
@@ -42,25 +40,22 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SelectPrice = props => {
+const SelectPrice = (props) => {
   const classes = useStyles();
 
   return (
     <SelectPriceDiv>
       <FormControl className={classes.margin}>
-        <InputLabel
-          className={classes.inputLabel}
-          htmlFor='grouped-select'
-        >
+        <InputLabel className={classes.inputLabel} htmlFor="grouped-select">
           Price
         </InputLabel>
         <Select
-          defaultValue=''
+          defaultValue=""
           input={
             <BootstrapInput
-              onChange={e => props.searchForPrice(e.target.value)}
-              name='price'
-              id='price-select'
+              onChange={(e) => props.searchForPrice(e.target.value)}
+              name="price"
+              id="price-select"
             />
           }
         >
