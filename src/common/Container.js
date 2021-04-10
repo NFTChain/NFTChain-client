@@ -4,7 +4,7 @@ import Box from '@material-ui/core/Box';
 
 const Container = ({ children, ...rest }) => (
   <Box
-    maxWidth={{ sm: 720, md: 1236 }}
+    maxWidth={{ sm: 720, md: 1400 }}
     width={'100%'}
     margin={'0 auto'}
     paddingX={2}

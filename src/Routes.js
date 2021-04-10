@@ -2,9 +2,10 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
 // Dashbord components
-import Dashboard from './views/dashboard/Dashboard';
-import Marketplace from './views/dashboard/marketplace/Marketplace';
-import CreateNFT from './views/dashboard/createNFT/createNFT';
+// import Dashboard from './views/dashboard/Dashboard';
+// import Marketplace from './views/dashboard/marketplace/Marketplace';
+// import CreateNFT from './views/dashboard/createNFT/CreateNFT';
+import Marketplace from './views/Marketplace';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
@@ -21,19 +22,19 @@ import {
   ForgotPasswordSimple as ForgotPasswordSimpleView,
 } from './views/authPages';
 
-const routes = (
-  <Switch>
-    <Route path={'/marketplace'} component={Marketplace} />
-    <Route path={'/createNFT'} component={CreateNFT} />
-  </Switch>
-);
+// const routes = (
+//   <Switch>
+//     <Route path={'/marketplace'} component={Marketplace} />
+//     <Route path={'/createNFT'} component={CreateNFT} />
+//   </Switch>
+// );
 
 const Routes = () => {
   return (
     <Switch>
       <Route
         exact
-        path="/"
+        path='/'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
@@ -44,7 +45,7 @@ const Routes = () => {
       />
       <Route
         exact
-        path="/page-login-simple"
+        path='/page-login-simple'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
@@ -55,7 +56,7 @@ const Routes = () => {
       />
       <Route
         exact
-        path="/page-signup-simple"
+        path='/page-signup-simple'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
@@ -66,7 +67,7 @@ const Routes = () => {
       />
       <Route
         exact
-        path="/page-forgot-password-simple"
+        path='/page-forgot-password-simple'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
@@ -75,10 +76,21 @@ const Routes = () => {
           />
         )}
       />
-      <Dashboard routes={routes} />
       <Route
         exact
-        path="/page-not-found"
+        path='/marketplace'
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={Marketplace}
+            layout={MainLayout}
+          />
+        )}
+      />
+      {/* <Dashboard routes={routes} /> */}
+      <Route
+        exact
+        path='/page-not-found'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
@@ -87,7 +99,7 @@ const Routes = () => {
           />
         )}
       />
-      <Redirect to="/page-not-found" />
+      <Redirect to='/page-not-found' />
     </Switch>
   );
 };
