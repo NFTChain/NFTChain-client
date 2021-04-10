@@ -21,7 +21,7 @@
   padding: 1rem;
 
   h3 {
-    color: $card-text-primary;
+    color: $text-primary;
   }
 }
 
@@ -34,7 +34,7 @@
 
 .card-info__separate {
   height: 1px;
-  background: $card-text-seconday;
+  background: $text-seconday;
   width: 100%;
   margin: 1rem 0;
 }
@@ -49,7 +49,7 @@
 }
 
 .card-info__title {
-  color: $card-text-seconday;
+  color: $text-seconday;
   text-transform: uppercase;
 }
 

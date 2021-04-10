@@ -1,10 +1,10 @@
-import React from 'react';
 import Container from '../../common/Container';
+import React from 'react';
 import NFTCard from './NFTCard';
 
 const Marketplace = () => {
   return (
-    <Container maxWidth={{ sm: 720, md: 1400 }} className="container">
+    <Container className='container'>
       <NFTCard />
       <NFTCard />
       <NFTCard />
