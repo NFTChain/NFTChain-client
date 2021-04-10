@@ -4,15 +4,20 @@ import NFTCard from './NFTCard';
 
 const Marketplace = () => {
   return (
-    <Container className='container'>
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
-      <NFTCard />
+    <Container className='marketplace'>
+      <div className='marketplace-title'>
+        <h1>Marketplace</h1>
+      </div>
+      <div className='card-list'>
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+        <NFTCard />
+      </div>
     </Container>
   );
 };
