@@ -1,0 +1,32 @@
+.search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #ececec;
+  border-radius: 25px;
+  max-width: 100%;
+}
+
+.search-icon__wrapper {
+  padding-left: 1.2rem;
+}
+
+.search-icon {
+  color: $text-primary;
+}
+
+.search-input {
+  width: 100%;
+}
+
+.search-text__input {
+  border: none;
+  padding: 0.8rem 1rem;
+  width: 100%;
+  outline: none;
+  font-size: 0.9rem;
+  color: $text-primary;
+  font-size: 1rem;
+  background: #ececec;
+  border-radius: 25px;
+}
