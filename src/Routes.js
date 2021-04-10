@@ -4,7 +4,7 @@ import WithLayout from 'WithLayout';
 // Dashbord components
 import Dashboard from './views/dashboard/Dashboard';
 import Marketplace from './views/dashboard/marketplace/Marketplace';
-import CreateNFT from './views/dashboard/createNFT/CreateNFT';
+import CreateNFT from './views/dashboard/createNFT/createNFT';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 

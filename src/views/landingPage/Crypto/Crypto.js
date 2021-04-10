@@ -1,38 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useTheme } from '@material-ui/core/styles';
+// import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-import Divider from '@material-ui/core/Divider';
-import Container from 'common/Container';
-import {
-  About,
-  Download,
-  Features,
-  Hero,
-  Roadmap,
-  WhitePaper,
-} from './components';
+// import Divider from '@material-ui/core/Divider';
+// import Container from 'common/Container';
+// import {
+//   About,
+//   Download,
+//   Features,
+//   Hero,
+//   Roadmap,
+//   WhitePaper,
+// } from './components';
 import getBlockchain from 'utils/getBlockchain';
 
-const Crypto = ({ themeMode }) => {
+const Crypto = () => {
+  // { themeMode }
   const [token, setToken] = useState(undefined);
-  const theme = useTheme();
+  // const theme = useTheme();
 
   useEffect(() => {
     const init = async () => {
       const { token } = await getBlockchain();
       setToken(token);
+      console.log(token);
     };
     init();
   }, []);
 
   // if (!token) return <Box>LOADINGLOADINGLOADINGLOADINGLOADINGLOADING</Box>;
 
-  console.log(token);
+  const interactWithBlockchain = async () => {
+    const mint = await token.mint('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
+    console.log(mint);
+  };
 
+  // metamask transaction issue (https://hardhat.org/metamask-issue.html)
   return (
     <Box>
-      <Box bgcolor="alternate.main">
+      <button onClick={interactWithBlockchain}>LETS GOOO BABY </button>
+      {/* <Box bgcolor="alternate.main">
         <Container>
           <Hero />
         </Container>
@@ -73,7 +80,7 @@ const Crypto = ({ themeMode }) => {
         <Container paddingTop={'0 !important'}>
           <Download />
         </Container>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
