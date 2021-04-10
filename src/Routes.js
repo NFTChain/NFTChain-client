@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
-import CreateNFT from './views/createNFT/CreateNFT';
+import CreateNFT from './views/createNFT';
 import Marketplace from './views/Marketplace';
 // Available layouts
 import { Main as MainLayout } from './layouts';
