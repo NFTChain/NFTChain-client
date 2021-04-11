@@ -1,3 +1,4 @@
+/* eslint no-unused-vars: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
@@ -6,23 +7,17 @@ import getBlockchain from 'utils/getBlockchain';
 import Box from '@material-ui/core/Box';
 
 const CreateNFT = () => {
-  const [images, setImages] = useState(undefined);
+  const [images, setImages] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(undefined);
   const [token, setToken] = useState(undefined);
-
   useEffect(() => {
     const init = async () => {
-      const { token } = await getBlockchain();
+      const { signerAddress, token } = await getBlockchain();
       setToken(token);
-      console.log(token);
+      console.log(signerAddress, token);
     };
     init();
   }, []);
-
-  const interactWithBlockchain = async () => {
-    const createNFT = await token.createInk('');
-    console.log(createNFT);
-  };
 
   const onDrop = (picture) => {
     console.log('drop', picture);
@@ -42,7 +37,12 @@ const CreateNFT = () => {
     setUploadedImage(result.data.imagePath);
   };
 
-  if (!token) return <Box>You need to connect to Metamask</Box>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+  const createNFT = async () => {
+    const createNFT = await token.createInk(uploadedImage, 2);
+    console.log(createNFT);
+  };
+
+  if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
   return (
     <div
       style={{
@@ -61,7 +61,9 @@ const CreateNFT = () => {
         maxFileSize={5242880}
         withPreview={true}
       />
-      {images && <button onClick={uploadImages}>Upload file</button>}
+      {images.length !== 0 && (
+        <button onClick={uploadImages}>Upload file</button>
+      )}
       {uploadedImage && (
         <div style={{ width: '200px', height: '200px' }}>
           <img
@@ -71,9 +73,7 @@ const CreateNFT = () => {
           />
         </div>
       )}
-      {uploadedImage && (
-        <button onClick={interactWithBlockchain}>LETS GOOO BABY </button>
-      )}
+      {uploadedImage && <button onClick={createNFT}>Create NFT</button>}
     </div>
   );
 };
