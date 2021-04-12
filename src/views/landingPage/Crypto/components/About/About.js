@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { useTheme } from '@material-ui/core/styles';
@@ -15,19 +16,18 @@ const About = () => {
   const GridItemHeadlineBlock = () => (
     <Box data-aos={isMd ? 'fade-left' : 'fade-up'}>
       <Typography
-        variant="h3"
-        align="left"
+        variant='h3'
+        align='left'
         gutterBottom
         sx={{
           fontWeight: 700,
         }}
       >
-        Buy, sell your Crypto currencies online!
+        Create, buy, sell your NFT's online!
       </Typography>
-      <Typography component="p" color="textSecondary">
-        Ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-        incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-        quis nostrud. Unde omnis iste natus error sit voluptatem accusantium.
+      <Typography component='p' color='textSecondary'>
+        The protocol is built on top of the Binance Smart Chain to provide low
+        transaction fees to our end users.
       </Typography>
     </Box>
   );
@@ -41,8 +41,8 @@ const About = () => {
           height={'100%'}
           width={'100%'}
           src={'https://assets.maccarianagency.com/backgrounds/img2.jpg'}
-          alt="..."
-          effect="blur"
+          alt='...'
+          effect='blur'
           boxShadow={4}
           borderRadius={1.5}
           sx={{
@@ -63,14 +63,14 @@ const About = () => {
           <svg
             width={80}
             height={80}
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 20 20"
-            fill="currentColor"
+            xmlns='http://www.w3.org/2000/svg'
+            viewBox='0 0 20 20'
+            fill='currentColor'
           >
             <path
-              fillRule="evenodd"
-              d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
-              clipRule="evenodd"
+              fillRule='evenodd'
+              d='M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z'
+              clipRule='evenodd'
             />
           </svg>
         </Box>
@@ -82,12 +82,12 @@ const About = () => {
     <Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
-          <Box width={1} height="100%" display="flex" alignItems="center">
+          <Box width={1} height='100%' display='flex' alignItems='center'>
             <GridItemVideoBlock />
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box width={1} height="100%" display="flex" alignItems="center">
+          <Box width={1} height='100%' display='flex' alignItems='center'>
             <GridItemHeadlineBlock />
           </Box>
         </Grid>

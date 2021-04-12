@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import logo from '../../assets/onlyLogo.jpg';
+import logo from '../../assets/onlyLogo.png';
 const Webbee = ({ width = 45, height = 70 }) => {
   return <img style={{ width, height }} src={logo} alt='logo'></img>;
 };
