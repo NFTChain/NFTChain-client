@@ -1,0 +1,15 @@
+.nft-container {
+  display: flex;
+  justify-content: space-between;
+  height: 100vh;
+  margin: 10rem 0;
+}
+
+.image-container {
+  margin-right: 7rem;
+  max-width: 60rem;
+
+  img {
+    width: 100%;
+  }
+}
