@@ -1,5 +1,5 @@
 import { ethers, Contract } from 'ethers';
-import Token from './SimpleCollectible.json';
+import Token from './NFTINK.json';
 
 const getBlockchain = () =>
   new Promise((resolve) => {

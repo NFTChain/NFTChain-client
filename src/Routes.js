@@ -1,10 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
-// Dashbord components
-// import Dashboard from './views/dashboard/Dashboard';
-// import Marketplace from './views/dashboard/marketplace/Marketplace';
-// import CreateNFT from './views/dashboard/createNFT/CreateNFT';
+import CreateNFT from './views/createNFT';
 import Marketplace from './views/Marketplace';
 // Available layouts
 import { Main as MainLayout } from './layouts';
@@ -21,13 +18,6 @@ import {
   SignupSimple as SignupSimpleView,
   ForgotPasswordSimple as ForgotPasswordSimpleView,
 } from './views/authPages';
-
-// const routes = (
-//   <Switch>
-//     <Route path={'/marketplace'} component={Marketplace} />
-//     <Route path={'/createNFT'} component={CreateNFT} />
-//   </Switch>
-// );
 
 const Routes = () => {
   return (
@@ -87,7 +77,17 @@ const Routes = () => {
           />
         )}
       />
-      {/* <Dashboard routes={routes} /> */}
+      <Route
+        exact
+        path='/createNFT'
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={CreateNFT}
+            layout={MainLayout}
+          />
+        )}
+      />
       <Route
         exact
         path='/page-not-found'

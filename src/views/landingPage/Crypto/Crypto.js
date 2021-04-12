@@ -1,45 +1,24 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react'; // , { useEffect, useState }
 import PropTypes from 'prop-types';
-// import { useTheme } from '@material-ui/core/styles';
+import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
-// import Divider from '@material-ui/core/Divider';
-// import Container from 'common/Container';
-// import {
-//   About,
-//   Download,
-//   Features,
-//   Hero,
-//   Roadmap,
-//   WhitePaper,
-// } from './components';
-import getBlockchain from 'utils/getBlockchain';
+import Divider from '@material-ui/core/Divider';
+import Container from 'common/Container';
+import {
+  About,
+  Download,
+  Features,
+  Hero,
+  Roadmap,
+  WhitePaper,
+} from './components';
 
-const Crypto = () => {
-  // { themeMode }
-  const [token, setToken] = useState(undefined);
-  // const theme = useTheme();
+const Crypto = ({ themeMode }) => {
+  const theme = useTheme();
 
-  useEffect(() => {
-    const init = async () => {
-      const { token } = await getBlockchain();
-      setToken(token);
-      console.log(token);
-    };
-    init();
-  }, []);
-
-  // if (!token) return <Box>LOADINGLOADINGLOADINGLOADINGLOADINGLOADING</Box>;
-
-  const interactWithBlockchain = async () => {
-    const mint = await token.mint('0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266');
-    console.log(mint);
-  };
-
-  // metamask transaction issue (https://hardhat.org/metamask-issue.html)
   return (
     <Box>
-      <button onClick={interactWithBlockchain}>LETS GOOO BABY </button>
-      {/* <Box bgcolor="alternate.main">
+      <Box bgcolor='alternate.main'>
         <Container>
           <Hero />
         </Container>
@@ -51,11 +30,11 @@ const Crypto = () => {
         </Container>
         <Box
           component={'svg'}
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-          x="0px"
-          y="0px"
-          viewBox="0 0 1920 100.1"
+          preserveAspectRatio='none'
+          xmlns='http://www.w3.org/2000/svg'
+          x='0px'
+          y='0px'
+          viewBox='0 0 1920 100.1'
           sx={{
             width: '100%',
             marginBottom: theme.spacing(-1),
@@ -63,7 +42,7 @@ const Crypto = () => {
         >
           <path
             fill={theme.palette.background.paper}
-            d="M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z"
+            d='M0,0c0,0,934.4,93.4,1920,0v100.1H0L0,0z'
           ></path>
         </Box>
       </Box>
@@ -80,7 +59,7 @@ const Crypto = () => {
         <Container paddingTop={'0 !important'}>
           <Download />
         </Container>
-      </Box> */}
+      </Box>
     </Box>
   );
 };
