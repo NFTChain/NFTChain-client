@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState, useEffect } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -8,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import { colors } from '@material-ui/core';
-
+import bsc from './bsc.svg';
 const Hero = () => {
   const theme = useTheme();
 
@@ -23,35 +24,35 @@ const Hero = () => {
           borderRadius={1}
           color={theme.palette.common.white}
         >
-          <Typography variant={'subtitle2'}>NEWS</Typography>
+          <Typography variant={'subtitle2'}>NFT</Typography>
         </Box>
-        <Button>Read the latest news</Button>
+        <Button>Chain</Button>
       </Box>
       <Typography
-        variant="h2"
-        align="left"
+        variant='h2'
+        align='left'
         gutterBottom
         sx={{
           fontWeight: 700,
         }}
       >
-        Meet the technicians who unlock Crypto
+        A revolutionary marketplace
       </Typography>
       <Typography
-        variant="h6"
-        component="p"
-        color="textPrimary"
+        variant='h6'
+        component='p'
+        color='textPrimary'
         sx={{ fontWeight: 400 }}
       >
-        Over 300 stand-alone atomic components that will help you to boost your
-        frontend development productivity.
+        Where you can create, sell and buy different kinds of NFT's. Our
+        protocol will support Images, Music & Videos.
       </Typography>
     </Box>
   );
 
   const GridItemFormBlock = () => {
-    const [minutes, setMinutes] = useState(30);
-    const [seconds, setSeconds] = useState(60);
+    const [minutes, setMinutes] = useState('00');
+    const [seconds, setSeconds] = useState('00');
     useEffect(() => {
       let myInterval = setInterval(() => {
         if (seconds > 0) {
@@ -80,37 +81,37 @@ const Hero = () => {
         boxShadow={4}
       >
         <Box
-          display="flex"
+          display='flex'
           flexDirection={'row'}
           justifyContent={'space-around'}
         >
-          <Box display="flex" flexDirection={'column'} alignItems={'center'}>
+          <Box display='flex' flexDirection={'column'} alignItems={'center'}>
             <Typography variant={'h3'} sx={{ fontWeight: 700 }}>
-              13
+              00
             </Typography>
-            <Typography color="text.secondary" sx={{ fontWeight: 700 }}>
+            <Typography color='text.secondary' sx={{ fontWeight: 700 }}>
               Days
             </Typography>
           </Box>
-          <Box display="flex" flexDirection={'column'} alignItems={'center'}>
+          <Box display='flex' flexDirection={'column'} alignItems={'center'}>
             <Typography variant={'h3'} sx={{ fontWeight: 700 }}>
-              09
+              00
             </Typography>
-            <Typography color="text.secondary" sx={{ fontWeight: 700 }}>
+            <Typography color='text.secondary' sx={{ fontWeight: 700 }}>
               Hours
             </Typography>
           </Box>
-          <Box display="flex" flexDirection={'column'} alignItems={'center'}>
+          <Box display='flex' flexDirection={'column'} alignItems={'center'}>
             <Typography variant={'h3'} sx={{ fontWeight: 700 }}>
               {minutes}
             </Typography>
-            <Typography color="text.secondary">Minutes</Typography>
+            <Typography color='text.secondary'>Minutes</Typography>
           </Box>
-          <Box display="flex" flexDirection={'column'} alignItems={'center'}>
+          <Box display='flex' flexDirection={'column'} alignItems={'center'}>
             <Typography variant={'h3'} sx={{ fontWeight: 700 }}>
               {seconds}
             </Typography>
-            <Typography color="text.secondary" sx={{ fontWeight: 700 }}>
+            <Typography color='text.secondary' sx={{ fontWeight: 700 }}>
               Seconds
             </Typography>
           </Box>
@@ -118,12 +119,12 @@ const Hero = () => {
         <Box marginY={4}>
           <Button
             sx={{ height: 54 }}
-            variant="contained"
-            color="primary"
-            size="medium"
+            variant='contained'
+            color='primary'
+            size='medium'
             fullWidth
           >
-            Register now
+            Buy now
           </Button>
         </Box>
         <Box
@@ -139,25 +140,8 @@ const Hero = () => {
               alignItems={'flex-start'}
             >
               <Box>
-                {[1, 2, 3, 4, 5].map((item) => (
-                  <Box
-                    key={item}
-                    color={theme.palette.secondary.main}
-                    display={'inline'}
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                      width={20}
-                      height={20}
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  </Box>
-                ))}
+                <h3>Coming Soon ==></h3>
               </Box>
-              <Typography variant={'caption'}>Average score: 4.9/5</Typography>
             </Box>
           </Hidden>
           <Box
@@ -202,31 +186,22 @@ const Hero = () => {
   };
 
   const GridItemPartnersBlock = () => (
-    <Box display="flex" flexWrap="wrap" justifyContent={'center'}>
-      {[
-        'https://assets.maccarianagency.com/svg/logos/airbnb-original.svg',
-        'https://assets.maccarianagency.com/svg/logos/amazon-original.svg',
-        'https://assets.maccarianagency.com/svg/logos/fitbit-original.svg',
-        'https://assets.maccarianagency.com/svg/logos/netflix-original.svg',
-        'https://assets.maccarianagency.com/svg/logos/google-original.svg',
-        'https://assets.maccarianagency.com/svg/logos/paypal-original.svg',
-      ].map((item, i) => (
-        <Box maxWidth={90} marginTop={2} marginRight={4} key={i}>
-          <Box
-            component="img"
-            height={'100%'}
-            width={'100%'}
-            src={item}
-            alt="..."
-            sx={{
-              filter:
-                theme.palette.mode === 'dark'
-                  ? 'brightness(0) invert(0.7)'
-                  : 'none',
-            }}
-          />
-        </Box>
-      ))}
+    <Box display='flex' flexWrap='wrap' justifyContent={'center'}>
+      <Box maxWidth={90} marginTop={2} marginRight={4}>
+        <Box
+          component='img'
+          height={'100%'}
+          width={'100%'}
+          src={bsc}
+          alt='...'
+          sx={{
+            filter:
+              theme.palette.mode === 'dark'
+                ? 'brightness(0) invert(0.7)'
+                : 'none',
+          }}
+        />
+      </Box>
     </Box>
   );
 
@@ -234,12 +209,12 @@ const Hero = () => {
     <Box>
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
-          <Box width={1} height="100%" display="flex" alignItems="center">
+          <Box width={1} height='100%' display='flex' alignItems='center'>
             <GridItemHeadlineBlock />
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box width={1} height="100%" display="flex" alignItems="center">
+          <Box width={1} height='100%' display='flex' alignItems='center'>
             <GridItemFormBlock />
           </Box>
         </Grid>
