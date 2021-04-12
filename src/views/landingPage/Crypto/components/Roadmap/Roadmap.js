@@ -14,24 +14,36 @@ const Roadmap = () => {
 
   const timeline = [
     {
-      date: 'October 2016',
-      title: 'Secured Series-A funding',
+      date: 'January 2021',
+      title: 'Birth of NFTChain',
     },
     {
-      date: 'April 2017',
-      title: 'New CTO: Joe Schultz',
+      date: 'Febuary 2021',
+      title: 'Marketplace & tokenization platform PoC',
     },
     {
-      date: 'October 2017',
-      title: 'v1.0 Ships',
+      date: 'March 2021',
+      title: 'Development',
     },
     {
-      date: 'February 2018',
-      title: 'Featured in Wired',
+      date: 'April 2021',
+      title: 'Token sale',
     },
     {
-      date: 'September 2018',
-      title: 'v.20 Ships',
+      date: 'May 2021',
+      title: 'Beta launch of Marketplace & NFT tokenization platform (website)',
+    },
+    {
+      date: 'May 2021',
+      title: 'Start of IOS and Android development',
+    },
+    {
+      date: 'June 2021',
+      title: 'Beta launch of Marketplace & NFT tokenization platform (mobile)',
+    },
+    {
+      date: 'July 2021',
+      title: 'v.2 Marketplace & Staking',
     },
   ];
 
@@ -129,7 +141,7 @@ const Roadmap = () => {
           align={isSm ? 'center' : 'left'}
           gutterBottom
         >
-          Sync your banking data anywhere.
+          Roadmap for the next months.
         </Box>
         <Typography
           variant={'h6'}
@@ -137,8 +149,8 @@ const Roadmap = () => {
           color={'textSecondary'}
           align={isSm ? 'center' : 'left'}
         >
-          Compliance, financial reviews, tax auditing, and any financial task
-          has never been easier.
+          Throughout the next months are contests and other various marketing
+          strategies planned.
         </Typography>
       </Box>
       {isSm ? (
