@@ -1,12 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import NFTCard from '../NFTCard';
-import generateData from '../fakeData';
 
-const NFTCardList = () => {
-  const data = generateData();
+const NFTCardList = (props) => {
   return (
     <>
-      {data.map((item) => (
+      {props.NFTS.map((item) => (
         <NFTCard
           key={item.id}
           title={item.title}
@@ -18,6 +17,10 @@ const NFTCardList = () => {
       ))}
     </>
   );
+};
+
+NFTCardList.propTypes = {
+  NFTS: PropTypes.array,
 };
 
 export default NFTCardList;

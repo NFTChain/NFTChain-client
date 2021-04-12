@@ -1,0 +1,31 @@
+.pagination {
+  max-width: 20rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.pagination-list {
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  flex: 1;
+}
+
+.page-link {
+  padding: 0.4rem 0.8rem;
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.active {
+  background-color: $primary;
+  color: white;
+}
+
+.page-link:hover:not(.active) {
+  background-color: #ddd;
+}
