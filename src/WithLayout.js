@@ -9,7 +9,7 @@ import AOS from 'aos';
 
 export const useDarkMode = () => {
   const [themeMode, setTheme] = useState('light');
-  const [paletteType, setPalette] = useState(palettes[0]);
+  const [paletteType, setPalette] = useState(palettes[1]);
   const [mountedComponent, setMountedComponent] = useState(false);
 
   const setMode = (mode) => {
