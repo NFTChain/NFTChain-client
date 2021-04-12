@@ -1,0 +1,38 @@
+.pagination {
+  max-width: 20rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+}
+
+.pagination-list {
+  display: flex;
+  list-style: none;
+  justify-content: space-evenly;
+  align-items: center;
+  flex: 1;
+}
+
+.page-link {
+  padding: 0.4rem 0.8rem;
+  color: $text-primary;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 2px;
+}
+
+.pagination-arrow {
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: $text-primary;
+}
+
+.active {
+  background-color: $primary;
+  color: white;
+}
+
+.page-link:hover:not(.active) {
+  background-color: #ddd;
+}

@@ -1,5 +1,5 @@
 .button {
-  background: $button-primary;
+  background: $primary;
   color: white;
   border: none;
   padding: 0.2rem 1rem;
@@ -9,6 +9,6 @@
   transition: background 0.2s ease;
 
   &:hover {
-    background: darken($button-primary, 3%);
+    background: darken($primary, 3%);
   }
 }
