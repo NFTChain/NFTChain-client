@@ -1,13 +1,16 @@
 import React from 'react';
+import Link from '@material-ui/core/Link';
+
 import PropTypes from 'prop-types';
 import cardImg from '../../../assets/cardImg.jpeg';
 
 const NFTCard = (props) => {
+  console.log('card', props);
   return (
     <div className='card'>
-      <div className='card-img__wrapper'>
+      <Link href={`/marketplace/${props.id}`} className='card-img__wrapper'>
         <img className='card-img' src={cardImg} alt='digital art' />
-      </div>
+      </Link>
       <div className='card-info'>
         <h3>{props.title}</h3>
         <p>{props.subtitle}</p>
@@ -32,6 +35,7 @@ const NFTCard = (props) => {
 };
 
 NFTCard.propTypes = {
+  id: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
   currentBid: PropTypes.number,
