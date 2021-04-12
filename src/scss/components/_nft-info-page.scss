@@ -1,15 +1,78 @@
 .nft-container {
   display: flex;
-  justify-content: space-between;
-  height: 100vh;
-  margin: 10rem 0;
+  justify-content: center;
+  max-width: 80rem;
+  margin: 0 auto;
+}
+
+.spacing {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 195px);
+  margin: 4rem 0;
 }
 
 .image-container {
-  margin-right: 7rem;
-  max-width: 60rem;
+  margin: 0 5rem;
 
   img {
     width: 100%;
+    max-width: 37rem;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+    border-radius: 2px;
   }
+}
+
+.nft-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+  padding: 2rem 0;
+  max-width: 15rem;
+  color: $text-primary;
+}
+
+.nft-description {
+  margin: 2rem 0;
+}
+
+.nft-info__title {
+  font-size: 2rem;
+}
+
+.nft-users {
+  padding: 2rem 0;
+}
+
+.nft-user {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+
+.nft-user:nth-child(1) {
+  margin-bottom: 2rem;
+}
+
+.nft-user__info {
+  margin-left: 1rem;
+  font-size: 0.8rem;
+  color: $text-primary;
+}
+
+.nft-user__role {
+  color: $text-secondary;
+}
+
+.price {
+  color: $text-secondary;
+}
+
+.price-amount {
+  font-weight: bold;
+  font-size: 2rem;
+  margin-bottom: 1rem;
 }
