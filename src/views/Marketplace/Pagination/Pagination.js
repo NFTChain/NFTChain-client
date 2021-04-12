@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 
 const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
@@ -8,9 +9,25 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
     pageNumbers.push(i);
   }
 
+  const handleNextPageClick = () => {
+    if (currentPage != pageNumbers.length) {
+      setCurrentPage(currentPage + 1);
+    }
+  };
+
+  const handlePreviousPageClick = () => {
+    if (currentPage != 1) {
+      setCurrentPage(currentPage - 1);
+    }
+  };
+
   return (
     <nav className='pagination'>
       <ul className='pagination-list'>
+        <AiOutlineArrowLeft
+          className='pagination-arrow'
+          onClick={handlePreviousPageClick}
+        />
         {pageNumbers.map((num) => (
           <li
             key={num}
@@ -20,6 +37,10 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
             {num}
           </li>
         ))}
+        <AiOutlineArrowRight
+          className='pagination-arrow'
+          onClick={handleNextPageClick}
+        />
       </ul>
     </nav>
   );

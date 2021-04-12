@@ -10,15 +10,22 @@
   display: flex;
   list-style: none;
   justify-content: space-evenly;
+  align-items: center;
   flex: 1;
 }
 
 .page-link {
   padding: 0.4rem 0.8rem;
-  color: black;
+  color: $text-primary;
   text-decoration: none;
   cursor: pointer;
   border-radius: 2px;
+}
+
+.pagination-arrow {
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: $text-primary;
 }
 
 .active {
