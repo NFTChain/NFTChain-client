@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
@@ -31,19 +32,19 @@ const Features = () => {
       <Grid container spacing={2}>
         {[
           {
-            title: 'Automation',
+            title: 'Staking',
             subtitle:
-              'We help your business gain leverage and efficiency through automation using simple, yet powerful NoCode tools.',
+              "In the future it will be possible to stake NFTC to get NFTChain's Governance token, which users can use to vote and participate on future protocol changes.",
           },
           {
-            title: 'Funnel Optimization',
+            title: 'Diversity',
             subtitle:
-              'We help you optimize your website or mobile app flow to increase conversion rates and retention to drive growth.',
+              "NFTChain's marketplace will support already at the Beta launch Image, Music and Video NFT's.",
           },
           {
-            title: 'Idea Creation',
+            title: 'Low transaction fees',
             subtitle:
-              'We meet with your team to know more about your project idea and goals.',
+              "The NFT community is experiencing high transaction fees, that's the reason we built on top of the Binance Smart Chain, to provide our end users with the best possible experience.",
           },
         ].map((item, i) => (
           <Grid item xs={12} md={4} key={i}>
@@ -79,7 +80,7 @@ const Features = () => {
                   >
                     {item.title}
                   </Box>
-                  <Typography color="text.secondary">
+                  <Typography color='text.secondary'>
                     {item.subtitle}
                   </Typography>
                 </Box>
@@ -89,7 +90,7 @@ const Features = () => {
                   justifyContent={'flex-end'}
                   paddingX={4}
                 >
-                  <Button size="large">Learn More</Button>
+                  <Button size='large'>Learn More</Button>
                 </Box>
               </Box>
             </Box>
