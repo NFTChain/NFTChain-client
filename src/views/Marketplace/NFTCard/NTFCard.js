@@ -1,31 +1,42 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import cardImg from '../../../assets/cardImg.jpeg';
 
-const NFTCard = () => (
-  <div className='card'>
-    <div className='card-img__wrapper'>
-      <img className='card-img' src={cardImg} alt='digital art' />
-    </div>
-    <div className='card-info'>
-      <h3>River Clouds</h3>
-      <p>Landscapes</p>
-      <div className='card-info__actions'>
-        <button className='button'>Bid</button>
-        <p>Current bid: 19</p>
+const NFTCard = (props) => {
+  return (
+    <div className='card'>
+      <div className='card-img__wrapper'>
+        <img className='card-img' src={cardImg} alt='digital art' />
       </div>
-      <div className='card-info__separate'></div>
-      <div className='card-info__creators'>
-        <div className='card-info__creator'>
-          <p className='card-info__title'>Artist</p>
-          <p className='card-info__name'>User #23423</p>
+      <div className='card-info'>
+        <h3>{props.title}</h3>
+        <p>{props.subtitle}</p>
+        <div className='card-info__actions'>
+          <button className='button'>Bid</button>
+          <p>Current bid: {props.currentBid}</p>
         </div>
-        <div className='card-info__creator'>
-          <p className='card-info__title'>Owner</p>
-          <p className='card-info__name'>User3433</p>
+        <div className='card-info__separate'></div>
+        <div className='card-info__creators'>
+          <div className='card-info__creator'>
+            <p className='card-info__title'>Artist</p>
+            <p className='card-info__name'>User: {props.artist}</p>
+          </div>
+          <div className='card-info__creator'>
+            <p className='card-info__title'>Owner</p>
+            <p className='card-info__name'>User: {props.owner}</p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
+
+NFTCard.propTypes = {
+  title: PropTypes.string,
+  subtitle: PropTypes.string,
+  currentBid: PropTypes.number,
+  artist: PropTypes.number,
+  owner: PropTypes.number,
+};
 
 export default NFTCard;

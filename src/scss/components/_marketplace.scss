@@ -19,6 +19,6 @@
   align-items: center;
 
   @media (min-width: $desktop-breakpoint) {
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 }

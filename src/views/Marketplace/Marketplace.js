@@ -1,6 +1,6 @@
-import Container from '../../common/Container';
 import React from 'react';
-import NFTCard from './NFTCard';
+import Container from '../../common/Container';
+import NFTCardList from './NFTCardList';
 
 const Marketplace = () => {
   return (
@@ -9,14 +9,7 @@ const Marketplace = () => {
         <h1>Marketplace</h1>
       </div>
       <div className='card-list'>
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
-        <NFTCard />
+        <NFTCardList />
       </div>
     </Container>
   );
