@@ -4,7 +4,6 @@ import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
 import getBlockchain from 'utils/getBlockchain';
-import Box from '@material-ui/core/Box';
 
 const CreateNFT = () => {
   const [images, setImages] = useState([]);
