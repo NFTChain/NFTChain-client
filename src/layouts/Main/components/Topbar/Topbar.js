@@ -2,9 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
+import Link from '@material-ui/core/Link';
 import MenuIcon from '@material-ui/icons/Menu';
-import WebbeeLogo from 'svg/logos/Webbee';
+import { history } from '../../../../store/helpers/history';
 import Search from '../../../../views/Marketplace/Search';
+import WebbeeLogo from 'svg/logos/Webbee';
 
 const Topbar = ({ themeMode, themeToggler, onSidebarOpen }) => {
   return (
@@ -29,15 +31,42 @@ const Topbar = ({ themeMode, themeToggler, onSidebarOpen }) => {
           title='webbee'
           height={{ xs: 28, md: 32 }}
           width={45}
+          marginRight={'2rem'}
         >
           <WebbeeLogo height={'100%'} width={'100%'} />
         </Box>
+        {history.location.pathname == '/marketplace' && (
+          <Box width={'30rem'}>
+            <Search />
+          </Box>
+        )}
       </Box>
-      <Box width={'100%'} marginLeft={2} marginRight={2}>
-        <Search />
-      </Box>
-      <Box display='flex' alignItems={'center'}>
-        <Box>
+      <Box
+        display='flex'
+        alignItems={'center'}
+        justifyContent={'space-between'}
+      >
+        <Box paddingLeft={'2rem'}>
+          <Link color='text.primary' href={'/marketplace'}>
+            Marketplace
+          </Link>
+        </Box>
+        <Box paddingLeft={'2rem'}>
+          <Link color='text.primary' href={'/'}>
+            My items
+          </Link>
+        </Box>
+        <Box paddingLeft={'2rem'}>
+          <Link color='text.primary' href={'/'}>
+            Activity
+          </Link>
+        </Box>
+        <Box paddingLeft={'2rem'}>
+          <Link color='text.primary' href={'/page-login-simple'}>
+            Log in
+          </Link>
+        </Box>
+        <Box paddingLeft={'1rem'}>
           <IconButton
             onClick={() => themeToggler()}
             aria-label='Dark mode toggler'
