@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 2rem;
 }
 
 .pagination-list {
@@ -16,7 +16,6 @@
 
 .page-link {
   padding: 0.4rem 0.8rem;
-  color: $text-primary;
   text-decoration: none;
   cursor: pointer;
   border-radius: 2px;
@@ -25,14 +24,9 @@
 .pagination-arrow {
   font-size: 1.4rem;
   cursor: pointer;
-  color: $text-primary;
 }
 
 .active {
   background-color: $primary;
   color: white;
-}
-
-.page-link:hover:not(.active) {
-  background-color: #ddd;
 }

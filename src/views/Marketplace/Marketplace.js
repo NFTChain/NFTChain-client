@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import Container from '../../common/Container';
 import NFTCardList from './NFTCardList';
 import Pagination from './Pagination';
 import generateData from './fakeData';
+import { Box } from '@material-ui/core';
 
 const Marketplace = () => {
   const [NFTs, setNFTs] = useState([]);
@@ -21,20 +21,22 @@ const Marketplace = () => {
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
   return (
-    <Container className='marketplace'>
-      <div className='marketplace-title'>
-        <h1>Marketplace</h1>
-      </div>
-      <div className='card-list'>
-        <NFTCardList NFTS={currentNFTS} />
-      </div>
-      <Pagination
-        setCurrentPage={setCurrentPage}
-        totalNFTS={NFTs.length}
-        NFTPerPage={NFTPerPage}
-        currentPage={currentPage}
-      />
-    </Container>
+    <Box bgcolor='alternate.main' className='marketplace-container'>
+      <Box bgcolor='alternate.main' className='marketplace'>
+        <div className='marketplace-title'>
+          <h1>Marketplace</h1>
+        </div>
+        <div className='card-list'>
+          <NFTCardList NFTS={currentNFTS} />
+        </div>
+        <Pagination
+          setCurrentPage={setCurrentPage}
+          totalNFTS={NFTs.length}
+          NFTPerPage={NFTPerPage}
+          currentPage={currentPage}
+        />
+      </Box>
+    </Box>
   );
 };
 
