@@ -1,14 +1,11 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
-import { CreateNFT } from './views/CreateNFT';
+import { CreateNFT as CreateNFTView } from './views/CreateNFT';
 import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // Available layouts
 import { Main as MainLayout } from './layouts';
-
-// Not found component
-import { NotFound as NotFoundView } from './views/NotFound';
 
 // Landingpage component
 import { Crypto as CryptoView } from './views/landingPage';
@@ -19,6 +16,9 @@ import {
   SignupSimple as SignupSimpleView,
   ForgotPasswordSimple as ForgotPasswordSimpleView,
 } from './views/authPages';
+
+// Supporting pages
+import { NotFound as NotFoundView } from './views/supportingPages';
 
 // Litepaper
 import { Litepaper as LitepaperView } from './views/Litepaper';
@@ -97,7 +97,7 @@ const Routes = () => {
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={CreateNFT}
+            component={CreateNFTView}
             layout={MainLayout}
           />
         )}

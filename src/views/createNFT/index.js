@@ -1,1 +1,1 @@
-export { default as CreateNFT } from './CreateNFT';
+export { default } from './CreateNFT';
