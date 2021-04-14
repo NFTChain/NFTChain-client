@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
 import CreateNFT from './views/CreateNFT';
 import Marketplace from './views/Marketplace';
+import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
@@ -76,6 +77,16 @@ const Routes = () => {
           <WithLayout
             {...matchProps}
             component={Marketplace}
+            layout={MainLayout}
+          />
+        )}
+      />
+      <Route
+        path='/marketplace/:id'
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={NFTInfoPage}
             layout={MainLayout}
           />
         )}
