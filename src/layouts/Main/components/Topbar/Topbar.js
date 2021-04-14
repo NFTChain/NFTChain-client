@@ -29,9 +29,8 @@ const Topbar = ({ themeMode, themeToggler, onSidebarOpen }) => {
           underline='none'
           href='/'
           title='webbee'
-          height={{ xs: 28, md: 32 }}
-          width={45}
-          marginRight={'2rem'}
+          height={{ xs: 36, md: 40 }}
+          width={55}
         >
           <WebbeeLogo height={'100%'} width={'100%'} />
         </Box>
