@@ -1,8 +1,8 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
+import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 import cardImg from '../../../assets/cardImg.jpeg';
-import { Box } from '@material-ui/core';
 
 const NFTCard = (props) => {
   return (

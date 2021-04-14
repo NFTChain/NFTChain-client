@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import NFTCardList from './NFTCardList';
 import Pagination from './Pagination';
 import generateData from './fakeData';
-import { Box } from '@material-ui/core';
+import Box from '@material-ui/core/Box';
 
 const Marketplace = () => {
   const [NFTs, setNFTs] = useState([]);
