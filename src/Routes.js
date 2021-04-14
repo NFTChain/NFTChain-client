@@ -19,6 +19,9 @@ import {
   ForgotPasswordSimple as ForgotPasswordSimpleView,
 } from './views/authPages';
 
+// Litepaper
+import { Litepaper } from './views/Litepaper';
+
 const Routes = () => {
   return (
     <Switch>
@@ -84,6 +87,17 @@ const Routes = () => {
           <WithLayout
             {...matchProps}
             component={CreateNFT}
+            layout={MainLayout}
+          />
+        )}
+      />
+      <Route
+        exact
+        path='/Litepaper'
+        render={(matchProps) => (
+          <WithLayout
+            {...matchProps}
+            component={Litepaper}
             layout={MainLayout}
           />
         )}
