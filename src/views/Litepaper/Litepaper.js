@@ -247,12 +247,11 @@ const Litepaper = () => {
                 fontWeight: 700,
               }}
             >
-              Staking
+              NFT Auctions
             </Typography>
 
             <Typography variant='h5'>
-              To increase the value of NFTChain's main currency NFTC, a staking
-              feature is in development.
+              NFTC holders will be able to participate in special NFT auctions.
             </Typography>
           </Box>
           <Box width={'50%'}>
@@ -263,12 +262,11 @@ const Litepaper = () => {
                 fontWeight: 700,
               }}
             >
-              Airdrops
+              Votings
             </Typography>
 
             <Typography variant='h5'>
-              Additionaly to staking, multiple airdrops are planned to attract
-              users to hold NFTC.
+              NFTG holders will be able to vote on future .
             </Typography>
           </Box>
         </Box>
