@@ -7,7 +7,7 @@ import Marketplace from './views/Marketplace';
 import { Main as MainLayout } from './layouts';
 
 // Not found component
-import NotFound from './views/notFound/NotFound';
+import { NotFound as NotFoundView } from './views/NotFound';
 
 // Landingpage component
 import { Crypto as CryptoView } from './views/landingPage';
@@ -20,7 +20,7 @@ import {
 } from './views/authPages';
 
 // Litepaper
-import { Litepaper } from './views/Litepaper';
+import { Litepaper as LitepaperView } from './views/Litepaper';
 
 const Routes = () => {
   return (
@@ -91,24 +91,14 @@ const Routes = () => {
           />
         )}
       />
-      <Route
-        exact
-        path='/Litepaper'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={Litepaper}
-            layout={MainLayout}
-          />
-        )}
-      />
+      <Route exact path='/Litepaper' component={LitepaperView} />
       <Route
         exact
         path='/page-not-found'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={NotFound}
+            component={NotFoundView}
             layout={MainLayout}
           />
         )}
