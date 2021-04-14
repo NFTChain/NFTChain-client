@@ -1,5 +1,7 @@
 import { AiOutlineSearch } from 'react-icons/ai';
 import React, { useState } from 'react';
+import Box from '@material-ui/core/Box';
+import InputBase from '@material-ui/core/InputBase';
 
 const Search = () => {
   const [textFilter, setTextFilter] = useState('');
@@ -10,16 +12,17 @@ const Search = () => {
 
   return (
     <div className='search'>
-      <div className='search-icon__wrapper'>
+      <Box color='text.primary' className='search-icon__wrapper'>
         <AiOutlineSearch className='search-icon' />
-      </div>
+      </Box>
       <div className='search-input'>
-        <input
+        <InputBase
           className='search-text__input'
-          type='text'
-          placeholder='Search by artist or collections'
-          value={textFilter}
+          defaultValue='Naked input'
+          inputProps={{ 'aria-label': 'naked' }}
           onChange={onTextChange}
+          value={textFilter}
+          placeholder='Search by artist or collections'
         />
       </div>
     </div>
