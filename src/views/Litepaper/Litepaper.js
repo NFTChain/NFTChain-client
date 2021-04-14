@@ -169,107 +169,107 @@ const Litepaper = () => {
           </Typography>
         </Box>
         <Box style={{ display: 'flex', flexDirection: 'row' }}>
-          <Box style={{ display: 'flex', flexDirection: 'column' }}>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Communication
-              </Typography>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Communication
+            </Typography>
 
-              <Typography variant='h5'>
-                The marketplace will support communication between authenticated
-                users. Artists can communicate with their clients and NFT buyers
-                can request a chat to the creator of their loved NFT.
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Staking
-              </Typography>
-
-              <Typography variant='h5'>
-                To increase the value of NFTChain's main currency NFTC, a
-                staking feature is in development.
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Airdrops
-              </Typography>
-
-              <Typography variant='h5'>
-                Additionaly to staking, multiple airdrops are planned to attract
-                users to hold NFTC.
-              </Typography>
-            </Box>
+            <Typography variant='h5'>
+              The marketplace will support communication between authenticated
+              users. Artists can communicate with their clients and NFT buyers
+              can request a chat to the creator of their loved NFT.
+            </Typography>
           </Box>
-          <Box style={{ display: 'flex', flexDirection: 'column' }}>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Communication
-              </Typography>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Staking
+            </Typography>
 
-              <Typography variant='h5'>
-                The marketplace will support communication between authenticated
-                users. Artists can communicate with their clients and NFT buyers
-                can request a chat to the creator of their loved NFT.
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Staking
-              </Typography>
+            <Typography variant='h5'>
+              To increase the value of NFTChain's main currency NFTC, a staking
+              feature is in development.
+            </Typography>
+          </Box>
+        </Box>
+        <Box style={{ display: 'flex', flexDirection: 'row' }}>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Airdrops
+            </Typography>
 
-              <Typography variant='h5'>
-                To increase the value of NFTChain's main currency NFTC, a
-                staking feature is in development.
-              </Typography>
-            </Box>
-            <Box>
-              <Typography
-                variant='h4'
-                gutterBottom
-                sx={{
-                  fontWeight: 700,
-                }}
-              >
-                Airdrops
-              </Typography>
+            <Typography variant='h5'>
+              Additionaly to staking, multiple airdrops are planned to attract
+              users to hold NFTC.
+            </Typography>
+          </Box>
 
-              <Typography variant='h5'>
-                Additionaly to staking, multiple airdrops are planned to attract
-                users to hold NFTC.
-              </Typography>
-            </Box>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              FIAT Gateway
+            </Typography>
+
+            <Typography variant='h5'>
+              The marketplace will support a FIAT gateway where users can change
+              money against NFTC to be able to buy NFT's.
+            </Typography>
+          </Box>
+        </Box>
+        <Box style={{ display: 'flex', flexDirection: 'row' }}>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Staking
+            </Typography>
+
+            <Typography variant='h5'>
+              To increase the value of NFTChain's main currency NFTC, a staking
+              feature is in development.
+            </Typography>
+          </Box>
+          <Box width={'50%'}>
+            <Typography
+              variant='h4'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              Airdrops
+            </Typography>
+
+            <Typography variant='h5'>
+              Additionaly to staking, multiple airdrops are planned to attract
+              users to hold NFTC.
+            </Typography>
           </Box>
         </Box>
       </Box>
