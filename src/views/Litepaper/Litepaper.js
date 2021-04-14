@@ -1,13 +1,14 @@
 import React from 'react';
-import { Box } from '@material-ui/core';
 import logo from '../../assets/onlyLogo.png';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
 
 const Litepaper = () => {
   return (
     <Box>
       <Box
         className='first-site'
-        style={{ width: '100vw', height: '100vh', backgroundColor: 'black' }}
+        style={{ width: '100vw', height: '100vh', backgroundColor: '#1A2138' }}
       >
         <Box
           style={{
@@ -27,7 +28,16 @@ const Litepaper = () => {
               color: '#FFF',
             }}
           >
-            <h1 style={{ width: '100%' }}>A revolutionary NFT marketplace</h1>
+            <Typography
+              variant='h2'
+              align='left'
+              gutterBottom
+              sx={{
+                fontWeight: 700,
+              }}
+            >
+              A revolutionary marketplace
+            </Typography>
           </Box>
           <img
             style={{ width: '60%', height: '70%' }}
@@ -41,8 +51,17 @@ const Litepaper = () => {
         style={{ width: '100vw', height: '100vh', backgroundColor: '#FFF' }}
       >
         <Box>
-          <H1>NFTChain Introduction</H1>
-
+          <h1>NFTChain Introduction</h1>
+        </Box>
+        <Box>
+          <h2>NFTChain Network</h2>
+          <p>
+            Nftchain is a decentralized marketplace where 3D artists, musicians,
+            basically every content creator can turn their file into a unique or
+            of number limited NFT and
+          </p>
+        </Box>
+        <Box>
           <h2>NFTChain Network</h2>
           <p>
             Nftchain is a decentralized marketplace where 3D artists, musicians,
