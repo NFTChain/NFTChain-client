@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
-import CreateNFTView from './views/createNFT/createNFT';
-import Marketplace from './views/Marketplace';
-import NFTInfoPage from './views/Marketplace/NFTInfoPage';
+// import CreateNFTView from './views/createNFT/createNFT';
+// import Marketplace from './views/Marketplace';
+// import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
@@ -11,11 +11,11 @@ import { Main as MainLayout } from './layouts';
 import { Crypto as CryptoView } from './views/landingPage';
 
 // Authentication component
-import {
-  LoginSimple as LoginSimpleView,
-  SignupSimple as SignupSimpleView,
-  ForgotPasswordSimple as ForgotPasswordSimpleView,
-} from './views/authPages';
+// import {
+//   Login as LoginView,
+//   Signup as SignupView,
+//   ForgotPassword as ForgotPasswordView,
+// } from './views/authPages';
 
 // Supporting pages
 import { NotFound as NotFoundView } from './views/supportingPages';
@@ -37,35 +37,35 @@ const Routes = () => {
           />
         )}
       />
-      <Route
+      {/* <Route
         exact
-        path='/page-login-simple'
+        path='/login'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={LoginSimpleView}
+            component={LoginView}
             layout={MainLayout}
           />
         )}
       />
       <Route
         exact
-        path='/page-signup-simple'
+        path='/signup'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={SignupSimpleView}
+            component={SignupView}
             layout={MainLayout}
           />
         )}
       />
       <Route
         exact
-        path='/page-forgot-password-simple'
+        path='/forgot-password'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={ForgotPasswordSimpleView}
+            component={ForgotPasswordView}
             layout={MainLayout}
           />
         )}
@@ -101,7 +101,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      />
+      /> */}
       <Route exact path='/Litepaper' component={LitepaperView} />
       <Route
         exact
