@@ -1,8 +1,8 @@
 import * as types from '../actionTypes/contractActionTypes';
 import {
-  BEP20Contract,
-  BEP721Contract,
-  NFTDexContract,
+  BEP20ContractString,
+  BEP721ContractString,
+  NFTDexContractString,
 } from '../../utils/getContract';
 
 const initialState = {
@@ -16,14 +16,14 @@ const initialState = {
 const decideContract = (payload) => {
   const result = { signerAddress: payload.signerAddress };
   switch (payload.contract) {
-    case BEP20Contract:
-      result.BEP20Contract = action.payload.token;
+    case BEP20ContractString:
+      result.BEP20Contract = payload.token;
       break;
-    case BEP721Contract:
-      result.BEP721Contract = action.payload.token;
+    case BEP721ContractString:
+      result.BEP721Contract = payload.token;
       break;
-    case NFTDexContract:
-      result.NFTDexContract = action.payload.token;
+    case NFTDexContractString:
+      result.NFTDexContract = payload.token;
       break;
   }
   return result;
@@ -32,6 +32,7 @@ const decideContract = (payload) => {
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CONTRACT:
+      console.log(action.payload);
       return { ...state, ...decideContract(action.payload) };
     default:
       return state;

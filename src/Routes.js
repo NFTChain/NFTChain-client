@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
-// import CreateNFTView from './views/createNFT/createNFT';
+import CreateNFTView from './views/createNFT/createNFT';
 // import Marketplace from './views/Marketplace';
 // import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // Available layouts
@@ -90,7 +90,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      />
+      /> */}
       <Route
         exact
         path='/createNFT'
@@ -101,7 +101,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      /> */}
+      />
       <Route exact path='/Litepaper' component={LitepaperView} />
       <Route
         exact

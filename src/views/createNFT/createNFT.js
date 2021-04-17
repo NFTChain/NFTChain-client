@@ -3,20 +3,17 @@ import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
-import getBlockchain from 'utils/getContract';
+import { connect } from 'react-redux';
+import { connectToContract } from '../../store/actions/contractActions';
 
 const CreateNFT = () => {
   const [images, setImages] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(undefined);
-  const [token, setToken] = useState(undefined);
+  // const [token, setToken] = useState(undefined);
   useEffect(() => {
-    const init = async () => {
-      const { signerAddress, token } = await getBlockchain();
-      setToken(token);
-      console.log(signerAddress, token);
-    };
-    init();
-  }, []);
+    connectToContract('BEP20TokenContract');
+    console.log('TRIGGERED');
+  }, [connectToContract]);
 
   const onDrop = (picture) => {
     console.log('drop', picture);
@@ -36,12 +33,12 @@ const CreateNFT = () => {
     setUploadedImage(result.data.imagePath);
   };
 
-  const createNFT = async () => {
-    const createNFT = await token.createInk(uploadedImage, 2);
-    console.log(createNFT);
-  };
+  // const createNFT = async () => {
+  //   const createNFT = await token.createInk(uploadedImage, 2);
+  //   console.log(createNFT);
+  // };
 
-  if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+  // if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
   return (
     <div
       style={{
@@ -72,9 +69,16 @@ const CreateNFT = () => {
           />
         </div>
       )}
-      {uploadedImage && <button onClick={createNFT}>Create NFT</button>}
+      {/* {uploadedImage && <button onClick={createNFT}>Create NFT</button>} */}
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    BEP20TokenContract: state.contracts.BEP20TokenContract,
+  };
+};
 
-export default CreateNFT;
+export default connect(mapStateToProps, {
+  connectToContract,
+})(CreateNFT);
