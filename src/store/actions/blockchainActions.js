@@ -1,5 +1,5 @@
 import * as actionTypes from '../actionTypes/blockchainActionTypes';
-import getBlockchain from 'utils/getBlockchain';
+import getBlockchain from 'utils/getContract';
 export const getSmartContract = () => {
 
   const { signerAddress, token } = await getBlockchain();

@@ -3,10 +3,23 @@ import BEP20Token from './NFTC.json';
 import BEP721Token from './NFTArt.json';
 import NFTDexContract from './NFTDex.json';
 
-const decideContract
+const BEP20Contract = 'BEP20TokenContract';
+const BEP721Contract = 'BEP721TokenContract';
+const NFTDexContract = 'NFTDexContract';
 
-const getBlockchain = (contract) =>
-  const smartContract = contract === "BEP20Token" ? BEP20Token : contract
+const decideContract = (contract) => {
+  switch (contract) {
+    case BEP20Contract:
+      return BEP20Token;
+    case BEP721Contract:
+      return BEP721Token;
+    case NFTDexContract:
+      return NFTDexToken;
+  }
+};
+
+const getContract = (contract) => {
+  const Token = decideContract(contract);
   new Promise((resolve) => {
     window.addEventListener('load', async () => {
       if (window.ethereum) {
@@ -21,5 +34,6 @@ const getBlockchain = (contract) =>
       resolve({ signerAddress: undefined, token: undefined });
     });
   });
+};
 
-export default getBlockchain;
+export default getContract;
