@@ -6,9 +6,9 @@ import {
 } from '../../utils/getContract';
 
 const initialState = {
-  signerAddress: undefined,
-  BEP20TokenContract: undefined,
-  BEP721TokenContract: undefined,
+  signerAddress: false,
+  BEP20Contract: undefined,
+  BEP721Contract: undefined,
   NFTDexContract: undefined,
   isLoading: false,
 };
@@ -26,13 +26,13 @@ const decideContract = (payload) => {
       result.NFTDexContract = payload.token;
       break;
   }
+  console.log('decide result', result);
   return result;
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CONTRACT:
-      console.log(action.payload);
       return { ...state, ...decideContract(action.payload) };
     default:
       return state;

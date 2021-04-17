@@ -19,23 +19,22 @@ const decideContract = (contract) => {
   }
 };
 
-const getContract = (contract) => {
+const getContract = async (contract) => {
   const Token = decideContract(contract);
-  console.log('DECIDED =>', Token);
-  new Promise((resolve) => {
-    window.addEventListener('load', async () => {
-      if (window.ethereum) {
-        await window.ethereum.enable();
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const signerAddress = await signer.getAddress();
-        const token = new Contract(Token.address, Token.abi, signer);
 
-        resolve({ signerAddress, token });
-      }
-      resolve({ signerAddress: undefined, token: undefined });
-    });
-  });
+  if (window.ethereum) {
+    await window.ethereum.enable();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    console.log('Provider', provider);
+    const signer = provider.getSigner();
+    console.log('Signer', signer);
+    const signerAddress = await signer.getAddress();
+    console.log('SignerAddress', signerAddress);
+    const token = new Contract(Token.address, Token.abi, signer);
+    console.log('Token', token);
+    console.log(signerAddress, token);
+    return { signerAddress, token };
+  }
 };
 
 export default getContract;

@@ -1,4 +1,5 @@
-/* eslint no-unused-vars: 0 */ // --> OFF
+/* eslint  no-unused-vars: 0 */ // --> OFF
+/* eslint  react/prop-types: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
@@ -6,14 +7,15 @@ import axios from 'axios';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
 
-const CreateNFT = () => {
+const CreateNFT = (props) => {
   const [images, setImages] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(undefined);
-  // const [token, setToken] = useState(undefined);
+
   useEffect(() => {
-    connectToContract('BEP20TokenContract');
-    console.log('TRIGGERED');
-  }, [connectToContract]);
+    props.connectToContract('BEP20TokenContract');
+    props.connectToContract('BEP721TokenContract');
+    props.connectToContract('NFTDexContract');
+  }, []);
 
   const onDrop = (picture) => {
     console.log('drop', picture);
@@ -39,6 +41,12 @@ const CreateNFT = () => {
   // };
 
   // if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+
+  const connect = async () => {
+    console.log(props.BEP20Contract);
+    console.log(props.BEP721Contract);
+    console.log(props.NFTDexContract);
+  };
   return (
     <div
       style={{
@@ -70,12 +78,15 @@ const CreateNFT = () => {
         </div>
       )}
       {/* {uploadedImage && <button onClick={createNFT}>Create NFT</button>} */}
+      <button onClick={connect}>connect</button>
     </div>
   );
 };
 const mapStateToProps = (state) => {
   return {
-    BEP20TokenContract: state.contracts.BEP20TokenContract,
+    BEP20Contract: state.contracts.BEP20Contract,
+    BEP721Contract: state.contracts.BEP721Contract,
+    NFTDexContract: state.contracts.NFTDexContract,
   };
 };
 
