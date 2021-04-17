@@ -1,7 +1,12 @@
 import { ethers, Contract } from 'ethers';
-import Token from './NFTINK.json';
+import BEP20Token from './NFTC.json';
+import BEP721Token from './NFTArt.json';
+import NFTDexContract from './NFTDex.json';
 
-const getBlockchain = () =>
+const decideContract
+
+const getBlockchain = (contract) =>
+  const smartContract = contract === "BEP20Token" ? BEP20Token : contract
   new Promise((resolve) => {
     window.addEventListener('load', async () => {
       if (window.ethereum) {
