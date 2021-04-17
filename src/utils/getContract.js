@@ -3,9 +3,9 @@ import BEP20Token from './NFTC.json';
 import BEP721Token from './NFTArt.json';
 import NFTDexContract from './NFTDex.json';
 
-const BEP20Contract = 'BEP20TokenContract';
-const BEP721Contract = 'BEP721TokenContract';
-const NFTDexContract = 'NFTDexContract';
+export const BEP20Contract = 'BEP20TokenContract';
+export const BEP721Contract = 'BEP721TokenContract';
+export const NFTDexContract = 'NFTDexContract';
 
 const decideContract = (contract) => {
   switch (contract) {
