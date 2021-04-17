@@ -1,14 +1,14 @@
 import * as actionTypes from '../actionTypes/contractActionTypes';
-import getBlockchain from 'utils/getContract';
-export const getSmartContract = () => {
+import getContract from 'utils/getContract';
 
-  const { signerAddress, token } = await getBlockchain();
-  return { type: SAVE_ROOM_ID, payload: roomId };
-};
-
-export const connectToBlockchain = () => dispatch => {
-    dispatch({
-      type: actionTypes.START_GET_BLOCKCHAIN,
+export const connectToContract = (contract) => dispatch => {
+  const { signerAddress, token } = await getContract(contract);
+  dispatch({
+      type: actionTypes.GET_CONTRACT,
+      payload: {
+        contract,
+        signerAddress,
+        token
+      }
     });
-    
   };
