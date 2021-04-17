@@ -1,4 +1,4 @@
-import * as actionTypes from '../actionTypes/blockchainActionTypes';
+import * as actionTypes from '../actionTypes/contractActionTypes';
 import getBlockchain from 'utils/getContract';
 export const getSmartContract = () => {
 
