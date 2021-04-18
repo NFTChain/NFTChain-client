@@ -2,7 +2,8 @@
 /* eslint  react/prop-types: 0 */ // --> OFF
 import React, { useState } from 'react';
 import ImageUploader from 'react-images-upload';
-import axios from 'axios';
+// import axios from 'axios';
+import { pinFileToIPFS } from '../../utils/pinFileToIPFS';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
 import { connect } from 'react-redux';
 
@@ -16,16 +17,15 @@ const CreateNFT = (props) => {
   };
 
   const uploadImages = async () => {
-    const formData = new FormData();
-    formData.append('image', images[0]);
-
-    const result = await axios.post(
-      'http://localhost:5000/nft/upload',
-      formData,
-      { headers: { 'Content-Type': 'multipart/form-data' } },
-    );
-
-    setUploadedImage(result.data.imagePath);
+    // const formData = new FormData();
+    // formData.append('image', images[0]);
+    // const result = await axios.post(
+    //   'http://localhost:5000/nft/upload',
+    //   formData,
+    //   { headers: { 'Content-Type': 'multipart/form-data' } },
+    // );
+    // setUploadedImage(result.data.imagePath);
+    pinFileToIPFS(images[0]);
   };
 
   // const createNFT = async () => {
