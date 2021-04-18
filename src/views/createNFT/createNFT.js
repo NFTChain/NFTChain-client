@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import ImageUploader from 'react-images-upload';
 // import axios from 'axios';
 import { pinFileToIPFS } from '../../utils/pinFileToIPFS';
+import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
 import { connect } from 'react-redux';
 
@@ -36,10 +37,7 @@ const CreateNFT = (props) => {
   // if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
 
   const connect = async () => {
-    console.log(props.BEP20Contract);
-    // console.log(props.BEP721Contract);
-    // console.log(props.NFTDexContract);
-    console.log(props.signerAddress);
+    getFilesFromIPFS();
   };
   return (
     <div
