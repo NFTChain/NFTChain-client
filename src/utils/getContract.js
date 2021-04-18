@@ -1,39 +1,39 @@
 import { ethers, Contract } from 'ethers';
-import BEP20Token from './NFTC.json';
-import BEP721Token from './NFTArt.json';
-import NFTDexContract from './NFTDex.json';
+import BEP20Token from './NftChainBEP20.json';
+import BEP721Token from './NftChainBEP721.json';
+import NFTDexContract from './NftDex.json';
 
-export const BEP20Contract = 'BEP20TokenContract';
-export const BEP721Contract = 'BEP721TokenContract';
-export const NFTDexContract = 'NFTDexContract';
+export const BEP20ContractString = 'BEP20TokenContract';
+export const BEP721ContractString = 'BEP721TokenContract';
+export const NFTDexContractString = 'NFTDexContract';
 
-const decideContract = (contract) => {
+const decideWhichContract = (contract) => {
   switch (contract) {
-    case BEP20Contract:
+    case BEP20ContractString:
       return BEP20Token;
-    case BEP721Contract:
+    case BEP721ContractString:
       return BEP721Token;
-    case NFTDexContract:
-      return NFTDexToken;
+    case NFTDexContractString:
+      return NFTDexContract;
   }
 };
 
-const getContract = (contract) => {
-  const Token = decideContract(contract);
-  new Promise((resolve) => {
-    window.addEventListener('load', async () => {
-      if (window.ethereum) {
-        await window.ethereum.enable();
-        const provider = new ethers.providers.Web3Provider(window.ethereum);
-        const signer = provider.getSigner();
-        const signerAddress = await signer.getAddress();
-        const token = new Contract(Token.address, Token.abi, signer);
+const getContract = async (contractType) => {
+  const Token = decideWhichContract(contractType);
 
-        resolve({ signerAddress, token });
-      }
-      resolve({ signerAddress: undefined, token: undefined });
-    });
-  });
+  if (window.ethereum) {
+    await window.ethereum.enable();
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    console.log('Provider', provider);
+    const signer = provider.getSigner();
+    console.log('Signer', signer);
+    const signerAddress = await signer.getAddress();
+    console.log('SignerAddress', signerAddress);
+    const token = new Contract(Token.address, Token.abi, signer);
+    console.log('Token', token);
+    console.log(signerAddress, token);
+    return { signerAddress, token };
+  }
 };
 
 export default getContract;

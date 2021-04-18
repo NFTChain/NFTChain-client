@@ -1,17 +1,19 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import authReducer from './reducers/auth';
 import registerReducer from './reducers/register';
-
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import contractReducer from './reducers/contracts';
+import logger from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
 export default () => {
   const store = createStore(
     combineReducers({
       auth: authReducer,
       registration: registerReducer,
+      contracts: contractReducer,
     }),
-    composeEnhancers(applyMiddleware(thunk)),
+    composeWithDevTools(applyMiddleware(thunk, logger)),
   );
 
   return store;

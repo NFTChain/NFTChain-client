@@ -1,22 +1,14 @@
-/* eslint no-unused-vars: 0 */ // --> OFF
-import React, { useState, useEffect } from 'react';
+/* eslint  no-unused-vars: 0 */ // --> OFF
+/* eslint  react/prop-types: 0 */ // --> OFF
+import React, { useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
-import getBlockchain from 'utils/getContract';
+import { connect } from 'react-redux';
 
-const CreateNFT = () => {
+const CreateNFT = (props) => {
   const [images, setImages] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(undefined);
-  const [token, setToken] = useState(undefined);
-  useEffect(() => {
-    const init = async () => {
-      const { signerAddress, token } = await getBlockchain();
-      setToken(token);
-      console.log(signerAddress, token);
-    };
-    init();
-  }, []);
 
   const onDrop = (picture) => {
     console.log('drop', picture);
@@ -36,12 +28,19 @@ const CreateNFT = () => {
     setUploadedImage(result.data.imagePath);
   };
 
-  const createNFT = async () => {
-    const createNFT = await token.createInk(uploadedImage, 2);
-    console.log(createNFT);
-  };
+  // const createNFT = async () => {
+  //   const createNFT = await token.createInk(uploadedImage, 2);
+  //   console.log(createNFT);
+  // };
 
-  if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+  // if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+
+  const connect = async () => {
+    console.log(props.BEP20Contract);
+    // console.log(props.BEP721Contract);
+    // console.log(props.NFTDexContract);
+    console.log(props.signerAddress);
+  };
   return (
     <div
       style={{
@@ -72,9 +71,18 @@ const CreateNFT = () => {
           />
         </div>
       )}
-      {uploadedImage && <button onClick={createNFT}>Create NFT</button>}
+      {/* {uploadedImage && <button onClick={createNFT}>Create NFT</button>} */}
+      <button onClick={connect}>connect</button>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    BEP20Contract: state.contracts.BEP20Contract,
+    BEP721Contract: state.contracts.BEP721Contract,
+    NFTDexContract: state.contracts.NFTDexContract,
+    signerAddress: state.contracts.signerAddress,
+  };
+};
 
-export default CreateNFT;
+export default connect(mapStateToProps)(CreateNFT);

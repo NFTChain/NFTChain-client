@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import IconButton from '@material-ui/core/IconButton';
 import Link from '@material-ui/core/Link';
@@ -7,8 +6,27 @@ import Link from '@material-ui/core/Link';
 import { history } from '../../../../store/helpers/history';
 import Search from '../../../../views/Marketplace/Search';
 import WebbeeLogo from 'svg/logos/Webbee';
-
-const Topbar = ({ themeMode, themeToggler }) => {
+import { connect } from 'react-redux';
+import Button from '@material-ui/core/Button';
+import { connectToContract } from '../../../../store/actions/contractActions';
+import {
+  BEP20ContractString,
+  BEP721ContractString,
+  NFTDexContractString,
+} from '../../../../utils/getContract';
+const Topbar = ({
+  themeMode,
+  themeToggler,
+  BEP20Balance,
+  connectToContract,
+}) => {
+  const connectWallet = () => {
+    [
+      BEP20ContractString,
+      BEP721ContractString,
+      NFTDexContractString,
+    ].forEach((contractString) => connectToContract(contractString));
+  };
   return (
     <Box
       display={'flex'}
@@ -116,16 +134,27 @@ const Topbar = ({ themeMode, themeToggler }) => {
           )}
         </IconButton>
       </Box>
+      <Button size={'small'} variant={'contained'} type={'submit'}>
+        Create NFT
+      </Button>
+      <Button
+        size={'small'}
+        variant={'contained'}
+        type={'submit'}
+        onClick={!BEP20Balance ? connectWallet : null}
+      >
+        {BEP20Balance ? `${BEP20Balance} NFTC` : 'Connect wallet'}
+      </Button>
     </Box>
   );
 };
 
-Topbar.propTypes = {
-  onSidebarOpen: PropTypes.func,
-  themeToggler: PropTypes.func.isRequired,
-  themeMode: PropTypes.string.isRequired,
-  setThemePalette: PropTypes.func.isRequired,
-  paletteType: PropTypes.string.isRequired,
+const mapStateToProps = (state) => {
+  return {
+    BEP20Balance: state.contracts.BEP20Balance,
+  };
 };
 
-export default Topbar;
+export default connect(mapStateToProps, {
+  connectToContract,
+})(Topbar);
