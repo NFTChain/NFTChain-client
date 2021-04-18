@@ -1,4 +1,4 @@
-import { ethers, Contract, utils } from 'ethers';
+import { ethers, Contract } from 'ethers';
 import BEP20Token from './NftChainBEP20.json';
 import BEP721Token from './NftChainBEP721.json';
 import NFTDexContract from './NftDex.json';
@@ -36,21 +36,4 @@ const getContract = async (contractType) => {
   }
 };
 
-const getBalance = async () => {
-  // const Token = decideWhichContract(contractType);
-
-  if (window.ethereum) {
-    await window.ethereum.enable();
-    const provider = new ethers.providers.Web3Provider(window.BinanceChain);
-    console.log('Provider', provider);
-    const signer = provider.getSigner();
-    console.log('Signer', signer);
-    const signerAddress = await signer.getAddress();
-    console.log('SignerAddress', signerAddress);
-    const balance = await provider.getBalance(signerAddress);
-    debugger;
-    return parseFloat(utils.formatUnits(balance, 18));
-  }
-};
-
-export { getContract, getBalance };
+export default getContract;

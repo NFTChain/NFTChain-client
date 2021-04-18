@@ -1,21 +1,14 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 /* eslint  react/prop-types: 0 */ // --> OFF
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import ImageUploader from 'react-images-upload';
 import axios from 'axios';
 // dependency for validation: https://www.npmjs.com/package/react-images-upload
 import { connect } from 'react-redux';
-import { connectToContract } from '../../store/actions/contractActions';
 
 const CreateNFT = (props) => {
   const [images, setImages] = useState([]);
   const [uploadedImage, setUploadedImage] = useState(undefined);
-
-  useEffect(() => {
-    props.connectToContract('BEP20TokenContract');
-    props.connectToContract('BEP721TokenContract');
-    props.connectToContract('NFTDexContract');
-  }, []);
 
   const onDrop = (picture) => {
     console.log('drop', picture);
@@ -92,6 +85,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
-  connectToContract,
-})(CreateNFT);
+export default connect(mapStateToProps)(CreateNFT);
