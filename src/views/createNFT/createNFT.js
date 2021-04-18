@@ -44,8 +44,9 @@ const CreateNFT = (props) => {
 
   const connect = async () => {
     console.log(props.BEP20Contract);
-    console.log(props.BEP721Contract);
-    console.log(props.NFTDexContract);
+    // console.log(props.BEP721Contract);
+    // console.log(props.NFTDexContract);
+    console.log(props.signerAddress);
   };
   return (
     <div
@@ -87,6 +88,7 @@ const mapStateToProps = (state) => {
     BEP20Contract: state.contracts.BEP20Contract,
     BEP721Contract: state.contracts.BEP721Contract,
     NFTDexContract: state.contracts.NFTDexContract,
+    signerAddress: state.contracts.signerAddress,
   };
 };
 

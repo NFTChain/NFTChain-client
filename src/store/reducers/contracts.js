@@ -6,16 +6,18 @@ import {
 } from '../../utils/getContract';
 
 const initialState = {
-  signerAddress: false,
+  signerAddress: undefined,
   BEP20Contract: undefined,
   BEP721Contract: undefined,
   NFTDexContract: undefined,
+  BEP20Balance: undefined,
+  BEP721Balance: undefined,
   isLoading: false,
 };
 
-const decideContract = (payload) => {
+const decideWhichContract = (payload) => {
   const result = { signerAddress: payload.signerAddress };
-  switch (payload.contract) {
+  switch (payload.contractType) {
     case BEP20ContractString:
       result.BEP20Contract = payload.token;
       break;
@@ -26,14 +28,28 @@ const decideContract = (payload) => {
       result.NFTDexContract = payload.token;
       break;
   }
-  console.log('decide result', result);
+  return result;
+};
+
+const decideWhichBalance = (payload) => {
+  const result = {};
+  switch (payload.contractType) {
+    case BEP20ContractString:
+      result.BEP20Balance = payload.balance;
+      break;
+    case BEP721ContractString:
+      result.BEP721Balance = payload.balance;
+      break;
+  }
   return result;
 };
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case types.GET_CONTRACT:
-      return { ...state, ...decideContract(action.payload) };
+      return { ...state, ...decideWhichContract(action.payload) };
+    case types.GET_CONTRACT_BALANCE:
+      return { ...state, ...decideWhichBalance(action.payload) };
     default:
       return state;
   }
