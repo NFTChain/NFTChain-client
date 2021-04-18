@@ -1,8 +1,11 @@
-//imports needed for this function
 const axios = require('axios');
 const FormData = require('form-data');
 
-export const pinFileToIPFS = (file) => {
+export const pinFileToIPFS = (
+  file,
+  metaDataObject,
+  mintNFTTokenForUploadedFile,
+) => {
   const url = 'https://api.pinata.cloud/pinning/pinFileToIPFS';
 
   //we gather a local file for this example, but any valid readStream source will work here.
@@ -11,12 +14,7 @@ export const pinFileToIPFS = (file) => {
 
   //You'll need to make sure that the metadata is in the form of a JSON object that's been convered to a string
   //metadata is optional
-  const metadata = JSON.stringify({
-    name: 'testname',
-    keyvalues: {
-      exampleKey: 'exampleValue',
-    },
-  });
+  const metadata = JSON.stringify(metaDataObject);
   data.append('pinataMetadata', metadata);
 
   //pinataOptions are optional
@@ -47,13 +45,11 @@ export const pinFileToIPFS = (file) => {
           '6312329d9eaa3d999a1f637ad27b3539dc2fe7f64153a6f872994b33e1c15042',
       },
     })
-    .then(function(response) {
-      //handle response here
+    .then(async (response) => {
       console.log(response);
-      // response.data.IpfsHash
+      await mintNFTTokenForUploadedFile(response.data.IpfsHash);
     })
-    .catch(function(error) {
-      //handle error here
+    .catch((error) => {
       console.log(error);
     });
 };

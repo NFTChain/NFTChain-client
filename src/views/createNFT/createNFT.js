@@ -1,44 +1,63 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
-/* eslint  react/prop-types: 0 */ // --> OFF
 import React, { useState } from 'react';
 import ImageUploader from 'react-images-upload';
-// import axios from 'axios';
 import { pinFileToIPFS } from '../../utils/pinFileToIPFS';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
-// dependency for validation: https://www.npmjs.com/package/react-images-upload
 import { connect } from 'react-redux';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputBase from '@material-ui/core/InputBase';
 
-const CreateNFT = (props) => {
+const CreateNFT = ({ BEP20Contract, BEP721Contract, signerAddress }) => {
   const [images, setImages] = useState([]);
-  const [uploadedImage, setUploadedImage] = useState(undefined);
+  const [IPFSHashOfUploadedImage, setIPFSHashOfUploadedImage] = useState(
+    undefined,
+  );
+  const [fileType, setFileType] = React.useState('');
+  const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleFileTypeChange = (event) => {
+    setFileType(event.target.value);
+  };
 
   const onDrop = (picture) => {
     console.log('drop', picture);
     setImages(images.concat(picture));
   };
 
-  const uploadImages = async () => {
-    // const formData = new FormData();
-    // formData.append('image', images[0]);
-    // const result = await axios.post(
-    //   'http://localhost:5000/nft/upload',
-    //   formData,
-    //   { headers: { 'Content-Type': 'multipart/form-data' } },
-    // );
-    // setUploadedImage(result.data.imagePath);
-    pinFileToIPFS(images[0]);
+  const uploadFile = async () => {
+    const fileMetaDataObject = {
+      name: title,
+      keyvalues: {
+        description,
+        fileType,
+      },
+    };
+    pinFileToIPFS(images[0], fileMetaDataObject, mintNFTTokenForUploadedFile);
   };
 
-  // const createNFT = async () => {
-  //   const createNFT = await token.createInk(uploadedImage, 2);
-  //   console.log(createNFT);
-  // };
+  const mintNFTTokenForUploadedFile = async (IPFSHash) => {
+    const mintNFTToken = await BEP721Contract.mint(signerAddress, IPFSHash);
+    setIPFSHashOfUploadedImage(IPFSHash);
+  };
 
-  // if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+  if (!BEP20Contract || !BEP721Contract || !signerAddress)
+    return <h1>Please connect to your wallet to be able to continue</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
 
   const connect = async () => {
     getFilesFromIPFS();
   };
+
   return (
     <div
       style={{
@@ -49,6 +68,27 @@ const CreateNFT = (props) => {
         alignItems: 'center',
       }}
     >
+      <InputLabel id='file-type-label'>File type</InputLabel>
+      <Select
+        labelId='file-type-selector'
+        id='file-type'
+        value={fileType}
+        onChange={handleFileTypeChange}
+      >
+        <MenuItem value={'music'}>Music</MenuItem>
+        <MenuItem value={'image'}>Image</MenuItem>
+        <MenuItem value={'video'}>Video</MenuItem>
+        <MenuItem value={'3d-asset'}>3D Asset</MenuItem>
+      </Select>
+      <InputLabel htmlFor='title-label'>Title</InputLabel>
+      <InputBase id='title-input' value={title} onChange={handleTitleChange} />
+      <InputLabel htmlFor='description-label'>Description</InputLabel>
+      <InputBase
+        id='description-id'
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+
       <ImageUploader
         withIcon={true}
         buttonText='Choose images'
@@ -57,29 +97,25 @@ const CreateNFT = (props) => {
         maxFileSize={5242880}
         withPreview={true}
       />
-      {images.length !== 0 && (
-        <button onClick={uploadImages}>Upload file</button>
-      )}
-      {uploadedImage && (
+      {images.length !== 0 && <button onClick={uploadFile}>Upload file</button>}
+      {IPFSHashOfUploadedImage && (
         <div style={{ width: '200px', height: '200px' }}>
           <img
             style={{ width: '100%', height: '100%' }}
-            src={`http://localhost:5000/nft/${uploadedImage}`}
-            alt='just a test'
+            src={`https://ipfs.io/ipfs/${IPFSHashOfUploadedImage}`}
+            alt='NFT'
           />
         </div>
       )}
-      {/* {uploadedImage && <button onClick={createNFT}>Create NFT</button>} */}
       <button onClick={connect}>connect</button>
     </div>
   );
 };
 const mapStateToProps = (state) => {
   return {
+    signerAddress: state.contracts.signerAddress,
     BEP20Contract: state.contracts.BEP20Contract,
     BEP721Contract: state.contracts.BEP721Contract,
-    NFTDexContract: state.contracts.NFTDexContract,
-    signerAddress: state.contracts.signerAddress,
   };
 };
 
