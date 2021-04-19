@@ -46,7 +46,6 @@ export const pinFileToIPFS = (
       },
     })
     .then(async (response) => {
-      console.log(response);
       await mintNFTTokenForUploadedFile(response.data.IpfsHash);
     })
     .catch((error) => {

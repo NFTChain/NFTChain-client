@@ -1,6 +1,7 @@
 const axios = require('axios');
 
 export const getFilesFromIPFS = () => {
+  // parameter of this func should the queryParams => implement here search logic with passing queryParams object with filter logic
   const queryParams = { selectedPinStatus: 'pinned' };
   let queryString = '?';
   if (queryParams.hashContains) {
@@ -51,12 +52,9 @@ export const getFilesFromIPFS = () => {
       },
     })
     .then(function(response) {
-      //handle response here
-      console.log(response);
       return response.data;
     })
     .catch(function(error) {
-      //handle error here
       console.log(error);
     });
 };
