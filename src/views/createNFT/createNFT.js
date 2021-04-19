@@ -30,7 +30,6 @@ const CreateNFT = ({
   const [artist, setArtist] = React.useState('');
 
   useEffect(() => {
-    // probably best to not do it automatically
     const fetchContracts = async () => {
       [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
         connectToContract(contractString),
@@ -56,27 +55,30 @@ const CreateNFT = ({
   };
 
   const onDrop = (picture) => {
-    console.log('drop', picture);
-    setImages(images.concat(picture));
+    setImages(picture);
   };
 
   const uploadFile = async () => {
     const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
+    if (title && description && fileType && tokenId && artist) {
+      const fileMetaDataObject = {
+        name: title,
+        keyvalues: {
+          description,
+          fileType,
+          tokenId,
+          artist,
+        },
+      };
 
-    const fileMetaDataObject = {
-      name: title,
-      keyvalues: {
-        description,
-        fileType,
-        tokenId,
-        artist,
-      },
-    };
-    pinFileToIPFS(images[0], fileMetaDataObject, mintNFTTokenForUploadedFile);
+      pinFileToIPFS(images[0], fileMetaDataObject, mintNFTTokenForUploadedFile);
+    } else {
+      alert('You need to fill out all fields!'); // show nice modal here instead of alert
+    }
   };
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
-    await BEP721Contract.mint(signerAddress, IPFSHash);
+    await BEP721Contract.mint(signerAddress, IPFSHash); // mint BEP721 token
     setIPFSHashOfUploadedImage(IPFSHash);
   };
 
