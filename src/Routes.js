@@ -2,15 +2,15 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import WithLayout from 'WithLayout';
 import CreateNFTView from './views/createNFT/createNFT';
-// import Marketplace from './views/Marketplace';
-// import NFTInfoPage from './views/Marketplace/NFTInfoPage';
+import Marketplace from './views/Marketplace';
+import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // Available layouts
 import { Main as MainLayout } from './layouts';
 
 // Landingpage component
 import { Crypto as CryptoView } from './views/landingPage';
 
-// Authentication component
+// // Authentication component
 // import {
 //   Login as LoginView,
 //   Signup as SignupView,
@@ -69,7 +69,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      />
+      /> */}
       <Route
         exact
         path='/marketplace'
@@ -90,7 +90,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      /> */}
+      />
       <Route
         exact
         path='/createNFT'

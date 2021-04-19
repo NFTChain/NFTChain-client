@@ -1,5 +1,5 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
 import { pinFileToIPFS } from '../../utils/pinFileToIPFS';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
@@ -8,8 +8,18 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
+import {
+  BEP20ContractString,
+  BEP721ContractString,
+} from '../../utils/getContract';
+import { connectToContract } from '../../store/actions/contractActions';
 
-const CreateNFT = ({ BEP20Contract, BEP721Contract, signerAddress }) => {
+const CreateNFT = ({
+  BEP20Contract,
+  BEP721Contract,
+  signerAddress,
+  connectToContract,
+}) => {
   const [images, setImages] = useState([]);
   const [IPFSHashOfUploadedImage, setIPFSHashOfUploadedImage] = useState(
     undefined,
@@ -17,9 +27,24 @@ const CreateNFT = ({ BEP20Contract, BEP721Contract, signerAddress }) => {
   const [fileType, setFileType] = React.useState('');
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
+  const [artist, setArtist] = React.useState('');
+
+  useEffect(() => {
+    // probably best to not do it automatically
+    const fetchContracts = async () => {
+      [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+        connectToContract(contractString),
+      );
+    };
+    fetchContracts();
+  }, []);
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const handleArtistChange = (event) => {
+    setArtist(event.target.value);
   };
 
   const handleDescriptionChange = (event) => {
@@ -36,18 +61,22 @@ const CreateNFT = ({ BEP20Contract, BEP721Contract, signerAddress }) => {
   };
 
   const uploadFile = async () => {
+    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
+
     const fileMetaDataObject = {
       name: title,
       keyvalues: {
         description,
         fileType,
+        tokenId,
+        artist,
       },
     };
     pinFileToIPFS(images[0], fileMetaDataObject, mintNFTTokenForUploadedFile);
   };
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
-    const mintNFTToken = await BEP721Contract.mint(signerAddress, IPFSHash);
+    await BEP721Contract.mint(signerAddress, IPFSHash);
     setIPFSHashOfUploadedImage(IPFSHash);
   };
 
@@ -88,6 +117,8 @@ const CreateNFT = ({ BEP20Contract, BEP721Contract, signerAddress }) => {
         value={description}
         onChange={handleDescriptionChange}
       />
+      <InputLabel htmlFor='artist-label'>Artist</InputLabel>
+      <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
 
       <ImageUploader
         withIcon={true}
@@ -119,4 +150,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CreateNFT);
+export default connect(mapStateToProps, { connectToContract })(CreateNFT);
