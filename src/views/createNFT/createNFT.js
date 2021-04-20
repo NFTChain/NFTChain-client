@@ -13,6 +13,7 @@ import {
   BEP721ContractString,
 } from '../../utils/getContract';
 import { connectToContract } from '../../store/actions/contractActions';
+const axios = require('axios');
 
 const CreateNFT = ({
   BEP20Contract,
@@ -71,7 +72,23 @@ const CreateNFT = ({
         },
       };
 
-      pinFileToIPFS(images[0], fileMetaDataObject, mintNFTTokenForUploadedFile);
+      const data = new FormData();
+      data.append('file', images[0]); // this needs later to be changed when we dont use the validate dependency anymore
+
+      const metadata = JSON.stringify(fileMetaDataObject);
+      data.append('pinataMetadata', metadata);
+
+      const result = await axios.post(
+        'http://localhost:5000/nft/upload',
+        data,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+
+      if (result?.message === 'upload successful') {
+        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+      }
     } else {
       alert('You need to fill out all fields!'); // show nice modal here instead of alert
     }
