@@ -1,31 +1,38 @@
 import React from 'react';
 import Link from '@material-ui/core/Link';
 import PropTypes from 'prop-types';
-import cardImg from '../../../assets/cardImg.jpeg';
 import { Box } from '@material-ui/core';
 
-const NFTCard = (props) => {
+const NFTCard = ({
+  image,
+  id,
+  title,
+  description,
+  currentBid,
+  artist,
+  owner,
+}) => {
   return (
     <Box bgcolor='background.default' className='card'>
-      <Link href={`/marketplace/${props.id}`} className='card-img__wrapper'>
-        <img className='card-img' src={cardImg} alt='digital art' />
+      <Link href={`/marketplace/${id}`} className='card-img__wrapper'>
+        <img className='card-img' src={image} alt='digital art' />
       </Link>
       <div className='card-info'>
-        <h3>{props.title}</h3>
-        <p>{props.subtitle}</p>
+        <h3>{title}</h3>
+        <p>{description}</p>
         <div className='card-info__actions'>
           <button className='button'>Bid</button>
-          <p>Current bid: {props.currentBid}</p>
+          <p>Current bid: {currentBid}</p>
         </div>
         <div className='card-info__separate'></div>
         <div className='card-info__creators'>
           <div className='card-info__creator'>
             <p className='card-info__title'>Artist</p>
-            <p className='card-info__name'>User: {props.artist}</p>
+            <p className='card-info__name'>User: {artist}</p>
           </div>
           <div className='card-info__creator'>
             <p className='card-info__title'>Owner</p>
-            <p className='card-info__name'>User: {props.owner}</p>
+            <p className='card-info__name'>User: {owner}</p>
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import {
   BEP721ContractString,
   NFTDexContractString,
 } from '../../../../utils/getContract';
+
 const Topbar = ({
   themeMode,
   themeToggler,
