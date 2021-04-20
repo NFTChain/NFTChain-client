@@ -1,7 +1,6 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
-import { pinFileToIPFS } from '../../utils/pinFileToIPFS';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import InputLabel from '@material-ui/core/InputLabel';
