@@ -110,11 +110,13 @@ const CreateNFT = ({
   };
 
   const createTradeForMintedNFTToken = async (tokenId, price) => {
-    const approveNFTDexContractForTransfer = await BEP721Contract.approve(
+    // tokenId is id of NFT in BEP721 contract, price is in NFTC tokens (BEP20 tokens)
+    approveNFTDexContractForTransfer = await BEP721Contract.approve(
       NFTDexJSON.address,
       tokenId,
     ); // approve the NFTDex contract to be able to transfer the NFT token in the next step
-    const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
+
+    await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
   };
 
   if (!BEP20Contract || !BEP721Contract || !signerAddress)
