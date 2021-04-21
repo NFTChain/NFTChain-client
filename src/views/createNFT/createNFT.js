@@ -1,7 +1,6 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
-import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -29,16 +28,20 @@ const CreateNFT = ({
   const [description, setDescription] = React.useState('');
   const [artist, setArtist] = React.useState('');
   const [price, setPrice] = React.useState('');
+  const [limit, setLimit] = React.useState('');
 
   useEffect(() => {
     const fetchContracts = async () => {
-      [
-        BEP20ContractString,
-        BEP721ContractString,
-      ].forEach((contractString) => connectToContract(contractString));
+      [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+        connectToContract(contractString),
+      );
     };
     fetchContracts();
   }, []);
+
+  const handleLimitChange = (event) => {
+    setLimit(event.target.value);
+  };
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
@@ -66,7 +69,8 @@ const CreateNFT = ({
 
   const uploadFile = async () => {
     const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
-    if ((title && description && fileType && tokenId && artist, price)) {
+    if (title && description && fileType && tokenId && artist && limit) {
+      // price check is deleted => need to ask at a later point for setting the price of the nft
       const fileMetaDataObject = {
         name: title,
         keyvalues: {
@@ -92,16 +96,16 @@ const CreateNFT = ({
       );
 
       if (result.data.message === 'upload successful') {
-        await mintNFTTokenForUploadedFile(result.data.ipfs_hash, tokenId);
+        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
       }
     } else {
       alert('You need to fill out all fields!'); // show nice modal here instead of alert
     }
   };
 
-  const mintNFTTokenForUploadedFile = async (IPFSHash, tokenId) => {
-    const mintBEP721Token = await BEP721Contract.mint(signerAddress, IPFSHash);
-
+  const mintNFTTokenForUploadedFile = async (IPFSHash) => {
+    const mintBEP721Token = await BEP721Contract.createInk(IPFSHash, limit);
+    debugger;
     const awaitCreationOfToken = await mintBEP721Token.wait((response) => {
       console.log(response);
       debugger;
@@ -126,12 +130,12 @@ const CreateNFT = ({
   //   console.log(trade, approveNFTDexContractForTransfer);
   // };
 
+  const setNFTonSale = () => {
+    return;
+  };
+
   if (!BEP20Contract || !BEP721Contract || !signerAddress)
     return <h1>Please connect to your wallet to be able to continue</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
-
-  const connect = async () => {
-    getFilesFromIPFS();
-  };
 
   return (
     <div
@@ -165,8 +169,11 @@ const CreateNFT = ({
       />
       <InputLabel htmlFor='artist-label'>Artist</InputLabel>
       <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
-      <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
-      <InputBase id='price-id' value={price} onChange={handlePriceChange} />
+
+      <InputLabel htmlFor='limit-label'>
+        How many NFT's do you want to create for your art?
+      </InputLabel>
+      <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
 
       <ImageUploader
         withIcon={true}
@@ -184,9 +191,13 @@ const CreateNFT = ({
             src={`https://ipfs.io/ipfs/${IPFSHashOfUploadedImage}`}
             alt='NFT'
           />
+          <h2>Do you want to sell your NFT?</h2>
+          <h6>Set the price and your NFT will be on sale on our marketplace</h6>
+          <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
+          <InputBase id='price-id' value={price} onChange={handlePriceChange} />
+          <button onClick={setNFTonSale}>Set price</button>
         </div>
       )}
-      <button onClick={connect}>connect</button>
     </div>
   );
 };
