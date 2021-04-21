@@ -1,47 +1,110 @@
-/* eslint no-unused-vars: 0 */ // --> OFF
+/* eslint  no-unused-vars: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import ImageUploader from 'react-images-upload';
-import axios from 'axios';
-// dependency for validation: https://www.npmjs.com/package/react-images-upload
-import getBlockchain from 'utils/getBlockchain';
+import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
+import { connect } from 'react-redux';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputBase from '@material-ui/core/InputBase';
+import {
+  BEP20ContractString,
+  BEP721ContractString,
+} from '../../utils/getContract';
+import { connectToContract } from '../../store/actions/contractActions';
+const axios = require('axios');
 
-const CreateNFT = () => {
+const CreateNFT = ({
+  BEP20Contract,
+  BEP721Contract,
+  signerAddress,
+  connectToContract,
+}) => {
   const [images, setImages] = useState([]);
-  const [uploadedImage, setUploadedImage] = useState(undefined);
-  const [token, setToken] = useState(undefined);
+  const [IPFSHashOfUploadedImage, setIPFSHashOfUploadedImage] = useState(
+    undefined,
+  );
+  const [fileType, setFileType] = React.useState('');
+  const [title, setTitle] = React.useState('');
+  const [description, setDescription] = React.useState('');
+  const [artist, setArtist] = React.useState('');
+
   useEffect(() => {
-    const init = async () => {
-      const { signerAddress, token } = await getBlockchain();
-      setToken(token);
-      console.log(signerAddress, token);
+    const fetchContracts = async () => {
+      [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+        connectToContract(contractString),
+      );
     };
-    init();
+    fetchContracts();
   }, []);
 
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  };
+
+  const handleArtistChange = (event) => {
+    setArtist(event.target.value);
+  };
+
+  const handleDescriptionChange = (event) => {
+    setDescription(event.target.value);
+  };
+
+  const handleFileTypeChange = (event) => {
+    setFileType(event.target.value);
+  };
+
   const onDrop = (picture) => {
-    console.log('drop', picture);
-    setImages(images.concat(picture));
+    setImages(picture);
   };
 
-  const uploadImages = async () => {
-    const formData = new FormData();
-    formData.append('image', images[0]);
+  const uploadFile = async () => {
+    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
+    if (title && description && fileType && tokenId && artist) {
+      const fileMetaDataObject = {
+        name: title,
+        keyvalues: {
+          description,
+          fileType,
+          tokenId,
+          artist,
+        },
+      };
 
-    const result = await axios.post(
-      'http://localhost:5000/nft/upload',
-      formData,
-      { headers: { 'Content-Type': 'multipart/form-data' } },
-    );
+      const data = new FormData();
+      data.append('file', images[0]); // this needs later to be changed when we dont use the validate dependency anymore
 
-    setUploadedImage(result.data.imagePath);
+      const metadata = JSON.stringify(fileMetaDataObject);
+      data.append('pinataMetadata', metadata);
+
+      const result = await axios.post(
+        'http://localhost:5000/nft/upload',
+        data,
+        {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        },
+      );
+
+      if (result?.message === 'upload successful') {
+        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+      }
+    } else {
+      alert('You need to fill out all fields!'); // show nice modal here instead of alert
+    }
   };
 
-  const createNFT = async () => {
-    const createNFT = await token.createInk(uploadedImage, 2);
-    console.log(createNFT);
+  const mintNFTTokenForUploadedFile = async (IPFSHash) => {
+    await BEP721Contract.mint(signerAddress, IPFSHash); // mint BEP721 token
+    setIPFSHashOfUploadedImage(IPFSHash);
   };
 
-  if (!token) return <h1>Please connect to Metamask</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+  if (!BEP20Contract || !BEP721Contract || !signerAddress)
+    return <h1>Please connect to your wallet to be able to continue</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
+
+  const connect = async () => {
+    getFilesFromIPFS();
+  };
+
   return (
     <div
       style={{
@@ -52,6 +115,29 @@ const CreateNFT = () => {
         alignItems: 'center',
       }}
     >
+      <InputLabel id='file-type-label'>File type</InputLabel>
+      <Select
+        labelId='file-type-selector'
+        id='file-type'
+        value={fileType}
+        onChange={handleFileTypeChange}
+      >
+        <MenuItem value={'music'}>Music</MenuItem>
+        <MenuItem value={'image'}>Image</MenuItem>
+        <MenuItem value={'video'}>Video</MenuItem>
+        <MenuItem value={'3d-asset'}>3D Asset</MenuItem>
+      </Select>
+      <InputLabel htmlFor='title-label'>Title</InputLabel>
+      <InputBase id='title-input' value={title} onChange={handleTitleChange} />
+      <InputLabel htmlFor='description-label'>Description</InputLabel>
+      <InputBase
+        id='description-id'
+        value={description}
+        onChange={handleDescriptionChange}
+      />
+      <InputLabel htmlFor='artist-label'>Artist</InputLabel>
+      <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
+
       <ImageUploader
         withIcon={true}
         buttonText='Choose images'
@@ -60,21 +146,26 @@ const CreateNFT = () => {
         maxFileSize={5242880}
         withPreview={true}
       />
-      {images.length !== 0 && (
-        <button onClick={uploadImages}>Upload file</button>
-      )}
-      {uploadedImage && (
+      {images.length !== 0 && <button onClick={uploadFile}>Upload file</button>}
+      {IPFSHashOfUploadedImage && (
         <div style={{ width: '200px', height: '200px' }}>
           <img
             style={{ width: '100%', height: '100%' }}
-            src={`http://localhost:5000/nft/${uploadedImage}`}
-            alt='just a test'
+            src={`https://ipfs.io/ipfs/${IPFSHashOfUploadedImage}`}
+            alt='NFT'
           />
         </div>
       )}
-      {uploadedImage && <button onClick={createNFT}>Create NFT</button>}
+      <button onClick={connect}>connect</button>
     </div>
   );
 };
+const mapStateToProps = (state) => {
+  return {
+    signerAddress: state.contracts.signerAddress,
+    BEP20Contract: state.contracts.BEP20Contract,
+    BEP721Contract: state.contracts.BEP721Contract,
+  };
+};
 
-export default CreateNFT;
+export default connect(mapStateToProps, { connectToContract })(CreateNFT);

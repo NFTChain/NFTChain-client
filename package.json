@@ -64,6 +64,8 @@
     "react-typed": "^1.2.0",
     "react-visibility-sensor": "^5.1.1",
     "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.3",

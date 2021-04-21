@@ -4,7 +4,7 @@ import { useTheme } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
 import Container from 'common/Container';
-import { About, Download, Features, Hero } from './components';
+import { About, Download, Features, Hero, Roadmap } from './components';
 
 const Crypto = () => {
   const theme = useTheme();
@@ -40,9 +40,9 @@ const Crypto = () => {
         </Box>
       </Box>
       <Box bgcolor={theme.palette.alternate.main}>
-        {/* <Container paddingBottom={'0 !important'}>
+        <Container paddingBottom={'0 !important'}>
           <Roadmap />
-        </Container> */}
+        </Container>
         <Container>
           <Divider />
         </Container>

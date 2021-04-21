@@ -10,12 +10,12 @@ import { Main as MainLayout } from './layouts';
 // Landingpage component
 import { Crypto as CryptoView } from './views/landingPage';
 
-// Authentication component
-import {
-  LoginSimple as LoginSimpleView,
-  SignupSimple as SignupSimpleView,
-  ForgotPasswordSimple as ForgotPasswordSimpleView,
-} from './views/authPages';
+// // Authentication component
+// import {
+//   Login as LoginView,
+//   Signup as SignupView,
+//   ForgotPassword as ForgotPasswordView,
+// } from './views/authPages';
 
 // Supporting pages
 import { NotFound as NotFoundView } from './views/supportingPages';
@@ -37,39 +37,39 @@ const Routes = () => {
           />
         )}
       />
-      <Route
+      {/* <Route
         exact
-        path='/page-login-simple'
+        path='/login'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={LoginSimpleView}
+            component={LoginView}
             layout={MainLayout}
           />
         )}
       />
       <Route
         exact
-        path='/page-signup-simple'
+        path='/signup'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={SignupSimpleView}
+            component={SignupView}
             layout={MainLayout}
           />
         )}
       />
       <Route
         exact
-        path='/page-forgot-password-simple'
+        path='/forgot-password'
         render={(matchProps) => (
           <WithLayout
             {...matchProps}
-            component={ForgotPasswordSimpleView}
+            component={ForgotPasswordView}
             layout={MainLayout}
           />
         )}
-      />
+      /> */}
       <Route
         exact
         path='/marketplace'
