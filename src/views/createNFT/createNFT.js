@@ -14,6 +14,7 @@ import {
 } from '../../utils/getContract';
 import { connectToContract } from '../../store/actions/contractActions';
 const axios = require('axios');
+import NFTDexJSON from '../../utils/NftDex.json';
 
 const CreateNFT = ({
   BEP20Contract,
@@ -109,10 +110,11 @@ const CreateNFT = ({
   };
 
   const createTradeForMintedNFTToken = async (tokenId, price) => {
-    debugger;
+    const approveNFTDexContractForTransfer = await BEP721Contract.approve(
+      NFTDexJSON.address,
+      tokenId,
+    ); // approve the NFTDex contract to be able to transfer the NFT token in the next step
     const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
-    debugger;
-    console.log(trade);
   };
 
   if (!BEP20Contract || !BEP721Contract || !signerAddress)
