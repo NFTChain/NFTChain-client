@@ -78,14 +78,14 @@ const CreateNFT = ({
       data.append('pinataMetadata', metadata);
 
       const result = await axios.post(
-        'http://localhost:5000/nft/upload',
+        'https://nftchain.herokuapp.com/nft/upload/',
         data,
         {
           headers: { 'Content-Type': 'multipart/form-data' },
         },
       );
 
-      if (result?.message === 'upload successful') {
+      if (result.data.message === 'upload successful') {
         await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
       }
     } else {
