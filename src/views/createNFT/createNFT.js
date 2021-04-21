@@ -171,7 +171,7 @@ const CreateNFT = ({
       <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
 
       <InputLabel htmlFor='limit-label'>
-        How many NFT's do you want to create for your art?
+        How many NFTs do you want to create for your art?
       </InputLabel>
       <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
 

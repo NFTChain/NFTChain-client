@@ -14,6 +14,7 @@ const decideWhichContract = (contract) => {
   }
 };
 
+// we need to fix bugs when people are on the wrong network (not on the bsc testnet / mainnet network)
 const getContract = async (contractType) => {
   const Token = decideWhichContract(contractType);
 
