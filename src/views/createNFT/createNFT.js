@@ -28,6 +28,7 @@ const CreateNFT = ({
   const [title, setTitle] = React.useState('');
   const [description, setDescription] = React.useState('');
   const [artist, setArtist] = React.useState('');
+  const [price, setPrice] = React.useState('');
 
   useEffect(() => {
     const fetchContracts = async () => {
@@ -40,6 +41,10 @@ const CreateNFT = ({
 
   const handleTitleChange = (event) => {
     setTitle(event.target.value);
+  };
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
   };
 
   const handleArtistChange = (event) => {
@@ -137,6 +142,8 @@ const CreateNFT = ({
       />
       <InputLabel htmlFor='artist-label'>Artist</InputLabel>
       <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
+      <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
+      <InputBase id='price-id' value={price} onChange={handlePriceChange} />
 
       <ImageUploader
         withIcon={true}
