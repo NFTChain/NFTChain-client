@@ -10,6 +10,7 @@ import InputBase from '@material-ui/core/InputBase';
 import {
   BEP20ContractString,
   BEP721ContractString,
+  NFTDexContractString,
 } from '../../utils/getContract';
 import { connectToContract } from '../../store/actions/contractActions';
 const axios = require('axios');
@@ -17,6 +18,7 @@ const axios = require('axios');
 const CreateNFT = ({
   BEP20Contract,
   BEP721Contract,
+  NFTDexContract,
   signerAddress,
   connectToContract,
 }) => {
@@ -32,9 +34,11 @@ const CreateNFT = ({
 
   useEffect(() => {
     const fetchContracts = async () => {
-      [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-        connectToContract(contractString),
-      );
+      [
+        BEP20ContractString,
+        BEP721ContractString,
+        NFTDexContractString,
+      ].forEach((contractString) => connectToContract(contractString));
     };
     fetchContracts();
   }, []);
@@ -65,7 +69,7 @@ const CreateNFT = ({
 
   const uploadFile = async () => {
     const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
-    if (title && description && fileType && tokenId && artist) {
+    if ((title && description && fileType && tokenId && artist, price)) {
       const fileMetaDataObject = {
         name: title,
         keyvalues: {
@@ -92,6 +96,7 @@ const CreateNFT = ({
 
       if (result.data.message === 'upload successful') {
         await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+        await createTradeForMintedNFTToken(tokenId, price);
       }
     } else {
       alert('You need to fill out all fields!'); // show nice modal here instead of alert
@@ -101,6 +106,13 @@ const CreateNFT = ({
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
     await BEP721Contract.mint(signerAddress, IPFSHash); // mint BEP721 token
     setIPFSHashOfUploadedImage(IPFSHash);
+  };
+
+  const createTradeForMintedNFTToken = async (tokenId, price) => {
+    debugger;
+    const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
+    debugger;
+    console.log(trade);
   };
 
   if (!BEP20Contract || !BEP721Contract || !signerAddress)
@@ -172,6 +184,7 @@ const mapStateToProps = (state) => {
     signerAddress: state.contracts.signerAddress,
     BEP20Contract: state.contracts.BEP20Contract,
     BEP721Contract: state.contracts.BEP721Contract,
+    NFTDexContract: state.contracts.NFTDexContract,
   };
 };
 
