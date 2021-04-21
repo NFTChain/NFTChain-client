@@ -9,7 +9,7 @@ import {
 
 const Socials = () => {
   return (
-    <div className='socials'>
+    <section className='socials'>
       <div className='socials__content container'>
         <a href='#' target='_blank' className='socials__link'>
           <FaTwitter className='socials__icon' />
@@ -27,7 +27,7 @@ const Socials = () => {
           <FaInstagram className='socials__icon' />
         </a>
       </div>
-    </div>
+    </section>
   );
 };
 

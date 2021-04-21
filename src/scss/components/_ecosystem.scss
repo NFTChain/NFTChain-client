@@ -1,0 +1,23 @@
+.ecosystem {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($primary-dark-1, 0.95),
+    rgba($primary-dark-1, 0.95)
+  );
+  padding: 6rem 2rem;
+
+  &__content {
+    @include flexCenter;
+    margin: 0 auto;
+  }
+
+  &__box {
+    &:not(:last-child) {
+      margin-right: 4rem;
+    }
+  }
+
+  &__logo {
+    height: 3rem;
+  }
+}

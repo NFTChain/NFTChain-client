@@ -2,7 +2,7 @@ import React from 'react';
 
 const Header = () => {
   return (
-    <div className='header'>
+    <header className='header'>
       <div className='header__content container'>
         <div className='header__text-box'>
           <h1 className='heading-primary'>
@@ -17,7 +17,7 @@ const Header = () => {
           </p>
         </div>
       </div>
-    </div>
+    </header>
   );
 };
 
