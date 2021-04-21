@@ -1,0 +1,43 @@
+.socials {
+  background-color: $primary-dark-1;
+
+  &__content {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin: 0 auto;
+  }
+
+  &__link,
+  &:link,
+  &:visited {
+    display: flex;
+    font-size: 2rem;
+    background: #e3e3e3;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px 20px 20px 20px;
+    height: 3.5rem;
+    width: 3.5rem;
+    transition: all 0.3s;
+    cursor: pointer;
+    margin: 1rem 0 1rem 1rem;
+
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+
+  &__icon {
+    font-size: 1.8rem;
+    color: $secondary-dark-1;
+  }
+
+  &__link:hover {
+    background: $secondary-dark-3;
+  }
+
+  &__link:hover &__icon {
+    color: #e3e3e3;
+  }
+}

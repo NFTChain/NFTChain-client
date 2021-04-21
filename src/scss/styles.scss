@@ -1,7 +1,17 @@
-@import './base/base';
-@import './base/settings';
+// @import './base/base';
+// @import './base/settings';
+@import './base-2/base';
+@import './base-2/typography';
+
 @import './react-images.scss';
 @import './slick-slider.scss';
+
+@import './abstracts/variables';
+
+@import './layouts/nav';
+@import './layouts/socials';
+
+@import './components/container';
 @import './components/marketplace';
 @import './components/nft-card';
 @import './components/button';
