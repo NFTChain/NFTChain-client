@@ -1,11 +1,9 @@
 import { ethers, Contract } from 'ethers';
 import BEP20Token from './NftChainBEP20.json';
 import BEP721Token from './NftChainBEP721.json';
-import NFTDexContract from './NftDex.json';
 
 export const BEP20ContractString = 'BEP20TokenContract';
 export const BEP721ContractString = 'BEP721TokenContract';
-export const NFTDexContractString = 'NFTDexContract';
 
 const decideWhichContract = (contract) => {
   switch (contract) {
@@ -13,8 +11,6 @@ const decideWhichContract = (contract) => {
       return BEP20Token;
     case BEP721ContractString:
       return BEP721Token;
-    case NFTDexContractString:
-      return NFTDexContract;
   }
 };
 

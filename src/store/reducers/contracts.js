@@ -2,14 +2,12 @@ import * as types from '../actionTypes/contractActionTypes';
 import {
   BEP20ContractString,
   BEP721ContractString,
-  NFTDexContractString,
 } from '../../utils/getContract';
 
 const initialState = {
   signerAddress: undefined,
   BEP20Contract: undefined,
   BEP721Contract: undefined,
-  NFTDexContract: undefined,
   BEP20Balance: undefined,
   BEP721Balance: undefined,
   isLoading: false,
@@ -23,9 +21,6 @@ const decideWhichContract = (payload) => {
       break;
     case BEP721ContractString:
       result.BEP721Contract = payload.token;
-      break;
-    case NFTDexContractString:
-      result.NFTDexContract = payload.token;
       break;
   }
   return result;

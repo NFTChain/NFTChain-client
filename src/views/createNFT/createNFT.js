@@ -10,16 +10,13 @@ import InputBase from '@material-ui/core/InputBase';
 import {
   BEP20ContractString,
   BEP721ContractString,
-  NFTDexContractString,
 } from '../../utils/getContract';
 import { connectToContract } from '../../store/actions/contractActions';
 const axios = require('axios');
-import NFTDexJSON from '../../utils/NftDex.json';
 
 const CreateNFT = ({
   BEP20Contract,
   BEP721Contract,
-  NFTDexContract,
   signerAddress,
   connectToContract,
 }) => {
@@ -38,7 +35,6 @@ const CreateNFT = ({
       [
         BEP20ContractString,
         BEP721ContractString,
-        NFTDexContractString,
       ].forEach((contractString) => connectToContract(contractString));
     };
     fetchContracts();
@@ -114,23 +110,21 @@ const CreateNFT = ({
     console.log(awaitCreationOfToken);
     setIPFSHashOfUploadedImage(IPFSHash);
 
-    await createTradeForMintedNFTToken(tokenId, price);
+    // await createTradeForMintedNFTToken(tokenId, price);
   };
 
-  const createTradeForMintedNFTToken = async (tokenId, price) => {
-    console.log(BEP721Contract, NFTDexJSON.address);
-    debugger;
-    const approveNFTDexContractForTransfer = await BEP721Contract.approve(
-      NFTDexJSON.address,
-      tokenId,
-    ); // approve the NFTDex contract to be able to transfer the NFT token in the next step
+  // const createTradeForMintedNFTToken = async (tokenId, price) => {
+  //   const approveNFTDexContractForTransfer = await BEP721Contract.approve(
+  //     NFTDexJSON.address,
+  //     tokenId,
+  //   ); // approve the NFTDex contract to be able to transfer the NFT token in the next step
 
-    await approveNFTDexContractForTransfer.wait();
-    debugger;
-    const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
-    debugger;
-    console.log(trade, approveNFTDexContractForTransfer);
-  };
+  //   await approveNFTDexContractForTransfer.wait();
+  //   debugger;
+  //   const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
+  //   debugger;
+  //   console.log(trade, approveNFTDexContractForTransfer);
+  // };
 
   if (!BEP20Contract || !BEP721Contract || !signerAddress)
     return <h1>Please connect to your wallet to be able to continue</h1>; // metamask hardhat transaction issue (https://hardhat.org/metamask-issue.html)
@@ -201,7 +195,6 @@ const mapStateToProps = (state) => {
     signerAddress: state.contracts.signerAddress,
     BEP20Contract: state.contracts.BEP20Contract,
     BEP721Contract: state.contracts.BEP721Contract,
-    NFTDexContract: state.contracts.NFTDexContract,
   };
 };
 
