@@ -9,12 +9,21 @@ body {
   font-size: 6rem;
   font-weight: 400;
   line-height: 1.4;
-  margin-bottom: 2rem;
+
+  &-1 {
+    animation: moveInLeft 1s ease-out;
+  }
+
+  &-2 {
+    animation: moveInRight 1s ease-out;
+  }
 
   &-main {
+    margin: 2rem 0;
     font-size: 1.8rem;
     letter-spacing: 0.1rem;
     color: $tertiary-dark-4;
     max-width: 70%;
+    animation: moveInBottom 1s ease-out;
   }
 }
