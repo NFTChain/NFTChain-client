@@ -1,0 +1,24 @@
+.header {
+  background-image: linear-gradient(
+    to right bottom,
+    rgba($primary-dark-1, 0.95),
+    rgba($primary-dark-1, 0.95)
+  );
+
+  height: 95vh;
+  background-size: cover;
+  background-position: top;
+
+  &__content {
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  &__text-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}

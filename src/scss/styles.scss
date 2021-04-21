@@ -1,15 +1,16 @@
 // @import './base/base';
 // @import './base/settings';
+@import './abstracts/variables';
+
 @import './base-2/base';
 @import './base-2/typography';
 
 @import './react-images.scss';
 @import './slick-slider.scss';
 
-@import './abstracts/variables';
-
 @import './layouts/nav';
 @import './layouts/socials';
+@import './layouts/header';
 
 @import './components/container';
 @import './components/marketplace';
