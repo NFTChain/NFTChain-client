@@ -69,7 +69,7 @@ const CreateNFT = ({
   };
 
   const uploadFile = async () => {
-    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id of current uploaded file
+    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
     if ((title && description && fileType && tokenId && artist, price)) {
       const fileMetaDataObject = {
         name: title,
@@ -96,24 +96,40 @@ const CreateNFT = ({
       );
 
       if (result.data.message === 'upload successful') {
-        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
-        await createTradeForMintedNFTToken(tokenId, price);
+        await mintNFTTokenForUploadedFile(result.data.ipfs_hash, tokenId);
       }
     } else {
       alert('You need to fill out all fields!'); // show nice modal here instead of alert
     }
   };
 
-  const mintNFTTokenForUploadedFile = async (IPFSHash) => {
-    await BEP721Contract.mint(signerAddress, IPFSHash); // mint BEP721 token
+  const mintNFTTokenForUploadedFile = async (IPFSHash, tokenId) => {
+    const mintBEP721Token = await BEP721Contract.mint(signerAddress, IPFSHash);
+
+    const awaitCreationOfToken = await mintBEP721Token.wait((response) => {
+      console.log(response);
+      debugger;
+    }); // mint BEP721 token
+    debugger;
+    console.log(awaitCreationOfToken);
     setIPFSHashOfUploadedImage(IPFSHash);
+
+    await createTradeForMintedNFTToken(tokenId, price);
   };
 
   const createTradeForMintedNFTToken = async (tokenId, price) => {
-    // tokenId is id of NFT in BEP721 contract, price is in NFTC tokens (BEP20 tokens)
-    await BEP721Contract.approve(NFTDexJSON.address, tokenId); // approve the NFTDex contract to be able to transfer the NFT token in the next step
+    console.log(BEP721Contract, NFTDexJSON.address);
+    debugger;
+    const approveNFTDexContractForTransfer = await BEP721Contract.approve(
+      NFTDexJSON.address,
+      tokenId,
+    ); // approve the NFTDex contract to be able to transfer the NFT token in the next step
 
-    await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
+    await approveNFTDexContractForTransfer.wait();
+    debugger;
+    const trade = await NFTDexContract.openTrade(tokenId, price); // creade trade on NFTDex contract
+    debugger;
+    console.log(trade, approveNFTDexContractForTransfer);
   };
 
   if (!BEP20Contract || !BEP721Contract || !signerAddress)

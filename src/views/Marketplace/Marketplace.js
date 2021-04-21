@@ -23,18 +23,22 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
       const fetchNfts = async () => {
         // try to avoid as much as possible to get on-chain data and use off-chain data from IPFS
         const getNFTs = await getFilesFromIPFS();
-        const NFTInfoArray = getNFTs.rows.map(
-          (NFT) =>
-            (NFT = {
-              id: NFT.metadata.keyvalues.tokenId,
-              title: NFT.metadata.name,
-              image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
-              description: NFT.metadata.keyvalues.description,
-              fileType: NFT.metadata.keyvalues.fileType,
-              currentBid: 1000, // use NFTDex smart contract for
-              owner: 'owner', // this will be a Promise => (await BEP721Contract.ownerOf(NFT.metadata.keyvalues.tokenId)).toString();
-              artist: NFT.metadata.keyvalues.artist,
-            }),
+        const NFTInfoArray = Promise.all(
+          getNFTs.rows.map(
+            async (NFT) =>
+              (NFT = {
+                id: NFT.metadata.keyvalues.tokenId,
+                title: NFT.metadata.name,
+                image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
+                description: NFT.metadata.keyvalues.description,
+                fileType: NFT.metadata.keyvalues.fileType,
+                currentBid: 1000, // use NFTDex smart contract for
+                owner: (
+                  await BEP721Contract.ownerOf(NFT.metadata.keyvalues.tokenId)
+                ).toString(),
+                artist: NFT.metadata.keyvalues.artist,
+              }),
+          ),
         );
         setNFTs(NFTInfoArray);
       };
