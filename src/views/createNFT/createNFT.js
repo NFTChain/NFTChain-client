@@ -69,7 +69,7 @@ const CreateNFT = ({
   };
 
   const uploadFile = async () => {
-    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
+    const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id of current uploaded file
     if ((title && description && fileType && tokenId && artist, price)) {
       const fileMetaDataObject = {
         name: title,
