@@ -33,17 +33,19 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
     // Promise.all because we have a list of promises
     await Promise.all(
       getNFTs.map(async (NFT, index) => {
-        let NFTInfo, NFTInfoObject, owner;
+        let NFTInfoPromise, NFTInfoObject, owner;
 
         try {
-          NFTInfo = await BEP721Contract.inkInfoByInkUrl(NFT.ipfs_pin_hash);
+          NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(
+            NFT.ipfs_pin_hash,
+          );
 
           NFTInfoObject = {
-            id: NFTInfo[0].toString(),
-            artist: NFTInfo[1].toString(),
-            count: NFTInfo[2].toString(),
-            price: NFTInfo[3].toString(),
-            // add later limit here to be able to know how much can get selled
+            id: NFTInfoPromise[0].toString(),
+            artist: NFTInfoPromise[1].toString(),
+            count: NFTInfoPromise[2].toString(),
+            price: NFTInfoPromise[3].toString(),
+            limit: NFTInfoPromise[4].toString(),
           };
 
           owner = await BEP721Contract.ownerOf(NFTInfoObject.id); // if promise resolves, we know token is minted and get the address of the holder
@@ -52,7 +54,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
             owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner
           }
         }
-        if (NFTInfo && NFTInfoObject && Number(NFTInfoObject.price)) {
+        if (NFTInfoPromise && NFTInfoObject && Number(NFTInfoObject.price)) {
           // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
           NFTInfoArray.push({
             id: index,
@@ -63,6 +65,8 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
             price: NFTInfoObject.price,
             owner: owner,
             artist: NFT.metadata.keyvalues.artist,
+            limit: NFTInfoObject.limit,
+            count: NFTInfoObject.count,
           });
         }
       }),
@@ -74,7 +78,8 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
   const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
-  if (!currentNFTS.length) return <div>Here should be a nice loader ;(</div>;
+  if (currentNFTS.length === 0)
+    return <div>Here should be a nice loader ;(</div>;
   return (
     <Box bgcolor='alternate.main' className='marketplace-container'>
       <Box bgcolor='alternate.main' className='marketplace'>

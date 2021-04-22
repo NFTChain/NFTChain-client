@@ -5,18 +5,10 @@ import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import {
-  BEP20ContractString,
-  BEP721ContractString,
-} from '../../../utils/getContract';
+import { BEP721ContractString } from '../../../utils/getContract';
 import { connectToContract } from '../../../store/actions/contractActions';
 
-const UploadNFTForm = ({
-  BEP20Contract,
-  BEP721Contract,
-  signerAddress,
-  connectToContract,
-}) => {
+const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
   const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState(undefined);
   const [fileType, setFileType] = useState('');
@@ -60,11 +52,9 @@ const UploadNFTForm = ({
   };
 
   const connectToWalletAndCreate = async () => {
-    await connectToContracts();
+    connectToContract(BEP721ContractString);
     if (
-      BEP20Contract &&
       BEP721Contract &&
-      signerAddress &&
       file &&
       title &&
       description &&
@@ -124,12 +114,6 @@ const UploadNFTForm = ({
     }
   };
 
-  const connectToContracts = async () => {
-    [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-      connectToContract(contractString),
-    );
-  };
-
   return (
     <div>
       <div className='upload-and-preview'>
@@ -186,8 +170,6 @@ const UploadNFTForm = ({
 
 const mapStateToProps = (state) => {
   return {
-    signerAddress: state.contracts.signerAddress,
-    BEP20Contract: state.contracts.BEP20Contract,
     BEP721Contract: state.contracts.BEP721Contract,
   };
 };
