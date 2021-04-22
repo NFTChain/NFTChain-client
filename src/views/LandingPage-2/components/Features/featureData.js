@@ -15,13 +15,13 @@ export default [
     title: 'Buyer Mints NFT',
     body:
       'To lower the transaction fees for artists, we are using a technique where the buyer can mint their token',
-    icon: <GiFactoryArm />,
+    icon: <GiPencilBrush />,
   },
   {
     title: 'NFT Factory',
     body:
       'To provide our users with non-stop NFT availability we created an NFT creation tool where artists can paint their own NFTs',
-    icon: <GiPencilBrush />,
+    icon: <GiFactoryArm />,
   },
   {
     title: 'Diversity',
