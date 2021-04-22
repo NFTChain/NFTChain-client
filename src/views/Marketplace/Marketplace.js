@@ -24,30 +24,34 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
         // try to avoid as much as possible to get on-chain data and use off-chain data from IPFS
         const getNFTs = await getFilesFromIPFS();
 
-        const NFTInfoArray = await Promise.all(
-          getNFTs.rows.map(async (NFT) => {
-            const NFTInfo = await BEP721Contract.inkInfoByInkUrl(
-              NFT.ipfs_pin_hash,
-            );
-            const NFTInfoObject = {
-              id: NFTInfo[0].toString(),
-              artist: NFTInfo[1].toString(),
-              count: NFTInfo[2].toString(),
-              price: NFTInfo[3].toString(),
-            };
-            debugger;
-            NFT = {
-              id: NFT.metadata.keyvalues.tokenId,
-              title: NFT.metadata.name,
-              image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
-              description: NFT.metadata.keyvalues.description,
-              fileType: NFT.metadata.keyvalues.fileType,
-              price: 1000, // use NFTDex smart contract for
-              owner: 'Peter', // if minted => await BEP721Contract.ownerOf(NFTInfoObject.id) // if unminted artist is owner
-              artist: NFT.metadata.keyvalues.artist,
-            };
-          }),
-        );
+        const NFTInfoArray =
+          // await Promise.all(
+          getNFTs.rows.map(
+            async (NFT) =>
+              // {
+              // const NFTInfo = await BEP721Contract.inkInfoByInkUrl(
+              //   NFT.ipfs_pin_hash,
+              // );
+              // const NFTInfoObject = {
+              //   id: NFTInfo[0].toString(),
+              //   artist: NFTInfo[1].toString(),
+              //   count: NFTInfo[2].toString(),
+              //   price: NFTInfo[3].toString(),
+              // };
+              // debugger;
+              (NFT = {
+                id: NFT.metadata.keyvalues.tokenId,
+                title: NFT.metadata.name,
+                image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
+                description: NFT.metadata.keyvalues.description,
+                fileType: NFT.metadata.keyvalues.fileType,
+                price: 1000, // use NFTDex smart contract for
+                owner: 'Peter', // if minted => await BEP721Contract.ownerOf(NFTInfoObject.id) // if unminted artist is owner
+                artist: NFT.metadata.keyvalues.artist,
+              }),
+            // }
+          );
+        // );
         setNFTs(NFTInfoArray);
       };
       fetchNfts();
