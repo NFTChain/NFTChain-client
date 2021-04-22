@@ -136,16 +136,21 @@ const UploadNFTForm = ({
 
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <input type='file' onChange={handleFileChange} />
-        {file && <img src={file} style={{ width: '200px', height: '200px' }} />}
-        {/* this img tag is the preview of the file, we need to handle multiple file types at a later point */}
+      <div className='upload-and-preview'>
+        <div className='upload-file-container'>
+          <h3>Upload file</h3>
+          <div className='upload-file-box'>
+            <input type='file' onChange={handleFileChange} />
+          </div>
+        </div>
+
+        <div className='preview-container'>
+          <h3>Preview</h3>
+          <div className='preview-box'>
+            <img src={file} />
+          </div>
+          {/* this img tag is the preview of the file, we need to handle multiple file types at a later point */}
+        </div>
       </div>
       <InputLabel id='file-type-label'>File type</InputLabel>
       <Select
