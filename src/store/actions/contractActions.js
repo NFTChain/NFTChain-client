@@ -43,7 +43,6 @@ export const getContractBalance = (
     if (BEP20ContractString === contractType)
       // only for BEP20 token because BEP721 doesnt have decimals
       balance = utils.formatUnits(balance).split('.')[0]; // formatUnits second parameter is "ether" as default (18 decimals like our BEP20 token)
-    debugger;
     dispatch({
       type: actionTypes.GET_CONTRACT_BALANCE,
       payload: {

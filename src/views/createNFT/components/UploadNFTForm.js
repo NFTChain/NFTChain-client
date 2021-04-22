@@ -18,6 +18,7 @@ const UploadNFTForm = ({
   connectToContract,
 }) => {
   const [file, setFile] = useState(undefined);
+  const [preview, setPreview] = useState(undefined);
   const [fileType, setFileType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -26,7 +27,13 @@ const UploadNFTForm = ({
   const [limit, setLimit] = useState('');
 
   const handleFileChange = (event) => {
-    setFile(URL.createObjectURL(event.target.files[0]));
+    const f = file;
+    setFile(event.target.files[0]);
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      setPreview(e.target.result);
+    };
+    reader.readAsDataURL(event.target.files[0]);
   };
 
   const handleLimitChange = (event) => {
@@ -55,7 +62,6 @@ const UploadNFTForm = ({
 
   const connectToWalletAndCreate = async () => {
     await connectToContracts();
-
     if (
       BEP20Contract &&
       BEP721Contract &&
@@ -83,13 +89,13 @@ const UploadNFTForm = ({
       const metadata = JSON.stringify(fileMetaDataObject);
       data.append('pinataMetadata', metadata);
 
-      const result = await axios
+      axios
         .post('https://nftchain.herokuapp.com/nft/upload/', data, {
           headers: { 'Content-Type': 'multipart/form-data' },
         })
         .then(async (response) => {
           if (response.data.message === 'upload successful') {
-            await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+            await mintNFTTokenForUploadedFile(response.data.ipfs_hash);
           }
         })
         .catch((error) => {
@@ -97,10 +103,6 @@ const UploadNFTForm = ({
           debugger;
           alert('Upload of file was unsuccesful, please try again'); // show nice modal here instead of alert
         });
-
-      if (result.data.message === 'upload successful') {
-        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
-      }
     } else {
       alert('You need to fill out all fields!'); // show nice modal here instead of alert
     }
@@ -108,19 +110,13 @@ const UploadNFTForm = ({
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
     try {
-      const mintBEP721Token = await BEP721Contract.createInk(
+      const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
         limit,
         price,
-      );
-      debugger;
-      const awaitCreationOfToken = await mintBEP721Token.wait((response) => {
-        console.log(response);
-        debugger;
-      }); // mint BEP721 token
-      debugger;
-      console.log(awaitCreationOfToken);
-      //   setIPFSHashOfUploadedImage(IPFSHash);
+      ); // create unminted NFT
+
+      await createUnmintedNFT.wait(); // wait for successful transaction
     } catch (error) {
       debugger;
       console.log(error);
@@ -147,7 +143,7 @@ const UploadNFTForm = ({
         <div className='preview-container'>
           <h3>Preview</h3>
           <div className='preview-box'>
-            <img src={file} />
+            <img src={preview} className='preview-image' />
           </div>
           {/* this img tag is the preview of the file, we need to handle multiple file types at a later point */}
         </div>

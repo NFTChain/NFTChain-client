@@ -53,6 +53,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
           );
         // );
         setNFTs(NFTInfoArray);
+        console.log(NFTInfoArray);
       };
       fetchNfts();
     }
