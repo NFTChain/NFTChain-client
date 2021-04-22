@@ -13,7 +13,7 @@ const NFTCard = ({ image, id, title, description, price, artist, owner }) => {
         <h3>{title}</h3>
         <p>{description}</p>
         <div className='card-info__actions'>
-          <button className='button'>Bid</button>
+          <button className='button'>Price</button>
           <p>Price: {price}</p>
         </div>
         <div className='card-info__separate'></div>
@@ -36,9 +36,9 @@ NFTCard.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  currentBid: PropTypes.number,
-  artist: PropTypes.number,
-  owner: PropTypes.number,
+  price: PropTypes.string,
+  artist: PropTypes.string,
+  owner: PropTypes.string,
 };
 
 export default NFTCard;

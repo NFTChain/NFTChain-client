@@ -22,38 +22,46 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
       // fetch NFTs from IPFS and modify the data how we need it
       const fetchNfts = async () => {
         // try to avoid as much as possible to get on-chain data and use off-chain data from IPFS
-        const getNFTs = await getFilesFromIPFS();
+        const getNFTs = (await getFilesFromIPFS()).rows;
+        const NFTInfoArray = [];
+        await Promise.all(
+          getNFTs.map(async (NFT, index) => {
+            let NFTInfo, NFTInfoObject, owner;
+            try {
+              NFTInfo = await BEP721Contract.inkInfoByInkUrl(NFT.ipfs_pin_hash);
 
-        const NFTInfoArray =
-          // await Promise.all(
-          getNFTs.rows.map(
-            async (NFT) =>
-              // {
-              // const NFTInfo = await BEP721Contract.inkInfoByInkUrl(
-              //   NFT.ipfs_pin_hash,
-              // );
-              // const NFTInfoObject = {
-              //   id: NFTInfo[0].toString(),
-              //   artist: NFTInfo[1].toString(),
-              //   count: NFTInfo[2].toString(),
-              //   price: NFTInfo[3].toString(),
-              // };
-              // debugger;
-              (NFT = {
-                id: NFT.metadata.keyvalues.tokenId,
+              NFTInfoObject = {
+                id: NFTInfo[0].toString(),
+                artist: NFTInfo[1].toString(),
+                count: NFTInfo[2].toString(),
+                price: NFTInfo[3].toString(),
+              };
+
+              owner = await BEP721Contract.ownerOf(NFTInfoObject.id); // if promise resolves, we know token is minted and get the address of the holder
+            } catch (error) {
+              console.log(error);
+              if (
+                error.reason === 'ERC721: owner query for nonexistent token'
+              ) {
+                owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner
+              }
+            }
+            if (NFTInfo && NFTInfoObject && Number(NFTInfoObject.price)) {
+              // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
+              NFTInfoArray.push({
+                id: index,
                 title: NFT.metadata.name,
                 image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
                 description: NFT.metadata.keyvalues.description,
                 fileType: NFT.metadata.keyvalues.fileType,
-                price: 1000, // use NFTDex smart contract for
-                owner: 'Peter', // if minted => await BEP721Contract.ownerOf(NFTInfoObject.id) // if unminted artist is owner
+                price: NFTInfoObject.price,
+                owner: owner,
                 artist: NFT.metadata.keyvalues.artist,
-              }),
-            // }
-          );
-        // );
+              });
+            }
+          }),
+        );
         setNFTs(NFTInfoArray);
-        console.log(NFTInfoArray);
       };
       fetchNfts();
     }
@@ -63,6 +71,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
   const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
+  if (!currentNFTS.length) return <div>Here should be a nice loader ;(</div>;
   return (
     <Box bgcolor='alternate.main' className='marketplace-container'>
       <Box bgcolor='alternate.main' className='marketplace'>

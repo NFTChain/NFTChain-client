@@ -27,7 +27,6 @@ const UploadNFTForm = ({
   const [limit, setLimit] = useState('');
 
   const handleFileChange = (event) => {
-    const f = file;
     setFile(event.target.files[0]);
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -96,6 +95,7 @@ const UploadNFTForm = ({
         .then(async (response) => {
           if (response.data.message === 'upload successful') {
             await mintNFTTokenForUploadedFile(response.data.ipfs_hash);
+            // add check here if IPFS hash is already in our smart contract
           }
         })
         .catch((error) => {
