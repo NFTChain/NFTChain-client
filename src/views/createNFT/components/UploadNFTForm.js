@@ -1,15 +1,33 @@
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import InputBase from '@material-ui/core/InputBase';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import {
+  BEP20ContractString,
+  BEP721ContractString,
+} from '../../../utils/getContract';
+import { connectToContract } from '../../../store/actions/contractActions';
 
-const UploadNFTForm = () => {
-  const { register, handleSubmit } = useForm();
+const UploadNFTForm = ({
+  BEP20Contract,
+  BEP721Contract,
+  signerAddress,
+  connectToContract,
+}) => {
+  const [file, setFile] = useState(undefined);
+  const [fileType, setFileType] = useState('');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [artist, setArtist] = useState('');
+  const [price, setPrice] = useState('');
+  const [limit, setLimit] = useState('');
 
-  const [fileType, setFileType] = React.useState('');
-  const [title, setTitle] = React.useState('');
-  const [description, setDescription] = React.useState('');
-  const [artist, setArtist] = React.useState('');
-  const [price, setPrice] = React.useState('');
-  const [limit, setLimit] = React.useState('');
+  const handleFileChange = (event) => {
+    setFile(URL.createObjectURL(event.target.files[0]));
+  };
 
   const handleLimitChange = (event) => {
     setLimit(event.target.value);
@@ -35,19 +53,100 @@ const UploadNFTForm = () => {
     setFileType(event.target.value);
   };
 
-  const onSubmit = async (data) => {
-    const formData = new FormData();
-    formData.append('file', data.picture[0]);
+  const connectToWalletAndCreate = async () => {
+    await connectToContracts();
 
-    const res = await fetch('http://localhost:4000/picture', {
-      method: 'POST',
-      body: formData,
-    }).then((res) => res.json());
-    alert(JSON.stringify(res));
+    if (
+      BEP20Contract &&
+      BEP721Contract &&
+      signerAddress &&
+      file &&
+      title &&
+      description &&
+      fileType &&
+      artist &&
+      limit &&
+      price
+    ) {
+      const fileMetaDataObject = {
+        name: title,
+        keyvalues: {
+          description,
+          fileType,
+          artist,
+        },
+      };
+
+      const data = new FormData();
+      data.append('file', file);
+
+      const metadata = JSON.stringify(fileMetaDataObject);
+      data.append('pinataMetadata', metadata);
+
+      const result = await axios
+        .post('https://nftchain.herokuapp.com/nft/upload/', data, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then(async (response) => {
+          if (response.data.message === 'upload successful') {
+            await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+          debugger;
+          alert('Upload of file was unsuccesful, please try again'); // show nice modal here instead of alert
+        });
+
+      if (result.data.message === 'upload successful') {
+        await mintNFTTokenForUploadedFile(result.data.ipfs_hash);
+      }
+    } else {
+      alert('You need to fill out all fields!'); // show nice modal here instead of alert
+    }
   };
+
+  const mintNFTTokenForUploadedFile = async (IPFSHash) => {
+    try {
+      const mintBEP721Token = await BEP721Contract.createInk(
+        IPFSHash,
+        limit,
+        price,
+      );
+      debugger;
+      const awaitCreationOfToken = await mintBEP721Token.wait((response) => {
+        console.log(response);
+        debugger;
+      }); // mint BEP721 token
+      debugger;
+      console.log(awaitCreationOfToken);
+      //   setIPFSHashOfUploadedImage(IPFSHash);
+    } catch (error) {
+      debugger;
+      console.log(error);
+      alert('Creating your unminted NFT was not successful, please try again'); // show nice modal here instead of alert
+    }
+  };
+
+  const connectToContracts = async () => {
+    [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+      connectToContract(contractString),
+    );
+  };
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <input ref={register} type='file' name='file' />
+    <div>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <input type='file' onChange={handleFileChange} />
+        {file && <img src={file} style={{ width: '200px', height: '200px' }} />}
+        {/* this img tag is the preview of the file, we need to handle multiple file types at a later point */}
+      </div>
       <InputLabel id='file-type-label'>File type</InputLabel>
       <Select
         labelId='file-type-selector'
@@ -77,9 +176,19 @@ const UploadNFTForm = () => {
       <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
       <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
       <InputBase id='price-id' value={price} onChange={handlePriceChange} />
-      <button>Submit</button>
-    </form>
+      <button onClick={connectToWalletAndCreate}>
+        Connect wallet and create
+      </button>
+    </div>
   );
 };
 
-export default UploadNFTForm;
+const mapStateToProps = (state) => {
+  return {
+    signerAddress: state.contracts.signerAddress,
+    BEP20Contract: state.contracts.BEP20Contract,
+    BEP721Contract: state.contracts.BEP721Contract,
+  };
+};
+
+export default connect(mapStateToProps, { connectToContract })(UploadNFTForm);
