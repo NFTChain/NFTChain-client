@@ -69,8 +69,15 @@ const CreateNFT = ({
 
   const uploadFile = async () => {
     const tokenId = Number((await BEP721Contract.totalSupply()).toString()) + 1; // total amount of minted tokens + 1 => token id if next uploaded file
-    if (title && description && fileType && tokenId && artist && limit) {
-      // price check is deleted => need to ask at a later point for setting the price of the nft
+    if (
+      title &&
+      description &&
+      fileType &&
+      tokenId &&
+      artist &&
+      limit &&
+      price
+    ) {
       const fileMetaDataObject = {
         name: title,
         keyvalues: {
@@ -104,7 +111,11 @@ const CreateNFT = ({
   };
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
-    const mintBEP721Token = await BEP721Contract.createInk(IPFSHash, limit);
+    const mintBEP721Token = await BEP721Contract.createInk(
+      IPFSHash,
+      limit,
+      price,
+    );
     debugger;
     const awaitCreationOfToken = await mintBEP721Token.wait((response) => {
       console.log(response);
@@ -174,6 +185,8 @@ const CreateNFT = ({
         How many NFTs do you want to create for your art?
       </InputLabel>
       <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
+      <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
+      <InputBase id='price-id' value={price} onChange={handlePriceChange} />
 
       <ImageUploader
         withIcon={true}
@@ -191,10 +204,6 @@ const CreateNFT = ({
             src={`https://ipfs.io/ipfs/${IPFSHashOfUploadedImage}`}
             alt='NFT'
           />
-          <h2>Do you want to sell your NFT?</h2>
-          <h6>Set the price and your NFT will be on sale on our marketplace</h6>
-          <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
-          <InputBase id='price-id' value={price} onChange={handlePriceChange} />
           <button onClick={setNFTonSale}>Set price</button>
         </div>
       )}
