@@ -4,6 +4,7 @@ import {
   BEP20ContractString,
   BEP721ContractString,
 } from '../../utils/getContract';
+import { utils } from 'ethers';
 
 export const connectToContract = (contractType) => async (dispatch) => {
   try {
@@ -38,8 +39,11 @@ export const getContractBalance = (
 ) => async (dispatch) => {
   // get users balance of tokens
   try {
-    const balance = (await contract.balanceOf(signerAddress)).toString();
-
+    let balance = (await contract.balanceOf(signerAddress)).toString();
+    if (BEP20ContractString === contractType)
+      // only for BEP20 token because BEP721 doesnt have decimals
+      balance = utils.formatUnits(balance).split('.')[0]; // formatUnits second parameter is "ether" as default (18 decimals like our BEP20 token)
+    debugger;
     dispatch({
       type: actionTypes.GET_CONTRACT_BALANCE,
       payload: {
