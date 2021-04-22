@@ -3,6 +3,7 @@ import Nav from './components/Nav';
 import Socials from './components/Socials';
 import Header from './components/Header';
 import Ecosystem from './components/Ecosystem';
+import Features from './components/Features';
 
 const LandingPage = () => {
   return (
@@ -11,6 +12,7 @@ const LandingPage = () => {
       <Nav />
       <Header />
       <Ecosystem />
+      <Features />
     </div>
   );
 };

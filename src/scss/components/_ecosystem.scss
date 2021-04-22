@@ -1,10 +1,10 @@
 .ecosystem {
-  background-image: linear-gradient(
-    to right bottom,
-    rgba($primary-dark-1, 0.95),
-    rgba($primary-dark-1, 0.95)
+  background-image: radial-gradient(
+    rgba($primary-dark-6, 0.95),
+    rgba($primary-dark-7, 0.95)
   );
-  padding: 6rem 2rem;
+  padding: 12rem 2rem;
+  @include flexCenter;
 
   &__content {
     @include flexCenter;

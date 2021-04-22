@@ -1,0 +1,43 @@
+.features {
+  @include bgGradient;
+  @include flexCenterCol;
+  padding: 12rem 2rem;
+
+  &__content {
+    margin: 0 auto;
+    @include flexCenter;
+    flex-wrap: wrap;
+  }
+
+  &__box {
+    @include flexCenterCol;
+    text-align: center;
+    background-image: radial-gradient(
+      rgba($primary-dark-1, 0.95),
+      rgba($primary-dark-7, 0.95),
+      rgba($primary-dark-7, 0.95)
+    );
+    padding: 1.6rem;
+    border-radius: 3px;
+    margin: 1rem;
+    width: 30rem;
+    max-width: 32%;
+    height: 30rem;
+    @include boxShadow;
+    color: $primary-text-1;
+  }
+
+  &__logo {
+    font-size: 6rem;
+    color: $tertiary-dark-4;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  &__info {
+    font-size: 1.3rem;
+  }
+}

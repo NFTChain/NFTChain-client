@@ -2,10 +2,9 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
-  background: $primary-dark-2;
+  background: $primary-dark-7;
   padding: 1rem 2rem;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
-    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+  @include boxShadow;
 
   &__content {
     width: 100%;

@@ -27,3 +27,11 @@ body {
     animation: moveInBottom 1s ease-out;
   }
 }
+
+.heading-secondary {
+  font-size: 3rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: $primary-text-1;
+  margin-bottom: 4rem;
+}
