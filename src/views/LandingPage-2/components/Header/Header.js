@@ -10,9 +10,9 @@ const Header = () => {
             A revolutionary marketplace
           </h1>
           <p className='heading-primary-main'>
-            NFTChain is a centralized network for collectors who can turn their
-            files into a unique NFT&apos;s. We support songs, videos, images and
-            even 3D assets. Join us on our mission to make NFT&apos;s
+            NFTChain is a decentralized network for collectors who can turn
+            their files into a unique NFT&apos;s. We support songs, videos,
+            images and even 3D assets. Join us on our mission to make NFT&apos;s
             mainstream!
           </p>
         </div>

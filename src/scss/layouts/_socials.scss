@@ -1,7 +1,6 @@
 .socials {
   background-color: $primary-dark-7;
   padding: 0 2rem;
-  border-bottom: 1px solid $tertiary-dark-4;
 
   &__content {
     display: flex;
@@ -15,7 +14,8 @@
   &:visited {
     display: flex;
     font-size: 2rem;
-    background: #e3e3e3;
+    background: $secondary-dark-1;
+
     justify-content: center;
     align-items: center;
     border-radius: 50%;
@@ -32,14 +32,14 @@
 
   &__icon {
     font-size: 1.8rem;
-    color: $secondary-dark-1;
+    color: #e3e3e3;
   }
 
   &__link:hover {
-    background: $secondary-dark-3;
+    background: #e3e3e3;
   }
 
   &__link:hover &__icon {
-    color: #e3e3e3;
+    color: $secondary-dark-1;
   }
 }
