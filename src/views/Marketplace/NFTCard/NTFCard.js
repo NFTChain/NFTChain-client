@@ -3,7 +3,7 @@ import Link from '@material-ui/core/Link';
 import PropTypes from 'prop-types';
 import { Box } from '@material-ui/core';
 
-const NFTCard = ({ image, title, description, price, artist, owner }) => {
+const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
   return (
     <Box bgcolor='background.default' className='card'>
       <Link href={`/marketplace/${id}`} className='card-img__wrapper'>
