@@ -2,7 +2,10 @@ import React from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import nftImg from '../../../assets/cardImg.jpeg';
 
-const NFTInfoPage = () => {
+const NFTInfoPage = (props) => {
+  debugger;
+  const s = props.location.state;
+  console.log(s);
   return (
     <Box bgcolor='alternate.main' className='nft-container'>
       <Box className='nft-spacing'>
