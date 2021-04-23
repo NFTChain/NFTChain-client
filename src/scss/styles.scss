@@ -1,7 +1,23 @@
-@import './base/base';
-@import './base/settings';
+// @import './base/base';
+// @import './base/settings';
+@import './abstracts/variables';
+@import './abstracts/mixins';
+
+@import './base-2/base';
+@import './base-2/typography';
+@import './base-2/animations';
+
 @import './react-images.scss';
 @import './slick-slider.scss';
+
+@import './layouts/nav';
+@import './layouts/socials';
+@import './layouts/header';
+@import './layouts/features';
+@import './layouts/roadmap';
+@import './layouts/footer';
+
+@import './components/container';
 @import './components/marketplace';
 @import './components/nft-card';
 @import './components/button';
@@ -9,3 +25,4 @@
 @import './components/pagination';
 @import './components/nft-info-page';
 @import './components/litepaper';
+@import './components/ecosystem';

@@ -1,0 +1,49 @@
+.features {
+  @include bgGradient;
+  @include flexCenterCol;
+  padding: 12rem 2rem;
+
+  &__content {
+    margin: 0 auto;
+    @include flexCenter;
+    flex-wrap: wrap;
+  }
+
+  &__box {
+    @include flexCenterCol;
+    text-align: center;
+    background-image: radial-gradient(
+      rgba($primary-dark-1, 0.65),
+      rgba($primary-dark-7, 0.65),
+      rgba($primary-dark-7, 0.65)
+    );
+    padding: 1.6rem;
+    border-radius: 3px;
+    margin: 1.6rem;
+    width: 30rem;
+    max-width: 32%;
+    height: 30rem;
+    @include boxShadow;
+    color: $primary-text-1;
+    transition: all 0.2s;
+  }
+
+  &__box:hover {
+    transform: scale(1.07);
+  }
+
+  &__logo {
+    font-size: 6rem;
+    color: $secondary-dark-5;
+  }
+
+  &__heading {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    letter-spacing: 1px;
+  }
+
+  &__info {
+    font-size: 1.3rem;
+  }
+}
