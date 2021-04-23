@@ -9,7 +9,7 @@ export default [
       'Litepaper',
       'Enlist team',
     ],
-    icon: 'Arrow',
+    icon: 'left',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ export default [
       'Governance token',
       'Marketing campaign',
     ],
-    icon: 'Arrow',
+    icon: 'right',
   },
   {
     id: 3,
@@ -33,7 +33,7 @@ export default [
       'Token sale',
       'Beta launch of NFT marketplace',
     ],
-    icon: 'Arrow',
+    icon: 'left',
   },
   {
     id: 4,
@@ -45,7 +45,7 @@ export default [
       'Litepaper',
       'Enlist team',
     ],
-    icon: 'Arrow',
+    icon: 'right',
   },
   {
     id: 5,
@@ -57,6 +57,6 @@ export default [
       'Litepaper',
       'Enlist team',
     ],
-    icon: 'Arrow',
+    icon: 'left',
   },
 ];

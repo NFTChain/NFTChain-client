@@ -1,3 +1,22 @@
 .roadmap {
   @include bgGradient;
+  @include flexCenterCol;
+
+  &__content {
+    width: 100%;
+    padding: 0 2rem;
+  }
+
+  .vertical-timeline-element-content {
+    @include flexCenterCol;
+  }
+
+  &__title {
+    font-size: 2rem;
+  }
+
+  &__list {
+    list-style: none;
+    font-size: 1.4rem;
+  }
 }
