@@ -1,16 +1,11 @@
 import React from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
-import WithLayout from 'WithLayout';
-import CreateNFTView from './views/createNFT/createNFT';
+import { Switch, Route } from 'react-router-dom';
 import Holdings from './views/Holdings/Holdings';
 import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
-// Available layouts
-import { Main as MainLayout } from './layouts';
-
-// Landingpage component
-// import { Crypto as CryptoView } from './views/landingPage';
 import LandingPage from './views/LandingPage-2';
+import CreateNFT from './views/CreateNFT/CreateNFT';
+import { Litepaper } from './views/Litepaper';
 
 // // Authentication component
 // import {
@@ -19,27 +14,15 @@ import LandingPage from './views/LandingPage-2';
 //   ForgotPassword as ForgotPasswordView,
 // } from './views/authPages';
 
-// Supporting pages
-import { NotFound as NotFoundView } from './views/supportingPages';
-
-// Litepaper
-import { Litepaper as LitepaperView } from './views/Litepaper';
-
 const Routes = () => {
   return (
     <Switch>
       <Route exact path='/' component={LandingPage}></Route>
-      {/* <Route
-        exact
-        path='/'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={CryptoView}
-            layout={MainLayout}
-          />
-        )}
-      /> */}
+      <Route exact path='/createNFT' component={CreateNFT}></Route>
+      <Route exact path='/marketplace' component={Marketplace}></Route>
+      <Route exact path='/' component={Holdings}></Route>
+      <Route exact path='/Litepaper' component={Litepaper} />
+      <Route path='/marketplace/:id' component={NFTInfoPage} />
       {/* <Route
         exact
         path='/login'
@@ -72,51 +55,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      /> */}
-      <Route
-        exact
-        path='/marketplace'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={Marketplace}
-            layout={MainLayout}
-          />
-        )}
       />
-      <Route
-        path='/marketplace/:id'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={NFTInfoPage}
-            layout={MainLayout}
-          />
-        )}
-      />
-      <Route
-        exact
-        path='/createNFT'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={CreateNFTView}
-            layout={MainLayout}
-          />
-        )}
-      />
-      <Route
-        exact
-        path='/holdings'
-        render={(matchProps) => (
-          <WithLayout
-            {...matchProps}
-            component={Holdings}
-            layout={MainLayout}
-          />
-        )}
-      />
-      <Route exact path='/Litepaper' component={LitepaperView} />
       <Route
         exact
         path='/page-not-found'
@@ -128,7 +67,7 @@ const Routes = () => {
           />
         )}
       />
-      <Redirect to='/page-not-found' />
+      <Redirect to='/page-not-found' /> */}
     </Switch>
   );
 };

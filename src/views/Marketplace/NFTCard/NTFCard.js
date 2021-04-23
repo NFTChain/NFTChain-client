@@ -1,12 +1,16 @@
 import React from 'react';
-import Link from '@material-ui/core/Link';
+import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 
 const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
+  const linkConfig = {
+    pathname: `/marketplace/${id}`,
+    state: { image, title, id, description, price, artist, owner },
+  };
   return (
     <Box bgcolor='background.default' className='card'>
-      <Link href={`/marketplace/${id}`} className='card-img__wrapper'>
+      <Link to={linkConfig} className='card-img__wrapper'>
         <img className='card-img' src={image} alt='digital art' />
       </Link>
       <div className='card-info'>
