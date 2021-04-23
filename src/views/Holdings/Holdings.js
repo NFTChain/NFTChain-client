@@ -65,19 +65,6 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
     }
   };
 
-  const getHoldings = async () => {
-    const amountOfCreatedNFTs = Number(
-      (await BEP721Contract.inksCreatedBy(signerAddress)).toString(),
-    );
-    // if user created NFTs
-    if (amountOfCreatedNFTs) {
-      const unsoldNFTs = await getUnsoldNFTs(amountOfCreatedNFTs); // unsold NFTs are as well unminted NFTs
-      setHoldings(unsoldNFTs);
-    }
-    const yeah = holdings;
-    debugger;
-  };
-
   const getBoughtdOrMintedNFTs = async (amountOfCreatedNFTs) => {
     const NFTInfoArray = [];
     // need to find a way to get bought or minted coins
