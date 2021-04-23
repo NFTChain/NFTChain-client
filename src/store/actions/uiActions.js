@@ -1,4 +1,4 @@
-import * as types from '../actionTypes/uiActions';
+import * as uiActionTypes from '../actionTypes/uiActions';
 
 export const startAction = (name, params) => ({
   type: uiActionTypes.START_ACTION,
@@ -12,14 +12,4 @@ export const stopAction = (name, params) => ({
   payload: {
     action: { name, params },
   },
-});
-
-export const refreshActionStart = (refreshAction) => ({
-  type: uiActionTypes.REFRESH_ACTION_START,
-  payload: { refreshAction },
-});
-
-export const refreshActionStop = (refreshAction) => ({
-  type: uiActionTypes.REFRESH_ACTION_STOP,
-  payload: { refreshAction },
 });
