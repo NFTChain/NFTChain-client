@@ -1,4 +1,4 @@
-import * as uiActionTypes from '../actionTypes/uiActions';
+import * as uiActionTypes from '../actionTypes/uiActionTypes';
 
 export const startAction = () => ({
   type: uiActionTypes.START_ACTION,

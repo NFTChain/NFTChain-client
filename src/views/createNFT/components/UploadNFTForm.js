@@ -8,6 +8,8 @@ import axios from 'axios';
 import { BEP721ContractString } from '../../../utils/getContract';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
+import { startAction, stopAction } from '../../../store/actions/uiActions';
+
 const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
   const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState(undefined);
