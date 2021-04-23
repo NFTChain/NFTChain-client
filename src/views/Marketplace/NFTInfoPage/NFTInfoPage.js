@@ -9,40 +9,17 @@ import {
   BEP20ContractString,
 } from '../../../utils/getContract';
 
-const NFTInfoPage = ({
-  BEP721Contract,
-  BEP20Contract,
-  signerAddress,
-  connectToContract,
-  image,
-}) => {
+const NFTInfoPage = (props) => {
   debugger;
-  const [NFT, setNFT] = useState(undefined);
-  useEffect(() => {
-    if (BEP721Contract) {
-      // getNFTInfo();
-    } else {
-      [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-        connectToContract(contractString),
-      );
-    }
-  }, [BEP721Contract]);
-
-  // const getNFTInfo = async () => {
-  //   const url = window.location.href;
-  //   const id = url.split('marketplace/')[0];
-
-  //   const NFTInfoPromise = await BEP721Contract.inkInfoById(id);
-
-  //   const NFTInfoObject = {
-  //     artist: NFTInfoPromise[0].toString(),
-  //     count: Number(NFTInfoPromise[1].toString()),
-  //     image: NFTInfoPromise[2].toString(),
-  //     price: NFTInfoPromise[3].toString(),
-  //     limit: Number(NFTInfoPromise[4].toString()),
-  //   };
-  //   debugger;
-  // };
+  // useEffect(() => {
+  //   if (BEP721Contract) {
+  //     // getNFTInfo();
+  //   } else {
+  //     [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+  //       connectToContract(contractString),
+  //     );
+  //   }
+  // }, [BEP721Contract]);
 
   // if (!NFT) return <div>LOADING SIR</div>;
   return (
