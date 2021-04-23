@@ -1,0 +1,59 @@
+.footer {
+  @include bgGradient;
+  background-color: $primary-dark-7;
+  color: $primary-text-2;
+
+  &__content {
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.4rem 0;
+
+    &:not(:last-child) {
+      border-bottom: 1px solid $primary-dark-2;
+      padding: 1.6rem 0;
+    }
+  }
+
+  &__title {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+
+  &__copyright-text {
+    font-size: 1.3rem;
+  }
+
+  &__copyright-name {
+    color: $tertiary-dark-4;
+  }
+
+  &__nav-list {
+    @include flexCenter;
+    list-style: none;
+  }
+
+  &__nav-item {
+    &:not(:last-child) {
+      margin-right: 1rem;
+    }
+  }
+
+  &__nav-link,
+  &:link,
+  &:visited {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: $primary-text-2;
+    transition: all 0.2s;
+  }
+
+  &__nav-link:hover {
+    color: $primary-text-1;
+  }
+}

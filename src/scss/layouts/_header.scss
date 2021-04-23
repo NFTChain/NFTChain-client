@@ -1,0 +1,16 @@
+.header {
+  @include bgGradient;
+
+  &__content {
+    margin: 0 auto;
+    padding: 6rem 2rem;
+  }
+
+  &__text-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+}

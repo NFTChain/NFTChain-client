@@ -9,7 +9,8 @@ import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import { Main as MainLayout } from './layouts';
 
 // Landingpage component
-import { Crypto as CryptoView } from './views/landingPage';
+// import { Crypto as CryptoView } from './views/landingPage';
+import LandingPage from './views/LandingPage-2';
 
 // // Authentication component
 // import {
@@ -27,7 +28,8 @@ import { Litepaper as LitepaperView } from './views/Litepaper';
 const Routes = () => {
   return (
     <Switch>
-      <Route
+      <Route exact path='/' component={LandingPage}></Route>
+      {/* <Route
         exact
         path='/'
         render={(matchProps) => (
@@ -37,7 +39,7 @@ const Routes = () => {
             layout={MainLayout}
           />
         )}
-      />
+      /> */}
       {/* <Route
         exact
         path='/login'
