@@ -2,10 +2,30 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
 
-const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
+const NFTCard = ({
+  image,
+  title,
+  id,
+  description,
+  price,
+  artist,
+  owner,
+  limit,
+  count,
+}) => {
   const linkConfig = {
     pathname: `/marketplace/${id}`,
-    state: { image, title, id, description, price, artist, owner },
+    state: {
+      image,
+      title,
+      id,
+      description,
+      price,
+      artist,
+      owner,
+      limit,
+      count,
+    },
   };
   return (
     <Box bgcolor='background.default' className='card'>

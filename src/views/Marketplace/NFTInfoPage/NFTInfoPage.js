@@ -1,7 +1,6 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 import React, { useState, useEffect } from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
-import nftImg from '../../../assets/cardImg.jpeg';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import {
@@ -9,50 +8,65 @@ import {
   BEP20ContractString,
 } from '../../../utils/getContract';
 
-const NFTInfoPage = (props) => {
-  debugger;
-  // useEffect(() => {
-  //   if (BEP721Contract) {
-  //     // getNFTInfo();
-  //   } else {
-  //     [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-  //       connectToContract(contractString),
-  //     );
-  //   }
-  // }, [BEP721Contract]);
+const NFTInfoPage = ({
+  location,
+  BEP20Contract,
+  BEP721Contract,
+  signerAddress,
+}) => {
+  const {
+    image,
+    title,
+    id,
+    description,
+    price,
+    artist,
+    owner,
+    limit,
+    count,
+  } = location.state;
 
-  // if (!NFT) return <div>LOADING SIR</div>;
+  const buyNFT = () => {
+    if (BEP20Contract && BEP721Contract && signerAdress) {
+    } else {
+      alert('You need to connect your wallet first');
+      connectToSmartContracts();
+    }
+  };
+
+  const connectToSmartContracts = () => {
+    [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
+      connectToContract(contractString),
+    );
+  };
   return (
     <Box bgcolor='alternate.main' className='nft-container'>
       <Box className='nft-spacing'>
         <div className='nft-info'>
-          <h3 className='nft-info__title'>River Waves</h3>
+          <h3 className='nft-info__title'>{title}</h3>
           <div className='nft-description'>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Recusandae fugiat, numquam veritatis neque eligendi quaerat fuga
-              nisi odio, optio temporibus, ut aut accusamus incidunt odit qui?
-              Minus, natus. Sunt, possimus?
-            </p>
+            <p>{description}</p>
           </div>
           <div className='nft-actions'>
             <div className='nft-actions__price'>
               <Typography color={'secondary'} className='price'>
-                List price
+                Price
               </Typography>
-              <p className='price-amount'>2.400 Ether</p>
+              <p className='price-amount'>{price} NFTC</p>
             </div>
-            <button className='button'>Buy</button>
+            <button onClick={buyNFT} className='button'>
+              Buy
+            </button>
           </div>
         </div>
         <div className='image-container'>
-          <img src={nftImg} alt='nft' />
+          <img src={image} alt='nft' />
         </div>
         <div className='nft-users'>
           <div className='nft-user'>
             <Avatar className='nft-user__avatar'></Avatar>
             <div className='nft-user__info'>
-              <h4 className='nft-user__name'>Bryan</h4>
+              <h4 className='nft-user__name'>{artist}</h4>
               <Typography
                 color='secondary'
                 fontSize={'0.8rem'}
@@ -65,7 +79,7 @@ const NFTInfoPage = (props) => {
           <div className='nft-user'>
             <Avatar className='nft-user__avatar'></Avatar>
             <div className='nft-user__info'>
-              <h4 className='nft-user__name'>Stacey</h4>
+              <h4 className='nft-user__name'>{owner}</h4>
               <Typography
                 color='secondary'
                 fontSize={'0.8rem'}
