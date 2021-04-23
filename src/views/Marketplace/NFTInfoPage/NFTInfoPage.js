@@ -30,11 +30,7 @@ const NFTInfoPage = ({
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
-      // await tryBuyingNFT();
-      const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
-      const whaaaat = await BEP721Contract.inkIdByUrl(ipfs_hash);
-      debugger;
-      const h = whaaaat.toString();
+      await tryBuyingNFT();
       debugger;
     } else {
       connectToSmartContracts();
@@ -51,17 +47,13 @@ const NFTInfoPage = ({
   const tryBuyingNFT = async () => {
     try {
       // only for unminted NFT's
-      const a = artistAddress;
-      debugger;
       const approveBuy = await BEP20Contract.approve(
-        artistAddress,
+        BEP721Contract.address,
         Number(price),
       );
       await approveBuy.wait();
       const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
-      debugger;
       const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
-      console.log(tryToBuy);
       await tryToBuy.wait();
       const x = tryToBuy.toString;
       debugger;

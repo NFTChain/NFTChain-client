@@ -1,9 +1,33 @@
 import React from 'react';
-
+import Particles from 'react-particles-js';
 const Header = () => {
   return (
     <header className='header'>
-      <div className='header__content container'>
+      <div
+        className='header__content container'
+        style={{ position: 'relative' }}
+      >
+        <Particles
+          style={{ position: 'absolute' }}
+          params={{
+            particles: {
+              number: {
+                value: 50,
+              },
+              size: {
+                value: 3,
+              },
+            },
+            interactivity: {
+              events: {
+                onhover: {
+                  enable: true,
+                  mode: 'repulse',
+                },
+              },
+            },
+          }}
+        />
         <div className='header__text-box'>
           <h1 className='heading-primary heading-primary-1'>NFTChain</h1>
           <h1 className='heading-primary heading-primary-2'>
