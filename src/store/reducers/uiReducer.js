@@ -1,17 +1,17 @@
-import { uiActionTpyes } from 'src/constants/store/actionTypes';
+import * as uiActionTypes from '../actionTypes/uiActionTypes';
 
 const initialState = {
   loading: false,
 };
 
-const uiReducer = (state = initialState, { type, payload }) => {
-  switch (type) {
-    case uiActionTpyes.START_ACTION:
+const uiReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case uiActionTypes.START_ACTION:
       return {
         ...state,
         loading: true,
       };
-    case uiActionTpyes.STOP_ACTION:
+    case uiActionTypes.STOP_ACTION:
       return {
         ...state,
         loading: false,
