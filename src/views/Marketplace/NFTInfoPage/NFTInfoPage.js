@@ -13,6 +13,7 @@ const NFTInfoPage = ({
   BEP20Contract,
   BEP721Contract,
   signerAddress,
+  connectToContract,
 }) => {
   const {
     image,
@@ -24,13 +25,20 @@ const NFTInfoPage = ({
     owner,
     limit,
     count,
+    artistAddress,
   } = location.state;
 
-  const buyNFT = () => {
-    if (BEP20Contract && BEP721Contract && signerAdress) {
+  const buyNFT = async () => {
+    if (BEP20Contract && BEP721Contract && signerAddress) {
+      // await tryBuyingNFT();
+      const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
+      const whaaaat = await BEP721Contract.inkIdByUrl(ipfs_hash);
+      debugger;
+      const h = whaaaat.toString();
+      debugger;
     } else {
-      alert('You need to connect your wallet first');
       connectToSmartContracts();
+      alert('You need to connect your wallet first');
     }
   };
 
@@ -38,6 +46,33 @@ const NFTInfoPage = ({
     [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
       connectToContract(contractString),
     );
+  };
+
+  const tryBuyingNFT = async () => {
+    try {
+      // only for unminted NFT's
+      const a = artistAddress;
+      debugger;
+      const approveBuy = await BEP20Contract.approve(
+        artistAddress,
+        Number(price),
+      );
+      await approveBuy.wait();
+      const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
+      debugger;
+      const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
+      console.log(tryToBuy);
+      await tryToBuy.wait();
+      const x = tryToBuy.toString;
+      debugger;
+      const isNowOwner = await BEP721Contract.ownerOf(id);
+      debugger;
+      const y = isNowOwner.toString();
+      debugger;
+    } catch (error) {
+      debugger;
+      console.log(error);
+    }
   };
   return (
     <Box bgcolor='alternate.main' className='nft-container'>

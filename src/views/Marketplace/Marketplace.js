@@ -54,7 +54,11 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
             owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner
           }
         }
-        if (NFTInfoPromise && NFTInfoObject && Number(NFTInfoObject.price)) {
+        if (
+          NFTInfoPromise &&
+          NFTInfoObject &&
+          Number(NFTInfoObject.price) > 0
+        ) {
           // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
           NFTInfoArray.push({
             id: index,
@@ -64,6 +68,8 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
             fileType: NFT.metadata.keyvalues.fileType,
             price: NFTInfoObject.price,
             owner: owner,
+            artistAddress: NFTInfoObject.artist,
+            // NFTisMinted: owner === NFT.metadata.keyvalues.artist, // owner is artist (catch block logic) when there is no owner of the the NFTs id
             artist: NFT.metadata.keyvalues.artist,
             limit: NFTInfoObject.limit,
             count: NFTInfoObject.count,

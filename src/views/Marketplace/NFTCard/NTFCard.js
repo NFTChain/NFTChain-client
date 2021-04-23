@@ -12,6 +12,7 @@ const NFTCard = ({
   owner,
   limit,
   count,
+  artistAddress,
 }) => {
   const linkConfig = {
     pathname: `/marketplace/${id}`,
@@ -25,6 +26,7 @@ const NFTCard = ({
       owner,
       limit,
       count,
+      artistAddress,
     },
   };
   return (
