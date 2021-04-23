@@ -12,7 +12,6 @@ import { connectToContract } from '../../../../store/actions/contractActions';
 import {
   BEP20ContractString,
   BEP721ContractString,
-  NFTDexContractString,
 } from '../../../../utils/getContract';
 
 const Topbar = ({
@@ -25,7 +24,6 @@ const Topbar = ({
     [
       BEP20ContractString,
       BEP721ContractString,
-      NFTDexContractString,
     ].forEach((contractString) => connectToContract(contractString));
   };
   return (

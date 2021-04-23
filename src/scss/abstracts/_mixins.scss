@@ -5,20 +5,17 @@
     clear: both;
   }
 }
-
 @mixin flexCenterCol {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
-
 @mixin flexCenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-
 @mixin bgGradient {
   background-image: linear-gradient(
     to right bottom,
@@ -26,7 +23,6 @@
     rgba($primary-dark-7, 0.95)
   );
 }
-
 @mixin boxShadow {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;

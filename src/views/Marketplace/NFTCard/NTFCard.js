@@ -3,15 +3,7 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import PropTypes from 'prop-types';
 
-const NFTCard = ({
-  image,
-  id,
-  title,
-  description,
-  currentBid,
-  artist,
-  owner,
-}) => {
+const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
   return (
     <Box bgcolor='background.default' className='card'>
       <Link href={`/marketplace/${id}`} className='card-img__wrapper'>
@@ -21,8 +13,8 @@ const NFTCard = ({
         <h3>{title}</h3>
         <p>{description}</p>
         <div className='card-info__actions'>
-          <button className='button'>Bid</button>
-          <p>Current bid: {currentBid}</p>
+          <button className='button'>Price</button>
+          <p>Price: {price}</p>
         </div>
         <div className='card-info__separate'></div>
         <div className='card-info__creators'>
@@ -44,9 +36,9 @@ NFTCard.propTypes = {
   id: PropTypes.number,
   title: PropTypes.string,
   subtitle: PropTypes.string,
-  currentBid: PropTypes.number,
-  artist: PropTypes.number,
-  owner: PropTypes.number,
+  price: PropTypes.string,
+  artist: PropTypes.string,
+  owner: PropTypes.string,
 };
 
 export default NFTCard;
