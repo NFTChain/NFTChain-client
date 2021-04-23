@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
-import PropTypes from 'prop-types';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -176,11 +175,6 @@ const Form = ({ register, error }) => {
       </form>
     </Box>
   );
-};
-
-Form.propTypes = {
-  register: PropTypes.func,
-  error: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

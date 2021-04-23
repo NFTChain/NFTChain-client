@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
 
 const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
   const linkConfig = {
@@ -34,15 +33,6 @@ const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
       </div>
     </Box>
   );
-};
-
-NFTCard.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  price: PropTypes.string,
-  artist: PropTypes.string,
-  owner: PropTypes.string,
 };
 
 export default NFTCard;
