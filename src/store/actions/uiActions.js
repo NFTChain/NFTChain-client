@@ -1,15 +1,9 @@
 import * as uiActionTypes from '../actionTypes/uiActions';
 
-export const startAction = (name, params) => ({
+export const startAction = () => ({
   type: uiActionTypes.START_ACTION,
-  payload: {
-    action: { name, params },
-  },
 });
 
-export const stopAction = (name, params) => ({
+export const stopAction = () => ({
   type: uiActionTypes.STOP_ACTION,
-  payload: {
-    action: { name, params },
-  },
 });
