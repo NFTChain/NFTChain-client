@@ -7,6 +7,7 @@ import {
   BEP721ContractString,
   BEP20ContractString,
 } from '../../../utils/getContract';
+import { utils } from 'ethers';
 
 const NFTInfoPage = ({
   location,
@@ -47,20 +48,15 @@ const NFTInfoPage = ({
   const tryBuyingNFT = async () => {
     try {
       // only for unminted NFT's
+      const parsedEtherPrice = utils.parseEther(price);
       const approveBuy = await BEP20Contract.approve(
         BEP721Contract.address,
-        Number(price),
+        parsedEtherPrice,
       );
       await approveBuy.wait();
       const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
       const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
       await tryToBuy.wait();
-      const x = tryToBuy.toString;
-      debugger;
-      const isNowOwner = await BEP721Contract.ownerOf(id);
-      debugger;
-      const y = isNowOwner.toString();
-      debugger;
     } catch (error) {
       debugger;
       console.log(error);

@@ -6,6 +6,7 @@ import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
 import { BEP721ContractString } from '../../utils/getContract';
+import { utils } from 'ethers';
 
 const Marketplace = ({ BEP721Contract, connectToContract }) => {
   const [NFTs, setNFTs] = useState([]);
@@ -32,7 +33,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
 
     // Promise.all because we have a list of promises
     await Promise.all(
-      getNFTs.map(async (NFT, index) => {
+      getNFTs.map(async (NFT) => {
         let NFTInfoPromise, NFTInfoObject, owner;
 
         try {
@@ -44,7 +45,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
             id: NFTInfoPromise[0].toString(),
             artist: NFTInfoPromise[1].toString(),
             count: NFTInfoPromise[2].toString(),
-            price: NFTInfoPromise[3].toString(),
+            price: utils.formatEther(NFTInfoPromise[3].toString()),
             limit: NFTInfoPromise[4].toString(),
           };
 
@@ -61,7 +62,7 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
         ) {
           // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
           NFTInfoArray.push({
-            id: index,
+            id: NFTInfoObject.id,
             title: NFT.metadata.name,
             image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
             description: NFT.metadata.keyvalues.description,

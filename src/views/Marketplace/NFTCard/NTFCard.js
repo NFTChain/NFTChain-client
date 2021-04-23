@@ -38,7 +38,7 @@ const NFTCard = ({
         <h3>{title}</h3>
         <p>{description}</p>
         <div className='card-info__actions'>
-          <button className='button'>Price</button>
+          <button className='button'>Buy</button>
           <p>Price: {price}</p>
         </div>
         <div className='card-info__separate'></div>

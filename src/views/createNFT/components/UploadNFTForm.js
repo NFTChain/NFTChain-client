@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { BEP721ContractString } from '../../../utils/getContract';
 import { connectToContract } from '../../../store/actions/contractActions';
-
+import { utils } from 'ethers';
 const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
   const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState(undefined);
@@ -100,10 +100,11 @@ const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
     try {
+      const parsedEtherPrice = utils.parseEther(price);
       const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
         limit,
-        price,
+        parsedEtherPrice,
       ); // create unminted NFT
 
       await createUnmintedNFT.wait(); // wait for successful transaction
