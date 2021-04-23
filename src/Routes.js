@@ -1,3 +1,4 @@
+/* eslint  react/no-children-prop: 0 */ // --> OFF
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Holdings from './views/Holdings/Holdings';
@@ -6,6 +7,7 @@ import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage-2';
 import CreateNFT from './views/CreateNFT/CreateNFT';
 import { Litepaper } from './views/Litepaper';
+import Layout from './views/Layout';
 
 // // Authentication component
 // import {
@@ -17,12 +19,31 @@ import { Litepaper } from './views/Litepaper';
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path='/' component={LandingPage}></Route>
-      <Route exact path='/createNFT' component={CreateNFT}></Route>
-      <Route exact path='/marketplace' component={Marketplace}></Route>
-      <Route exact path='/' component={Holdings}></Route>
-      <Route exact path='/Litepaper' component={Litepaper} />
-      <Route path='/marketplace/:id' component={NFTInfoPage} />
+      <Route
+        exact
+        path='/'
+        render={() => <Layout children={<LandingPage />} />}
+      />
+      <Route
+        exact
+        path='/createNFT'
+        render={() => <Layout children={<CreateNFT />} />}
+      />
+      <Route
+        exact
+        path='/marketplace'
+        render={() => <Layout children={<Marketplace />} />}
+      />
+      <Route exact path='/' render={() => <Layout children={<Holdings />} />} />
+      <Route
+        exact
+        path='/Litepaper'
+        render={() => <Layout children={<Litepaper />} />}
+      />
+      <Route
+        path='/marketplace/:id'
+        crender={() => <Layout children={<NFTInfoPage />} />}
+      />
       {/* <Route
         exact
         path='/login'

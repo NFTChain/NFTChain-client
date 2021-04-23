@@ -1,12 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
-import PropTypes from 'prop-types';
 
-const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
+const NFTCard = ({
+  image,
+  title,
+  id,
+  description,
+  price,
+  artist,
+  owner,
+  limit,
+  count,
+  artistAddress,
+}) => {
   const linkConfig = {
     pathname: `/marketplace/${id}`,
-    state: { image, title, id, description, price, artist, owner },
+    state: {
+      image,
+      title,
+      id,
+      description,
+      price,
+      artist,
+      owner,
+      limit,
+      count,
+      artistAddress,
+    },
   };
   return (
     <Box bgcolor='background.default' className='card'>
@@ -17,7 +38,7 @@ const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
         <h3>{title}</h3>
         <p>{description}</p>
         <div className='card-info__actions'>
-          <button className='button'>Price</button>
+          <button className='button'>Buy</button>
           <p>Price: {price}</p>
         </div>
         <div className='card-info__separate'></div>
@@ -34,15 +55,6 @@ const NFTCard = ({ image, title, id, description, price, artist, owner }) => {
       </div>
     </Box>
   );
-};
-
-NFTCard.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  subtitle: PropTypes.string,
-  price: PropTypes.string,
-  artist: PropTypes.string,
-  owner: PropTypes.string,
 };
 
 export default NFTCard;

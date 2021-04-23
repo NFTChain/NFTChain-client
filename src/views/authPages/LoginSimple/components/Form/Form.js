@@ -1,7 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Box from '@material-ui/core/Box';
@@ -152,11 +151,6 @@ const Form = ({ login, error }) => {
       </form>
     </Box>
   );
-};
-
-Form.propTypes = {
-  login: PropTypes.func,
-  error: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({

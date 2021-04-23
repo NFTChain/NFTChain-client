@@ -1,6 +1,5 @@
 import React from 'react';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import PropTypes from 'prop-types';
 
 const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
   const pageNumbers = [];
@@ -44,13 +43,6 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
       </ul>
     </nav>
   );
-};
-
-Pagination.propTypes = {
-  NFTPerPage: PropTypes.number,
-  totalNFTS: PropTypes.number,
-  setCurrentPage: PropTypes.func,
-  currentPage: PropTypes.number,
 };
 
 export default Pagination;
