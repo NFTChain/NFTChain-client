@@ -2,29 +2,44 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
+import { startAction, stopAction } from '../../store/actions/uiActions';
 import { BEP721ContractString } from '../../utils/getContract';
+import Loader from '../Loader';
+import { utils } from 'ethers';
 
-const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
-  const [holdings, setHoldings] = useState([]);
+const Holdings = ({
+  BEP721Contract,
+  connectToContract,
+  signerAddress,
+  loading,
+  startAction,
+  stopAction,
+}) => {
+  const [unmintedHoldings, setUnmintedHoldings] = useState([]);
+  const [mintedHoldings, setMintedHoldings] = useState([]);
 
   useEffect(() => {
-    if (BEP721Contract) {
+    if (BEP721Contract && !loading) {
+      // if contract is loaded and didnt call getHoldings already
       getHoldings();
     } else {
-      connectToContract(BEP721ContractString);
+      connectToContract(BEP721ContractString); // show connect to wallet page instead of initialize directly because of user experience
     }
   }, [BEP721Contract]);
 
   const getHoldings = async () => {
+    startAction();
+
     const amountOfCreatedNFTsPromise = BEP721Contract.inksCreatedBy(
       signerAddress,
     ); // from this promise we don't know if the NFT is mint or unminted
+
     const amountOfMintedNFTsPromise = BEP721Contract.balanceOf(signerAddress); // from this promise we know already that the NFT is minted
 
-    let [amountOfCreatedNFTs, amountOfMintedNFTs] = Promise.all(
+    let [amountOfCreatedNFTs, amountOfMintedNFTs] = await Promise.all([
       amountOfCreatedNFTsPromise,
       amountOfMintedNFTsPromise,
-    );
+    ]);
 
     amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
     amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
@@ -32,34 +47,36 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
 
     if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
       // if from booth category are some available => use Promise.all for performance reasons
-      const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
-        amountOfCreatedNFTs,
-      );
+      debugger;
+      // const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
+      //   amountOfCreatedNFTs,
+      // );
       const boughtOrMintedNFTsPromise = getBoughtOrMintedNFTs(
         amountOfMintedNFTs,
       );
 
-      const [unsoldUnmintedNFTs, boughtOrMintedNFTS] = Promise.all(
-        unsoldUnmintedNFTsPromise,
+      const [boughtOrMintedNFTS] = await Promise.all([
+        // unsoldUnmintedNFTsPromise,
         boughtOrMintedNFTsPromise,
-      );
-
-      setHoldings(unsoldUnmintedNFTs.concat(boughtOrMintedNFTS));
+      ]);
+      debugger;
+      // setUnmintedHoldings(unsoldUnmintedNFTs);
+      setMintedHoldings(boughtOrMintedNFTS);
     } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs < 1) {
       // if only from one category are some availble => try to get the holdings from that one category
       const unsoldUnmintedNFTs = await getUnsoldUnmintedNFTs(
         amountOfCreatedNFTs,
       );
-      setHoldings(unsoldUnmintedNFTs);
+
+      setUnmintedHoldings(unsoldUnmintedNFTs);
     } else if (amountOfCreatedNFTs < 1 && amountOfMintedNFTs > 0) {
       // if only from one category are some availble => try to get the holdings from that one category
       const boughtOrMintedNFTS = await getBoughtOrMintedNFTs(
         amountOfMintedNFTs,
       );
-      setHoldings(boughtOrMintedNFTS);
+      setMintedHoldings(boughtOrMintedNFTS);
     }
-    const yeah = holdings;
-    debugger;
+    stopAction();
   };
 
   const getUnsoldUnmintedNFTs = async (amountOfCreatedNFTs) => {
@@ -85,8 +102,8 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
           NFTInfoArray.push({
             id: idOfcreatedNFT,
             image: `https://ipfs.io/ipfs/${NFTInfoObject.ipfs_hash}`,
-            price: NFTInfoObject.price,
-            howManyLeft: NFTInfoObject.limit - NFTInfoObject.count,
+            currentPrice: NFTInfoObject.price,
+            howManyOwned: NFTInfoObject.limit - NFTInfoObject.count,
           });
         }
       }),
@@ -101,18 +118,107 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
 
   const getBoughtOrMintedNFTs = async (amountOfMintedNFTs) => {
     const NFTInfoArray = [];
-    // need to find a way to get bought or minted coins
+    await Promise.all(
+      [...Array(amountOfMintedNFTs).keys()].map(async (currentIndex) => {
+        debugger;
+        const tokenId = await BEP721Contract.tokenOfOwnerByIndex(
+          signerAddress,
+          currentIndex,
+        );
+        const NFTUrl = await BEP721Contract.tokenURI(tokenId);
+        // after this promise we can already check NFTInfoArray if we added a NFT with the same ipfs-hash and just add 1 to key "howManyOwned"
+
+        const doesNFTAlreadyExists = NFTInfoArray.some(
+          (item) => item.image === NFTUrl,
+        );
+
+        if (!doesNFTAlreadyExists) {
+          const ipfsHash = NFTUrl.split('https://ipfs.io/ipfs/')[1];
+          debugger;
+          // if NFT doesnt exist push the new NFT into the array
+          const NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(ipfsHash);
+          debugger;
+
+          const NFTInfoObject = {
+            id: NFTInfoPromise[0].toString(),
+            artist: NFTInfoPromise[1].toString(),
+            count: NFTInfoPromise[2].toString(),
+            price: utils.formatEther(NFTInfoPromise[3].toString()),
+            limit: NFTInfoPromise[4].toString(),
+          };
+          debugger;
+          NFTInfoArray.push({
+            id: NFTInfoObject.id,
+            image: NFTUrl,
+            currentPrice: NFTInfoObject.price,
+            howManyOwned: 1,
+          });
+        } else {
+          debugger;
+          // else increase the count of key "howManyOwned"
+          NFTInfoArray.find((item) => item.image === NFTUrl).howManyOwned += 1;
+        }
+      }),
+    );
+    debugger;
+    if (NFTInfoArray.length > 0) {
+      debugger;
+      return NFTInfoArray;
+    } else {
+      debugger;
+      return [];
+    }
   };
 
-  if (!BEP721Contract) return <div>You need to connect to your wallet</div>;
+  if (!BEP721Contract && !signerAddress) {
+    return <div>You need to connect to your wallet</div>; // return sign in wallet page
+  } else if (loading) {
+    return <Loader />;
+  }
 
-  return <div>{holdings.length > 0 && <h1>{holdings[0].image}</h1>}</div>;
+  return (
+    <div>
+      <div>
+        <h1>Unminted NFT</h1>
+        {unmintedHoldings.length > 0 &&
+          unmintedHoldings.map((item) => {
+            return (
+              <div key={item.id}>
+                <h6>ITEM{item.id}</h6>
+                <div style={{ width: '5rem', height: '5rem' }}>
+                  <img src={item.image} alt='nft' />{' '}
+                </div>
+              </div>
+            );
+          })}
+      </div>
+      <div>
+        <h1>Minted NFT</h1>
+        {mintedHoldings.length > 0 &&
+          mintedHoldings.map((item) => {
+            return (
+              <div key={item.id}>
+                <h6>ITEM{item.id}</h6>
+                <div style={{ width: '5rem', height: '5rem' }}>
+                  <img src={item.image} alt='nft' />{' '}
+                </div>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
 };
 const mapStateToProps = (state) => {
   return {
     signerAddress: state.contracts.signerAddress,
     BEP721Contract: state.contracts.BEP721Contract,
+    loading: state.ui.loading,
   };
 };
 
-export default connect(mapStateToProps, { connectToContract })(Holdings);
+export default connect(mapStateToProps, {
+  connectToContract,
+  startAction,
+  stopAction,
+})(Holdings);
