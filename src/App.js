@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import Routes from './Routes';
 import configureStore from './store/configureStore';
 import { NotificationContainer } from 'react-notifications';
+
+import 'react-notifications/lib/notifications.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import './scss/styles.scss';

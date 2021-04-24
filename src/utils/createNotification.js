@@ -1,8 +1,8 @@
 import { NotificationManager } from 'react-notifications';
 
-export const createNotification = (type) => {
+export const createNotification = (type, message, length) => {
   return () => {
-    switch ((type, message, length)) {
+    switch (type) {
       case 'info':
         NotificationManager.info('Info message', message, length);
         break;
