@@ -14,8 +14,8 @@ const LandingPage = () => {
       <Nav />
       <Header />
       <Ecosystem />
-      <Roadmap />
       <Features />
+      <Roadmap />
       <Footer />
     </div>
   );

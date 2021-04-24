@@ -8,7 +8,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import roadmapData from './roadmapData';
 
 const Roadmap = () => {
-  const iconStyles = { background: '#4d1037' };
+  const iconStyles = { background: '#008080' };
   return (
     <div className='roadmap'>
       <h2 className='heading-secondary'>Our Roadmap</h2>
@@ -22,7 +22,6 @@ const Roadmap = () => {
                 key={item.id}
                 date={item.date}
                 dateClassName='date'
-                contentStyle={{ background: '#0B1224' }}
                 iconStyle={iconStyles}
                 icon={
                   rightIcon ? <AiOutlineArrowRight /> : <AiOutlineArrowLeft />
