@@ -10,7 +10,7 @@ import roadmapData from './roadmapData';
 const Roadmap = () => {
   const iconStyles = { background: '#008080' };
   return (
-    <div className='roadmap'>
+    <div className='roadmap' id='roadmap'>
       <h2 className='heading-secondary'>Our Roadmap</h2>
       <div className='container roadmap__content'>
         <VerticalTimeline>
