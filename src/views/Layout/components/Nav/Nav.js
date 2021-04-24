@@ -16,7 +16,7 @@ const Nav = () => {
             </Link>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <a className='nav__link' href='#'>
               About
             </a>
           </li>
@@ -31,9 +31,9 @@ const Nav = () => {
             </a>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <Link className='nav__link' to='/marketplace'>
               Buy now
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

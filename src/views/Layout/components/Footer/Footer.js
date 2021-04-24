@@ -34,19 +34,19 @@ const Footer = () => {
                 </Link>
               </li>
               <li className='footer__nav-item'>
-                <Link to='#about' className='footer__nav-link'>
+                <a href='#about' className='footer__nav-link'>
                   about
-                </Link>
+                </a>
               </li>
               <li className='footer__nav-item'>
-                <Link to='#features' className='footer__nav-link'>
+                <a href='#features' className='footer__nav-link'>
                   features
-                </Link>
+                </a>
               </li>
               <li className='footer__nav-item'>
-                <Link to='#roadmap' className='footer__nav-link'>
+                <a href='#roadmap' className='footer__nav-link'>
                   roadmap
-                </Link>
+                </a>
               </li>
               <li className='footer__nav-item'>
                 <Link to='/marketplace' className='footer__nav-link'>
