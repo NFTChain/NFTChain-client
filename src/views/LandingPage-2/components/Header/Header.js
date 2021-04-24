@@ -1,5 +1,5 @@
 import React from 'react';
-import Particles from 'react-particles-js';
+import Particles from 'react-particles-js'; // docs: https://github.com/matteobruni/tsparticles/tree/main/components/react
 const Header = () => {
   return (
     <header className='header'>
@@ -13,6 +13,23 @@ const Header = () => {
             particles: {
               number: {
                 value: 50,
+              },
+              opacity: {
+                value: 0.5,
+              },
+              color: {
+                value: '#FFFFFF', // color of poits
+              },
+              collisions: {
+                enable: true,
+              },
+              links: {
+                // styling for the lines / connections
+                color: '#FFFFFF',
+                distance: 150,
+                enable: true,
+                opacity: 0.5,
+                width: 2,
               },
               size: {
                 value: 3,

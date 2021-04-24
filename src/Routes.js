@@ -1,7 +1,7 @@
 /* eslint  react/no-children-prop: 0 */ // --> OFF
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import Holdings from './views/Holdings/Holdings';
+import Holdings from './views/Holdings';
 import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage-2';
@@ -34,7 +34,11 @@ const Routes = () => {
         path='/marketplace'
         render={() => <Layout children={<Marketplace />} />}
       />
-      <Route exact path='/' render={() => <Layout children={<Holdings />} />} />
+      <Route
+        exact
+        path='/holdings'
+        render={() => <Layout children={<Holdings />} />}
+      />
       <Route
         exact
         path='/Litepaper'

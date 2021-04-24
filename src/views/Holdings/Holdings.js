@@ -16,19 +16,53 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
   }, [BEP721Contract]);
 
   const getHoldings = async () => {
-    const amountOfCreatedNFTs = Number(
-      (await BEP721Contract.inksCreatedBy(signerAddress)).toString(),
+    const amountOfCreatedNFTsPromise = BEP721Contract.inksCreatedBy(
+      signerAddress,
+    ); // from this promise we don't know if the NFT is mint or unminted
+    const amountOfMintedNFTsPromise = BEP721Contract.balanceOf(signerAddress); // from this promise we know already that the NFT is minted
+
+    let [amountOfCreatedNFTs, amountOfMintedNFTs] = Promise.all(
+      amountOfCreatedNFTsPromise,
+      amountOfMintedNFTsPromise,
     );
-    // if user created NFTs
-    if (amountOfCreatedNFTs) {
-      const unsoldNFTs = await getUnsoldNFTs(amountOfCreatedNFTs); // unsold NFTs are as well unminted NFTs
-      setHoldings(unsoldNFTs);
+
+    amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
+    amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
+    debugger;
+
+    if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
+      // if from booth category are some available => use Promise.all for performance reasons
+      const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
+        amountOfCreatedNFTs,
+      );
+      const boughtOrMintedNFTsPromise = getBoughtOrMintedNFTs(
+        amountOfMintedNFTs,
+      );
+
+      const [unsoldUnmintedNFTs, boughtOrMintedNFTS] = Promise.all(
+        unsoldUnmintedNFTsPromise,
+        boughtOrMintedNFTsPromise,
+      );
+
+      setHoldings(unsoldUnmintedNFTs.concat(boughtOrMintedNFTS));
+    } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs < 1) {
+      // if only from one category are some availble => try to get the holdings from that one category
+      const unsoldUnmintedNFTs = await getUnsoldUnmintedNFTs(
+        amountOfCreatedNFTs,
+      );
+      setHoldings(unsoldUnmintedNFTs);
+    } else if (amountOfCreatedNFTs < 1 && amountOfMintedNFTs > 0) {
+      // if only from one category are some availble => try to get the holdings from that one category
+      const boughtOrMintedNFTS = await getBoughtOrMintedNFTs(
+        amountOfMintedNFTs,
+      );
+      setHoldings(boughtOrMintedNFTS);
     }
     const yeah = holdings;
     debugger;
   };
 
-  const getUnsoldNFTs = async (amountOfCreatedNFTs) => {
+  const getUnsoldUnmintedNFTs = async (amountOfCreatedNFTs) => {
     const NFTInfoArray = [];
 
     await Promise.all(
@@ -47,7 +81,7 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
           limit: Number(NFTInfoPromise[4].toString()),
         };
         if (NFTInfoObject.limit !== NFTInfoObject.count) {
-          // if not all created unminted NFTs sold display it as holding
+          // if not all created unminted NFTs sold => display it as holding
           NFTInfoArray.push({
             id: idOfcreatedNFT,
             image: `https://ipfs.io/ipfs/${NFTInfoObject.ipfs_hash}`,
@@ -65,7 +99,7 @@ const Holdings = ({ BEP721Contract, connectToContract, signerAddress }) => {
     }
   };
 
-  const getBoughtdOrMintedNFTs = async (amountOfCreatedNFTs) => {
+  const getBoughtOrMintedNFTs = async (amountOfMintedNFTs) => {
     const NFTInfoArray = [];
     // need to find a way to get bought or minted coins
   };
