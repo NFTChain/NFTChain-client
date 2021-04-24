@@ -1,38 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import logo from '../../../../assets/onlyLogo.png';
 
 const Nav = () => {
   return (
     <nav className='nav'>
       <div className='nav__content container'>
-        <div className='nav__logo'>
+        <Link exact to='/' className='nav__logo'>
           <img className='nav__logo-img' src={logo} alt='nftchain logo' />
-        </div>
+        </Link>
         <ul className='nav__list'>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <Link className='nav__link' to='/litepaper'>
               Litepaper
-            </a>
+            </Link>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <a className='nav__link' href='#'>
               About
             </a>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <a className='nav__link' href='#features'>
               Features
             </a>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <a className='nav__link' href='#roadmap'>
               Roadmap
             </a>
           </li>
           <li className='nav__list-item'>
-            <a className='nav__link' href='https://twitter.com/curm90'>
+            <Link className='nav__link' to='/marketplace'>
               Buy now
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

@@ -9,8 +9,8 @@ const LandingPage = () => {
     <div>
       <Header />
       <Ecosystem />
-      <Roadmap />
       <Features />
+      <Roadmap />
     </div>
   );
 };

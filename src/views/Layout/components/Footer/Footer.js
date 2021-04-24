@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Socials from '../Socials';
 
 const Footer = () => {
@@ -17,36 +18,40 @@ const Footer = () => {
           <div className='footer__copyright'>
             <p className='footer__copyright-text'>
               &copy; 2021
-              <span className='footer__copyright-name'> NFTChain </span>| All
-              rights reserved
+              <span className='footer__copyright-name'>
+                <Link className='footer__copyright-link' to='/'>
+                  NFTChain
+                </Link>
+              </span>
+              | All rights reserved
             </p>
           </div>
           <div className='footer__nav'>
             <ul className='footer__nav-list'>
               <li className='footer__nav-item'>
-                <a href='#' className='footer__nav-link'>
+                <Link to='/litepaper' className='footer__nav-link'>
                   litepaper
-                </a>
+                </Link>
               </li>
               <li className='footer__nav-item'>
-                <a href='#' className='footer__nav-link'>
+                <a href='#about' className='footer__nav-link'>
                   about
                 </a>
               </li>
               <li className='footer__nav-item'>
-                <a href='#' className='footer__nav-link'>
+                <a href='#features' className='footer__nav-link'>
                   features
                 </a>
               </li>
               <li className='footer__nav-item'>
-                <a href='#' className='footer__nav-link'>
+                <a href='#roadmap' className='footer__nav-link'>
                   roadmap
                 </a>
               </li>
               <li className='footer__nav-item'>
-                <a href='#' className='footer__nav-link'>
+                <Link to='/marketplace' className='footer__nav-link'>
                   buy now
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
