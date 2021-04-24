@@ -8,7 +8,15 @@ import axios from 'axios';
 import { BEP721ContractString } from '../../../utils/getContract';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
-const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
+import { startAction, stopAction } from '../../../store/actions/uiActions';
+import { createNotification } from '../../../utils/createNotification';
+
+const UploadNFTForm = ({
+  BEP721Contract,
+  connectToContract,
+  startAction,
+  stopAction,
+}) => {
   const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState(undefined);
   const [fileType, setFileType] = useState('');
@@ -63,43 +71,60 @@ const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
       limit &&
       price
     ) {
-      const fileMetaDataObject = {
-        name: title,
-        keyvalues: {
-          description,
-          fileType,
-          artist,
-        },
-      };
+      try {
+        startAction();
+        createNotification('info', 'Uploading file to IPFS', 4000)();
 
-      const data = new FormData();
-      data.append('file', file);
+        const fileMetaDataObject = {
+          name: title,
+          keyvalues: {
+            description,
+            fileType,
+            artist,
+          },
+        };
 
-      const metadata = JSON.stringify(fileMetaDataObject);
-      data.append('pinataMetadata', metadata);
+        const data = new FormData();
+        data.append('file', file);
 
-      axios
-        .post('https://nftchain.herokuapp.com/nft/upload/', data, {
-          headers: { 'Content-Type': 'multipart/form-data' },
-        })
-        .then(async (response) => {
-          if (response.data.message === 'upload successful') {
-            await mintNFTTokenForUploadedFile(response.data.ipfs_hash);
-            // add check here if IPFS hash is already in our smart contract
-          }
-        })
-        .catch((error) => {
-          console.log(error);
-          debugger;
-          alert('Upload of file was unsuccesful, please try again'); // show nice modal here instead of alert
-        });
+        const metadata = JSON.stringify(fileMetaDataObject);
+        data.append('pinataMetadata', metadata);
+
+        const uploadFileToIPFSPromise = await axios.post(
+          'https://nftchain.herokuapp.com/nft/upload/',
+          data,
+          {
+            headers: { 'Content-Type': 'multipart/form-data' },
+          },
+        );
+
+        if (uploadFileToIPFSPromise.data.message === 'upload successful') {
+          await mintNFTTokenForUploadedFile(
+            uploadFileToIPFSPromise.data.ipfs_hash,
+          );
+          // add check here if IPFS hash is already in our smart contract
+        }
+      } catch (error) {
+        console.log(error);
+        debugger;
+        createNotification(
+          'error',
+          'Upload of file was unsuccesful, please try again',
+          4000,
+        )();
+      }
     } else {
-      alert('You need to fill out all fields!'); // show nice modal here instead of alert
+      createNotification('error', 'Please fill out every input', 4000)();
     }
   };
 
   const mintNFTTokenForUploadedFile = async (IPFSHash) => {
     try {
+      createNotification(
+        'info',
+        'Uploading your data to the blockchain',
+        4000,
+      )();
       const parsedEtherPrice = utils.parseEther(price);
       const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
@@ -108,10 +133,17 @@ const UploadNFTForm = ({ BEP721Contract, connectToContract }) => {
       ); // create unminted NFT
 
       await createUnmintedNFT.wait(); // wait for successful transaction
+      createNotification('success', 'Congrats! Your NFT got created.', 3000)();
     } catch (error) {
       debugger;
       console.log(error);
-      alert('Creating your unminted NFT was not successful, please try again'); // show nice modal here instead of alert
+      createNotification(
+        'error',
+        'Creating your unminted NFT was not successful, please try again',
+        4000,
+      )();
+    } finally {
+      stopAction();
     }
   };
 
@@ -175,4 +207,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { connectToContract })(UploadNFTForm);
+export default connect(mapStateToProps, {
+  connectToContract,
+  startAction,
+  stopAction,
+})(UploadNFTForm);
