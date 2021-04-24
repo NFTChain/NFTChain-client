@@ -29,8 +29,17 @@
     font-size: 1.3rem;
   }
 
-  &__copyright-name {
+  &__copyright-link,
+  &:link,
+  &:visited {
+    text-decoration: none;
     color: $tertiary-dark-4;
+    padding: 0 0.2rem;
+    transition: all 0.2s;
+  }
+
+  &__copyright-link:hover {
+    color: $tertiary-dark-3;
   }
 
   &__nav-list {

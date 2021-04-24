@@ -3,7 +3,7 @@ import featureData from './featureData';
 
 const Features = () => {
   return (
-    <div className='features'>
+    <div className='features' id='features'>
       <h2 className='heading-secondary'>NFTChain Features</h2>
       <div className='container features__content'>
         {featureData.map((feature, i) => (

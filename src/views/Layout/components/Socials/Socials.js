@@ -11,10 +11,20 @@ const Socials = () => {
   return (
     <section className='socials'>
       <div className='socials__content container'>
-        <a href='#' target='_blank' className='socials__link'>
+        <a
+          href='https://twitter.com/nft_chain'
+          target='_blank'
+          className='socials__link'
+          rel='noreferrer'
+        >
           <FaTwitter className='socials__icon' />
         </a>
-        <a href='#' target='_blank' className='socials__link'>
+        <a
+          href='https://t.me/NFT_Chain'
+          target='_blank'
+          className='socials__link'
+          rel='noreferrer'
+        >
           <FaTelegramPlane className='socials__icon' />
         </a>
         <a href='#' target='_blank' className='socials__link'>

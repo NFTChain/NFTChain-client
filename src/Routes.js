@@ -4,7 +4,7 @@ import { Switch, Route } from 'react-router-dom';
 import Holdings from './views/Holdings';
 import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
-import LandingPage from './views/LandingPage-2';
+import LandingPage from './views/LandingPage';
 import CreateNFT from './views/CreateNFT';
 import Litepaper from './views/Litepaper';
 import Layout from './views/Layout';
