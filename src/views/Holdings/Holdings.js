@@ -6,6 +6,7 @@ import { startAction, stopAction } from '../../store/actions/uiActions';
 import { BEP721ContractString } from '../../utils/getContract';
 import Loader from '../Loader';
 import { utils } from 'ethers';
+import { createNotification } from 'utils/createNotification';
 
 const Holdings = ({
   BEP721Contract,
@@ -30,53 +31,63 @@ const Holdings = ({
   const getHoldings = async () => {
     startAction();
 
-    const amountOfCreatedNFTsPromise = BEP721Contract.inksCreatedBy(
-      signerAddress,
-    ); // from this promise we don't know if the NFT is mint or unminted
+    try {
+      const amountOfCreatedNFTsPromise = BEP721Contract.inksCreatedBy(
+        signerAddress,
+      ); // from this promise we don't know if the NFT is mint or unminted
 
-    const amountOfMintedNFTsPromise = BEP721Contract.balanceOf(signerAddress); // from this promise we know already that the NFT is minted
+      const amountOfMintedNFTsPromise = BEP721Contract.balanceOf(signerAddress); // from this promise we know already that the NFT is minted
 
-    let [amountOfCreatedNFTs, amountOfMintedNFTs] = await Promise.all([
-      amountOfCreatedNFTsPromise,
-      amountOfMintedNFTsPromise,
-    ]);
-
-    amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
-    amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
-    debugger;
-
-    if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
-      // if from booth category are some available => use Promise.all for performance reasons
-      debugger;
-      // const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
-      //   amountOfCreatedNFTs,
-      // );
-      const boughtOrMintedNFTsPromise = getBoughtOrMintedNFTs(
-        amountOfMintedNFTs,
-      );
-
-      const [boughtOrMintedNFTS] = await Promise.all([
-        // unsoldUnmintedNFTsPromise,
-        boughtOrMintedNFTsPromise,
+      let [amountOfCreatedNFTs, amountOfMintedNFTs] = await Promise.all([
+        amountOfCreatedNFTsPromise,
+        amountOfMintedNFTsPromise,
       ]);
-      debugger;
-      // setUnmintedHoldings(unsoldUnmintedNFTs);
-      setMintedHoldings(boughtOrMintedNFTS);
-    } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs < 1) {
-      // if only from one category are some availble => try to get the holdings from that one category
-      const unsoldUnmintedNFTs = await getUnsoldUnmintedNFTs(
-        amountOfCreatedNFTs,
-      );
 
-      setUnmintedHoldings(unsoldUnmintedNFTs);
-    } else if (amountOfCreatedNFTs < 1 && amountOfMintedNFTs > 0) {
-      // if only from one category are some availble => try to get the holdings from that one category
-      const boughtOrMintedNFTS = await getBoughtOrMintedNFTs(
-        amountOfMintedNFTs,
+      amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
+      amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
+
+      if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
+        // if from booth category are some available => use Promise.all for performance reasons
+
+        // const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
+        //   amountOfCreatedNFTs,
+        // );
+        const boughtOrMintedNFTsPromise = getBoughtOrMintedNFTs(
+          amountOfMintedNFTs,
+        );
+
+        const [boughtOrMintedNFTS] = await Promise.all([
+          // unsoldUnmintedNFTsPromise,
+          boughtOrMintedNFTsPromise,
+        ]);
+
+        // setUnmintedHoldings(unsoldUnmintedNFTs);
+        setMintedHoldings(boughtOrMintedNFTS);
+      } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs < 1) {
+        // if only from one category are some availble => try to get the holdings from that one category
+        const unsoldUnmintedNFTs = await getUnsoldUnmintedNFTs(
+          amountOfCreatedNFTs,
+        );
+
+        setUnmintedHoldings(unsoldUnmintedNFTs);
+      } else if (amountOfCreatedNFTs < 1 && amountOfMintedNFTs > 0) {
+        // if only from one category are some availble => try to get the holdings from that one category
+        const boughtOrMintedNFTS = await getBoughtOrMintedNFTs(
+          amountOfMintedNFTs,
+        );
+        setMintedHoldings(boughtOrMintedNFTS);
+      }
+    } catch (error) {
+      debugger;
+      console.log(error);
+      createNotification(
+        'error',
+        'Something went wrong loading your NFTs, please reach out to support.',
+        5000,
       );
-      setMintedHoldings(boughtOrMintedNFTS);
+    } finally {
+      stopAction();
     }
-    stopAction();
   };
 
   const getUnsoldUnmintedNFTs = async (amountOfCreatedNFTs) => {
@@ -120,7 +131,6 @@ const Holdings = ({
     const NFTInfoArray = [];
     await Promise.all(
       [...Array(amountOfMintedNFTs).keys()].map(async (currentIndex) => {
-        debugger;
         const tokenId = await BEP721Contract.tokenOfOwnerByIndex(
           signerAddress,
           currentIndex,
@@ -134,10 +144,9 @@ const Holdings = ({
 
         if (!doesNFTAlreadyExists) {
           const ipfsHash = NFTUrl.split('https://ipfs.io/ipfs/')[1];
-          debugger;
+
           // if NFT doesnt exist push the new NFT into the array
           const NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(ipfsHash);
-          debugger;
 
           const NFTInfoObject = {
             id: NFTInfoPromise[0].toString(),
@@ -146,7 +155,7 @@ const Holdings = ({
             price: utils.formatEther(NFTInfoPromise[3].toString()),
             limit: NFTInfoPromise[4].toString(),
           };
-          debugger;
+
           NFTInfoArray.push({
             id: NFTInfoObject.id,
             image: NFTUrl,
@@ -154,18 +163,15 @@ const Holdings = ({
             howManyOwned: 1,
           });
         } else {
-          debugger;
           // else increase the count of key "howManyOwned"
           NFTInfoArray.find((item) => item.image === NFTUrl).howManyOwned += 1;
         }
       }),
     );
-    debugger;
+
     if (NFTInfoArray.length > 0) {
-      debugger;
       return NFTInfoArray;
     } else {
-      debugger;
       return [];
     }
   };
@@ -175,7 +181,7 @@ const Holdings = ({
   } else if (loading) {
     return <Loader />;
   }
-
+  // add logic when user has 0 nfts
   return (
     <div>
       <div>
