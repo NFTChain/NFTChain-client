@@ -1,1 +1,1 @@
-export { default as Litepaper } from './Litepaper';
+export { default } from './Litepaper';
