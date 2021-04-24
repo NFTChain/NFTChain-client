@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import UploadNFTForm from './components/UploadNFTForm';
+import UploadNFTForm from './components';
 import { connectToContract } from '../../store/actions/contractActions';
 import Loader from '../Loader';
 

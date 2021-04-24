@@ -5,8 +5,8 @@ import Holdings from './views/Holdings/Holdings';
 import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage-2';
-import CreateNFT from './views/CreateNFT/CreateNFT';
-import { Litepaper } from './views/Litepaper';
+import CreateNFT from './views/CreateNFT';
+import Litepaper from './views/Litepaper';
 import Layout from './views/Layout';
 
 // // Authentication component
