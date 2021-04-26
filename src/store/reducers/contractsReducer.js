@@ -5,11 +5,11 @@ import {
 } from '../../utils/getContract';
 
 const initialState = {
-  signerAddress: undefined,
-  BEP20Contract: undefined,
-  BEP721Contract: undefined,
-  BEP20Balance: undefined,
-  BEP721Balance: undefined,
+  signerAddress: false,
+  BEP20Contract: false,
+  BEP721Contract: false,
+  BEP20Balance: false,
+  BEP721Balance: false,
   isLoading: false,
 };
 

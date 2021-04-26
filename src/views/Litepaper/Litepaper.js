@@ -295,7 +295,7 @@ const Litepaper = () => {
               alignItems: 'center',
             }}
           >
-            <Box class='litepaper-channel-container'>
+            <Box className='litepaper-channel-container'>
               <Box maxWidth={90}>
                 <Box
                   component='img'
@@ -335,7 +335,7 @@ const Litepaper = () => {
               alignItems: 'center',
             }}
           >
-            <Box class='litepaper-channel-container'>
+            <Box className='litepaper-channel-container'>
               <Box maxWidth={90}>
                 <Box
                   component='img'

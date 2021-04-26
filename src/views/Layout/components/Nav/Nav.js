@@ -6,7 +6,7 @@ const Nav = () => {
   return (
     <nav className='nav'>
       <div className='nav__content container'>
-        <Link exact to='/' className='nav__logo'>
+        <Link to='/' className='nav__logo'>
           <img className='nav__logo-img' src={logo} alt='nftchain logo' />
         </Link>
         <ul className='nav__list'>
