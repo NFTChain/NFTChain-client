@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
@@ -30,30 +32,46 @@ const NFTCard = ({
     },
   };
   return (
-    <Box bgcolor='background.default' className='card'>
-      <Link to={linkConfig} className='card-img__wrapper'>
-        <img className='card-img' src={image} alt='digital art' />
-      </Link>
-      <div className='card-info'>
-        <h3>{title}</h3>
-        <p>{description}</p>
-        <div className='card-info__actions'>
-          <button className='button'>Buy</button>
-          <p>Price: {price}</p>
-        </div>
-        <div className='card-info__separate'></div>
-        <div className='card-info__creators'>
-          <div className='card-info__creator'>
-            <p className='card-info__title'>Artist</p>
-            <p className='card-info__name'>User: {artist}</p>
-          </div>
-          <div className='card-info__creator'>
-            <p className='card-info__title'>Owner</p>
-            <p className='card-info__name'>User: {owner}</p>
-          </div>
+    // <Box bgcolor='background.default' className='card'>
+    //   <Link to={linkConfig} className='card-img__wrapper'>
+    //     <img className='card-img' src={image} alt='digital art' />
+    //   </Link>
+    //   <div className='card-info'>
+    //     <h3>{title}</h3>
+    //     <p>{description}</p>
+    //     <div className='card-info__actions'>
+    //       <button className='button'>Buy</button>
+    //       <p>Price: {price}</p>
+    //     </div>
+    //     <div className='card-info__separate'></div>
+    //     <div className='card-info__creators'>
+    //       <div className='card-info__creator'>
+    //         <p className='card-info__title'>Artist</p>
+    //         <p className='card-info__name'>User: {artist}</p>
+    //       </div>
+    //       <div className='card-info__creator'>
+    //         <p className='card-info__title'>Owner</p>
+    //         <p className='card-info__name'>User: {owner}</p>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </Box>
+    <div id='contentBoxApp' ng-app='contentBoxApp'>
+      <div id='GridCtrl' ng-controller='GridCtrl'>
+        <div className='container dynamic-grid'>
+          <article className='grid-item content-box'>
+            <div className='inner'>
+              <img className='content-box-thumb' src={image} alt='tech image' />
+              <h1 className='content-box-header'>{title}</h1>
+              <p className='content-box-blurb'>{description}</p>
+              <a className='readmore-link' href='#'>
+                read more
+              </a>
+            </div>
+          </article>
         </div>
       </div>
-    </Box>
+    </div>
   );
 };
 

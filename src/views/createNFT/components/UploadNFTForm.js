@@ -125,6 +125,7 @@ const UploadNFTForm = ({
         )();
       }
     } else {
+      debugger;
       createNotification('error', 'Please fill out every input', 4000)();
     }
   };
@@ -137,12 +138,12 @@ const UploadNFTForm = ({
         4000,
       )();
       const parsedEtherPrice = utils.parseEther(price);
+      debugger;
       const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
         limit,
         parsedEtherPrice,
       ); // create unminted NFT
-
       await createUnmintedNFT.wait(); // wait for successful transaction
       createNotification('success', 'Congrats! Your NFT got created.', 3000)();
     } catch (error) {
@@ -162,6 +163,7 @@ const UploadNFTForm = ({
     const searchForId = Number(
       (await BEP721Contract.inkIdByUrl(IPFSHash)).toString(),
     );
+    debugger;
 
     return searchForId > 0; // if id is higher than 0 we know the same file got already uploaded
   };
