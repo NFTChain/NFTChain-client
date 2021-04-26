@@ -1,4 +1,4 @@
-import * as marketplaceActionTypes from '../actionTypes/marketplaceActionTypes';
+import * as marketplaceActionTypes from '../actionTypes/marketplaceActionTypes.js';
 
 export const setAllNFTs = (NFTs) => ({
   type: marketplaceActionTypes.SET_ALL_NFTS,
