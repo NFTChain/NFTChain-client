@@ -1,5 +1,8 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-unused-vars */
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable react/no-unescaped-entities */
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
@@ -56,20 +59,19 @@ const NFTCard = ({
     //     </div>
     //   </div>
     // </Box>
-    <div id='contentBoxApp' ng-app='contentBoxApp'>
-      <div id='GridCtrl' ng-controller='GridCtrl'>
-        <div className='container dynamic-grid'>
-          <article className='grid-item content-box'>
-            <div className='inner'>
-              <img className='content-box-thumb' src={image} alt='tech image' />
-              <h1 className='content-box-header'>{title}</h1>
-              <p className='content-box-blurb'>{description}</p>
-              <a className='readmore-link' href='#'>
-                read more
-              </a>
-            </div>
-          </article>
+    <div className='card'>
+      <Link to={linkConfig} className='card-img__wrapper'>
+        <div className='blue-filter'>
+          <button className='btn-reveal'>Buy</button>
         </div>
+        <div className='card__image'>
+          <img className='card-img' src={image} alt='digital art' />
+        </div>
+      </Link>
+      <div className='card__content'>
+        <div className='card__tag'>{title}</div>
+        <div className='card__head'>{description}</div>
+        <div className='card__text'></div>
       </div>
     </div>
   );

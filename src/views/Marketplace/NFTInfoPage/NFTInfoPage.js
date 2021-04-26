@@ -1,4 +1,6 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
+/* eslint  no-undef: 0 */ // --> OFF
+
 import React, { useState, useEffect } from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
@@ -9,25 +11,21 @@ import {
 } from '../../../utils/getContract';
 import { utils } from 'ethers';
 
-const NFTInfoPage = ({
-  location,
-  BEP20Contract,
-  BEP721Contract,
-  signerAddress,
-  connectToContract,
-}) => {
-  const {
-    image,
-    title,
-    id,
-    description,
-    price,
-    artist,
-    owner,
-    limit,
-    count,
-    artistAddress,
-  } = location.state;
+const NFTInfoPage = (props) => {
+  const y = props;
+  debugger;
+  // const {
+  //   image,
+  //   title,
+  //   id,
+  //   description,
+  //   price,
+  //   artist,
+  //   owner,
+  //   limit,
+  //   count,
+  //   artistAddress,
+  // } = location.state;
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
