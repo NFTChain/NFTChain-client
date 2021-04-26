@@ -10,7 +10,6 @@ const initialState = {
   BEP721Contract: false,
   BEP20Balance: false,
   BEP721Balance: false,
-  isLoading: false,
 };
 
 const decideWhichContract = (payload) => {
