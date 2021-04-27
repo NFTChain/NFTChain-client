@@ -1,5 +1,7 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
-import React, { useState, useEffect } from 'react';
+/* eslint  no-undef: 0 */ // --> OFF
+
+import React from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
@@ -10,12 +12,13 @@ import {
 import { utils } from 'ethers';
 
 const NFTInfoPage = ({
-  location,
   BEP20Contract,
   BEP721Contract,
   signerAddress,
   connectToContract,
+  currentNFT,
 }) => {
+  debugger;
   const {
     image,
     title,
@@ -27,7 +30,7 @@ const NFTInfoPage = ({
     limit,
     count,
     artistAddress,
-  } = location.state;
+  } = currentNFT;
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
@@ -122,6 +125,7 @@ const mapStateToProps = (state) => {
     BEP721Contract: state.contracts.BEP721Contract,
     BEP20Contract: state.contracts.BEP20Contract,
     signerAddress: state.contracts.signerAddress,
+    currentNFT: state.marketplace.currentNFT,
   };
 };
 

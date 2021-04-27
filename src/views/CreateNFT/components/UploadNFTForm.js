@@ -5,17 +5,16 @@ import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import axios from 'axios';
-import { BEP721ContractString } from '../../../utils/getContract';
-import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
 import { startAction, stopAction } from '../../../store/actions/uiActions';
 import { createNotification } from '../../../utils/createNotification';
+import Loader from 'views/Loader';
 
 const UploadNFTForm = ({
   BEP721Contract,
-  connectToContract,
   startAction,
   stopAction,
+  loading,
 }) => {
   const [file, setFile] = useState(undefined);
   const [preview, setPreview] = useState(undefined);
@@ -59,8 +58,7 @@ const UploadNFTForm = ({
     setFileType(event.target.value);
   };
 
-  const connectToWalletAndCreate = async () => {
-    connectToContract(BEP721ContractString);
+  const UploadAndCreateUnmintedNFT = async () => {
     if (
       BEP721Contract &&
       file &&
@@ -99,10 +97,23 @@ const UploadNFTForm = ({
         );
 
         if (uploadFileToIPFSPromise.data.message === 'upload successful') {
-          await mintNFTTokenForUploadedFile(
+          const gotFileAlreadyUploaded = await doesFileAlreadyExists(
             uploadFileToIPFSPromise.data.ipfs_hash,
           );
-          // add check here if IPFS hash is already in our smart contract
+
+          if (gotFileAlreadyUploaded) {
+            // if file is already on our Blockchain, let user know
+            createNotification(
+              'error',
+              'This NFT got already created, if you think this is wrong please reach out to support.',
+              10000,
+            );
+          } else {
+            // else continue creating NFT
+            await mintNFTTokenForUploadedFile(
+              uploadFileToIPFSPromise.data.ipfs_hash,
+            );
+          }
         }
       } catch (error) {
         console.log(error);
@@ -114,6 +125,7 @@ const UploadNFTForm = ({
         )();
       }
     } else {
+      debugger;
       createNotification('error', 'Please fill out every input', 4000)();
     }
   };
@@ -126,12 +138,12 @@ const UploadNFTForm = ({
         4000,
       )();
       const parsedEtherPrice = utils.parseEther(price);
+      debugger;
       const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
         limit,
         parsedEtherPrice,
       ); // create unminted NFT
-
       await createUnmintedNFT.wait(); // wait for successful transaction
       createNotification('success', 'Congrats! Your NFT got created.', 3000)();
     } catch (error) {
@@ -146,6 +158,19 @@ const UploadNFTForm = ({
       stopAction();
     }
   };
+
+  const doesFileAlreadyExists = async (IPFSHash) => {
+    const searchForId = Number(
+      (await BEP721Contract.inkIdByUrl(IPFSHash)).toString(),
+    );
+    debugger;
+
+    return searchForId > 0; // if id is higher than 0 we know the same file got already uploaded
+  };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div>
@@ -194,7 +219,7 @@ const UploadNFTForm = ({
       <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
       <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
       <InputBase id='price-id' value={price} onChange={handlePriceChange} />
-      <button onClick={connectToWalletAndCreate}>
+      <button onClick={UploadAndCreateUnmintedNFT}>
         Connect wallet and create
       </button>
     </div>
@@ -204,11 +229,11 @@ const UploadNFTForm = ({
 const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
+    loading: state.ui.loading,
   };
 };
 
 export default connect(mapStateToProps, {
-  connectToContract,
   startAction,
   stopAction,
 })(UploadNFTForm);

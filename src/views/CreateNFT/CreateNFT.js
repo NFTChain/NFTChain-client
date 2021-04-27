@@ -2,27 +2,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UploadNFTForm from './components';
 import { connectToContract } from '../../store/actions/contractActions';
-import Loader from '../Loader';
+import ConnectWallet from '../ConnectWallet';
 
-const CreateNFT = ({ loading }) => {
-  if (loading) return <Loader />;
-  return (
-    <div
-      style={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
-      }}
-    >
-      <UploadNFTForm />
-    </div>
-  );
+const CreateNFT = ({ BEP721Balance }) => {
+  if (!BEP721Balance) {
+    return <ConnectWallet />;
+  }
+
+  return <UploadNFTForm />;
 };
 const mapStateToProps = (state) => {
   return {
-    loading: state.ui.loading,
+    BEP721Balance: state.contracts.BEP721Balance,
   };
 };
 

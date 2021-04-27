@@ -25,7 +25,6 @@ const Routes = () => {
         render={() => <Layout children={<LandingPage />} />}
       />
       <Route
-        exact
         path='/createNFT'
         render={() => <Layout children={<CreateNFT />} />}
       />
@@ -35,18 +34,16 @@ const Routes = () => {
         render={() => <Layout children={<Marketplace />} />}
       />
       <Route
-        exact
         path='/holdings'
         render={() => <Layout children={<Holdings />} />}
       />
       <Route
-        exact
         path='/Litepaper'
         render={() => <Layout children={<Litepaper />} />}
       />
       <Route
         path='/marketplace/:id'
-        crender={() => <Layout children={<NFTInfoPage />} />}
+        render={() => <Layout children={<NFTInfoPage />} />}
       />
       {/* <Route
         exact
