@@ -96,12 +96,12 @@ const Marketplace = ({
 
   if (currentNFTS.length === 0) return <Loader />;
   return (
-    <Box bgcolor='alternate.main' className='marketplace-container'>
-      <Box bgcolor='alternate.main' className='marketplace'>
-        <div className='marketplace-title'>
-          <h1>Marketplace</h1>
+    <section className='marketplace'>
+      <div className='marketplace__content container'>
+        <div className='marketplace__title'>
+          <h1 className='marketplace__title'>Marketplace</h1>
         </div>
-        <div className='card-list'>
+        <div className='card__list'>
           <NFTCardList NFTS={currentNFTS} />
         </div>
         <Pagination
@@ -110,8 +110,8 @@ const Marketplace = ({
           NFTPerPage={NFTPerPage}
           currentPage={currentPage}
         />
-      </Box>
-    </Box>
+      </div>
+    </section>
   );
 };
 
