@@ -30,6 +30,9 @@ const getContract = async (contractType, readOnly) => {
     } else {
       await window.ethereum.enable();
 
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      console.log('Provider', provider);
+
       const signer = provider.getSigner();
       console.log('Signer', signer);
 
