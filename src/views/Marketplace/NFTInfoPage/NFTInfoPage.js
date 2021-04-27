@@ -1,22 +1,19 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 /* eslint  no-undef: 0 */ // --> OFF
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Avatar, Box, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
-import {
-  BEP721ContractString,
-  BEP20ContractString,
-} from '../../../utils/getContract';
 import { utils } from 'ethers';
+import ConnectWallet from 'views/ConnectWallet';
 
 const NFTInfoPage = ({
   BEP20Contract,
   BEP721Contract,
   signerAddress,
-  connectToContract,
   currentNFT,
+  isConnected,
 }) => {
   const {
     image,
@@ -31,20 +28,15 @@ const NFTInfoPage = ({
     artistAddress,
   } = currentNFT;
 
+  const [pressedBuy, setPressedBuy] = useState(false);
+
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
       await tryBuyingNFT();
       debugger;
     } else {
-      connectToSmartContracts();
-      alert('You need to connect your wallet first');
+      setPressedBuy(true);
     }
-  };
-
-  const connectToSmartContracts = () => {
-    [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-      connectToContract(contractString),
-    );
   };
 
   const tryBuyingNFT = async () => {
@@ -64,6 +56,11 @@ const NFTInfoPage = ({
       console.log(error);
     }
   };
+
+  if (pressedBuy && !isConnected) {
+    return <ConnectWallet />;
+  }
+
   return (
     <Box bgcolor='alternate.main' className='nft-container'>
       <Box className='nft-spacing'>
@@ -125,6 +122,7 @@ const mapStateToProps = (state) => {
     BEP20Contract: state.contracts.BEP20Contract,
     signerAddress: state.contracts.signerAddress,
     currentNFT: state.marketplace.currentNFT,
+    isConnected: state.ui.isConnected,
   };
 };
 
