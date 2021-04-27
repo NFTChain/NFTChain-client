@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import NFTCardList from './NFTCardList';
 import Pagination from './Pagination';
-import { Box } from '@material-ui/core';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
@@ -18,7 +17,7 @@ const Marketplace = ({
   setAllNFTs,
 }) => {
   const [NFTs, setNFTs] = useState([]);
-  const [NFTPerPage] = useState(20);
+  const [NFTPerPage] = useState(3);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

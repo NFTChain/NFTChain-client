@@ -286,6 +286,7 @@ const UploadNFTForm = ({
                 </div>
               </div>
             </div>
+            {/* Start of form  */}
             <div className='upload-form-row'>
               <div className='upload-form-col'>
                 <InputLabel id='file-type-label'>File type</InputLabel>
@@ -357,7 +358,6 @@ const UploadNFTForm = ({
             </Button>
           </div>
         </div>
-        {/* Start of form  */}
 
         {/* start of preview */}
         <NTFCard
