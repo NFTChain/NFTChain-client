@@ -13,6 +13,7 @@
 .marketplace__title {
   font-size: 3rem;
   font-weight: 300;
+  margin-top: 2rem;
 }
 
 .card__list {
@@ -20,6 +21,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  margin: 6rem 0;
 
   @media (min-width: $desktop-breakpoint) {
     justify-content: space-evenly;

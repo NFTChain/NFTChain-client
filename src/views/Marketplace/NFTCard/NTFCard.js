@@ -19,24 +19,27 @@ const NFTCard = ({
   artistAddress,
 }) => {
   return (
-    <Link to={`/marketplace/${id}`} className='card'>
-      <div className='product_card'>
-        <img src={image} className='product_image' alt='PRODUCT' />
-        <section>
-          <h1 className='title'>Vintage Classic Camera</h1>
-          <span className='price'>$70</span>
-          <strike>$90</strike>
-          <span className='discount'>20% OFF</span>
-          <p className='rating'>
-            <span className='fa fa-star checked'></span>
-            <span className='fa fa-star checked'></span>
-            <span className='fa fa-star checked'></span>
-            <span className='fa fa-star'></span>
-            <span className='fa fa-star'></span>
-          </p>
+    <div className='card'>
+      <div className='card__content'>
+        <Link to={`/marketplace/${id}`} className='card__image-box'>
+          <div
+            style={{ backgroundImage: `url(${image})` }}
+            className='card__image'
+            alt='nft card'
+          />
+        </Link>
+        <section className='card__info'>
+          <div className='card__info-row-1'>
+            <h1 className='card__title'>{title}</h1>
+            <h4 className='card__description'>{description}</h4>
+          </div>
+          <div className='card__info-row-2'>
+            <p className='card__price'>${price}</p>
+            <p className='card__artist'>{artist}</p>
+          </div>
         </section>
       </div>
-    </Link>
+    </div>
   );
 };
 
