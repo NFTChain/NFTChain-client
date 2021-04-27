@@ -46,6 +46,10 @@ const Routes = () => {
         path='/marketplace/:id'
         render={() => <Layout children={<NFTInfoPage />} />}
       />
+      <Route
+        path='/paintingFactory'
+        render={() => <Layout children={<PaintingFactory />} />}
+      />
       {/* <Route
         exact
         path='/login'
