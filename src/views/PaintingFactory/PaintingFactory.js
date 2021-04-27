@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useRef, useEffect, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import {
@@ -10,11 +11,8 @@ import LZ from 'lz-string';
 
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
-const PaintingFactoy = () => {
-  const calculatedVmin = Math.min(
-    window.document.body.clientHeight,
-    window.document.body.clientWidth,
-  );
+const PaintingFactoy = (props) => {
+  const calculatedVmin = Math.min(window.innerHeight, window.innerWidth);
   const [size, setSize] = useState([
     0.85 * calculatedVmin,
     0.85 * calculatedVmin,
@@ -24,7 +22,6 @@ const PaintingFactoy = () => {
   const [drawingSize, setDrawingSize] = useState(0);
   const [picker, setPicker] = useState('picker', 0);
   const [brushRadius, setBrushRadius] = useState(8);
-  const [drawingSize, setDrawingSize] = useState(0);
 
   const updateColor = (value) => {
     console.log(value);
@@ -38,6 +35,11 @@ const PaintingFactoy = () => {
 
   const updateBrushRadius = (value) => {
     setBrushRadius(value);
+  };
+
+  const saveDrawing = (newDrawing) => {
+    let savedData = LZ.compress(newDrawing.getSaveData());
+    props.setDrawing(savedData);
   };
 
   const triggerOnChange = (lines) => {
