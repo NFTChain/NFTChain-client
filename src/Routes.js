@@ -7,6 +7,7 @@ import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage';
 import CreateNFT from './views/CreateNFT';
 import Litepaper from './views/Litepaper';
+import PaintingFactory from './views/PaintingFactory';
 import Layout from './views/Layout';
 
 // // Authentication component
