@@ -6,10 +6,12 @@ import {
 } from '../../utils/getContract';
 import { utils } from 'ethers';
 
-export const connectToContract = (contractType) => async (dispatch) => {
+export const connectToContract = (contractType, readOnly = false) => async (
+  dispatch,
+) => {
   try {
     // get the smart contract to be able to communicate with the blockchain
-    const { signerAddress, token } = await getContract(contractType);
+    const { signerAddress, token } = await getContract(contractType, readOnly);
     dispatch({
       type: actionTypes.GET_CONTRACT,
       payload: {
@@ -18,10 +20,11 @@ export const connectToContract = (contractType) => async (dispatch) => {
         token,
       },
     });
-    // If BEP20 or ERC721 token => get the balance from users wallet
+    // If BEP20 or ERC721 token & signerAddress => get the balance from users wallet
     if (
-      BEP20ContractString === contractType ||
-      BEP721ContractString === contractType
+      (BEP20ContractString === contractType ||
+        BEP721ContractString === contractType) &&
+      signerAddress
     ) {
       return dispatch(getContractBalance(contractType, token, signerAddress));
     }
@@ -42,7 +45,7 @@ export const getContractBalance = (
     let balance = (await contract.balanceOf(signerAddress)).toString();
     if (BEP20ContractString === contractType)
       // only for BEP20 token because BEP721 doesnt have decimals
-      balance = utils.formatEther(balance); // formatUnits second parameter is "ether" as default (18 decimals like our BEP20 token)
+      balance = utils.formatEther(balance); // "ether" is 18 decimals like our BEP20 token
     dispatch({
       type: actionTypes.GET_CONTRACT_BALANCE,
       payload: {

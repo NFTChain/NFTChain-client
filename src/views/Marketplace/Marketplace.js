@@ -22,12 +22,13 @@ const Marketplace = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    connectToContract(BEP721ContractString);
+    connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
   }, []);
 
   useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
     if (BEP721Contract) {
+      debugger;
       fetchOnSaleNFTs();
     }
   }, [BEP721Contract]);

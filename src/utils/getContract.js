@@ -15,21 +15,32 @@ const decideWhichContract = (contract) => {
 };
 
 // we need to fix bugs when people are on the wrong network (not on the bsc testnet / mainnet network)
-const getContract = async (contractType) => {
+const getContract = async (contractType, readOnly) => {
   const Token = decideWhichContract(contractType);
 
   if (window.ethereum) {
-    await window.ethereum.enable();
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    console.log('Provider', provider);
-    const signer = provider.getSigner();
-    console.log('Signer', signer);
-    const signerAddress = await signer.getAddress();
-    console.log('SignerAddress', signerAddress);
-    const token = new Contract(Token.address, Token.abi, signer);
-    console.log('Token', token);
-    console.log(signerAddress, token);
-    return { signerAddress, token };
+    if (readOnly) {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      console.log('Provider', provider);
+
+      const token = new Contract(Token.address, Token.abi, provider);
+      console.log('Token', token);
+
+      return { token };
+    } else {
+      await window.ethereum.enable();
+
+      const signer = provider.getSigner();
+      console.log('Signer', signer);
+
+      const signerAddress = await signer.getAddress();
+      console.log('SignerAddress', signerAddress);
+
+      const token = new Contract(Token.address, Token.abi, signer);
+      console.log('Token', token);
+
+      return { signerAddress, token };
+    }
   }
 };
 
