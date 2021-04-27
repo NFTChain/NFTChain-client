@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import Routes from './Routes';
 import configureStore from './store/configureStore';
-// import { NotificationContainer } from 'react-notifications';
+import { NotificationContainer } from 'react-notifications';
 
 import 'react-notifications/lib/notifications.css';
 import 'react-lazy-load-image-component/src/effects/blur.css';
@@ -17,7 +17,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <Routes />
-        {/* <NotificationContainer /> */}
+        <NotificationContainer />
       </Router>
     </Provider>
   );
