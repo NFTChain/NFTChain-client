@@ -18,7 +18,6 @@ const NFTInfoPage = ({
   connectToContract,
   currentNFT,
 }) => {
-  debugger;
   const {
     image,
     title,
