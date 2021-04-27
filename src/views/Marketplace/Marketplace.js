@@ -98,10 +98,10 @@ const Marketplace = ({
   return (
     <section className='marketplace'>
       <div className='marketplace__content container'>
-        <div className='marketplace__title'>
+        <div className='marketplace__title-box'>
           <h1 className='marketplace__title'>Marketplace</h1>
         </div>
-        <div className='card__list'>
+        <div className='marketplace__card-list'>
           <NFTCardList NFTS={currentNFTS} />
         </div>
         <Pagination
