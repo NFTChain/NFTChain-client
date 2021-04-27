@@ -1,4 +1,6 @@
 .marketplace-container {
+  @include bgGradient;
+  background-color: $primary-dark-7;
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -7,6 +7,8 @@ import { BEP721ContractString } from '../../utils/getContract';
 import Loader from '../Loader';
 import { utils } from 'ethers';
 import { createNotification } from 'utils/createNotification';
+import NFTCard from 'views/Marketplace/NFTCard';
+
 
 const Holdings = ({
   BEP721Contract,
@@ -189,12 +191,7 @@ const Holdings = ({
         {unmintedHoldings.length > 0 &&
           unmintedHoldings.map((item) => {
             return (
-              <div key={item.id}>
-                <h6>ITEM{item.id}</h6>
-                <div style={{ width: '5rem', height: '5rem' }}>
-                  <img src={item.image} alt='nft' />{' '}
-                </div>
-              </div>
+              <NFTCard key={item.id} image={item.image} price={item.currentPrice} />
             );
           })}
       </div>
@@ -203,12 +200,7 @@ const Holdings = ({
         {mintedHoldings.length > 0 &&
           mintedHoldings.map((item) => {
             return (
-              <div key={item.id}>
-                <h6>ITEM{item.id}</h6>
-                <div style={{ width: '5rem', height: '5rem' }}>
-                  <img src={item.image} alt='nft' />{' '}
-                </div>
-              </div>
+              <NFTCard key={item.id} image={item.image} price={item.currentPrice} />
             );
           })}
       </div>

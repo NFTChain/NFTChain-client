@@ -1,3 +1,4 @@
+/* eslint-disable  no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import NFTCardList from './NFTCardList';
 import Pagination from './Pagination';
@@ -5,10 +6,17 @@ import { Box } from '@material-ui/core';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
+import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import { BEP721ContractString } from '../../utils/getContract';
 import { utils } from 'ethers';
+import Loader from 'views/Loader';
 
-const Marketplace = ({ BEP721Contract, connectToContract }) => {
+const Marketplace = ({
+  BEP721Contract,
+  connectToContract,
+  allNFTs,
+  setAllNFTs,
+}) => {
   const [NFTs, setNFTs] = useState([]);
   const [NFTPerPage] = useState(20);
   const [currentPage, setCurrentPage] = useState(1);
@@ -79,14 +87,14 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
       }),
     );
     setNFTs(NFTInfoArray);
+    setAllNFTs(NFTInfoArray);
   };
 
   const indexOfLastNFT = currentPage * NFTPerPage;
   const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
-  if (currentNFTS.length === 0)
-    return <div>Here should be a nice loader ;(</div>;
+  if (currentNFTS.length === 0) return <Loader />;
   return (
     <Box bgcolor='alternate.main' className='marketplace-container'>
       <Box bgcolor='alternate.main' className='marketplace'>
@@ -110,7 +118,10 @@ const Marketplace = ({ BEP721Contract, connectToContract }) => {
 const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
+    allNFTs: state.marketplace.allNFTs,
   };
 };
 
-export default connect(mapStateToProps, { connectToContract })(Marketplace);
+export default connect(mapStateToProps, { connectToContract, setAllNFTs })(
+  Marketplace,
+);

@@ -19,23 +19,34 @@ const NFTCard = ({
   count,
   artistAddress,
 }) => {
-  const linkConfig = {
-    pathname: `/marketplace/${id}`,
-    state: {
-      image,
-      title,
-      id,
-      description,
-      price,
-      artist,
-      owner,
-      limit,
-      count,
-      artistAddress,
-    },
-  };
   return (
-    // <Box bgcolor='background.default' className='card'>
+    <Link to={`/marketplace/${id}`} className='card-img__wrapper'>
+      <section className='Cards'>
+        <div className='product_card'>
+          <img src={image} className='product_image' alt='PRODUCT' />
+          <section>
+            <h1 className='title'>Vintage Classic Camera</h1>
+            <span className='price'>$70</span>
+            <strike>$90</strike>
+            <span className='discount'>20% OFF</span>
+            <p className='rating'>
+              <span className='fa fa-star checked'></span>
+              <span className='fa fa-star checked'></span>
+              <span className='fa fa-star checked'></span>
+              <span className='fa fa-star'></span>
+              <span className='fa fa-star'></span>
+            </p>
+          </section>
+        </div>
+      </section>
+    </Link>
+  );
+};
+
+export default NFTCard;
+
+{
+  /* // <Box bgcolor='background.default' className='card'>
     //   <Link to={linkConfig} className='card-img__wrapper'>
     //     <img className='card-img' src={image} alt='digital art' />
     //   </Link>
@@ -58,23 +69,5 @@ const NFTCard = ({
     //       </div>
     //     </div>
     //   </div>
-    // </Box>
-    <div className='card'>
-      <Link to={linkConfig} className='card-img__wrapper'>
-        <div className='blue-filter'>
-          <button className='btn-reveal'>Buy</button>
-        </div>
-        <div className='card__image'>
-          <img className='card-img' src={image} alt='digital art' />
-        </div>
-      </Link>
-      <div className='card__content'>
-        <div className='card__tag'>{title}</div>
-        <div className='card__head'>{description}</div>
-        <div className='card__text'></div>
-      </div>
-    </div>
-  );
-};
-
-export default NFTCard;
+    // </Box> */
+}
