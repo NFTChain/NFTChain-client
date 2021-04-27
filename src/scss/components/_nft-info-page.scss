@@ -1,74 +1,66 @@
-.nft-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: calc(100vh - 64px);
-  padding: 0 2rem;
-}
+.info {
+  height: calc(100vh - 100px);
+  color: $primary-text-4;
+  @include bgGradient;
+  @include flexCenter;
 
-.nft-spacing {
-  display: flex;
-  justify-content: space-around;
-  margin: 0 auto;
-  align-items: center;
-}
-
-.image-container {
-  margin: 0 5rem;
-  max-width: 35rem;
-
-  img {
-    width: 100%;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
-      rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
-    border-radius: 2px;
+  &__content {
+    display: flex;
+    justify-content: center;
   }
-}
 
-.nft-info {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  padding: 2rem 0;
-  max-width: 15rem;
-}
+  &__image-box {
+    display: block;
+    margin: 0 4rem;
+  }
 
-.nft-description {
-  margin: 2rem 0;
-}
+  &__image {
+  }
 
-.nft-info__title {
-  font-size: 2rem;
-}
+  &__box {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
 
-.nft-users {
-  padding: 2rem 0;
-}
+  &__title {
+    font-size: 2.8rem;
+  }
 
-.nft-user {
-  display: flex;
-  align-items: center;
-}
+  &__description {
+    font-size: 1.4rem;
+    display: inline-block;
+  }
 
-.nft-user:nth-child(1) {
-  margin-bottom: 2rem;
-}
+  &__user-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.nft-user__info {
-  margin-left: 1rem;
-  font-size: 0.8rem;
-}
+  &__user-box:nth-child(1) {
+    border-bottom: 1px solid $primary-text-3;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+  }
 
-.nft-user__role {
-  color: $text-secondary;
-}
+  &__user__details {
+    margin-left: 1rem;
 
-.price {
-  color: $text-secondary;
-}
+    &-name {
+      font-size: 1.8rem;
+    }
 
-.price-amount {
-  font-weight: bold;
-  font-size: 2rem;
-  margin-bottom: 1rem;
+    &-role {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: $secondary-dark-4;
+    }
+  }
+
+  &__price {
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 1.2rem;
+  }
 }

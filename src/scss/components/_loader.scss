@@ -1,6 +1,5 @@
 .loader-container {
   @include bgGradient;
-  background-color: $primary-dark-7;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -8,7 +7,7 @@
   margin: 0px;
   padding: 0px;
   width: 100%;
-  height: calc(100vh - 95px);
+  height: calc(100vh - 100px);
 }
 
 .rect {

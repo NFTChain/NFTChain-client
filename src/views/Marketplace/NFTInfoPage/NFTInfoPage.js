@@ -2,7 +2,7 @@
 /* eslint  no-undef: 0 */ // --> OFF
 
 import React from 'react';
-import { Avatar, Box, Typography } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import {
@@ -65,58 +65,39 @@ const NFTInfoPage = ({
     }
   };
   return (
-    <Box bgcolor='alternate.main' className='nft-container'>
-      <Box className='nft-spacing'>
-        <div className='nft-info'>
-          <h3 className='nft-info__title'>{title}</h3>
-          <div className='nft-description'>
-            <p>{description}</p>
+    <section className='info'>
+      <div className='info__content container'>
+        <div className='info__box'>
+          <div className='info__row info__row-1'>
+            <h2 className='info__title'>{title}</h2>
+            <p className='info__description'>{description}</p>
           </div>
-          <div className='nft-actions'>
-            <div className='nft-actions__price'>
-              <Typography color={'secondary'} className='price'>
-                Price
-              </Typography>
-              <p className='price-amount'>{price} NFTC</p>
-            </div>
-            <button onClick={buyNFT} className='button'>
-              Buy
-            </button>
+          <div className='info__purchase-box'>
+            <p className='info__price'>{price} NFTC</p>
+            <button className='btn btn--white'>Purchase</button>
           </div>
         </div>
-        <div className='image-container'>
-          <img src={image} alt='nft' />
+        <div className='info__image-box'>
+          <img src={image} alt='nft' className='info__image' />
         </div>
-        <div className='nft-users'>
-          <div className='nft-user'>
-            <Avatar className='nft-user__avatar'></Avatar>
-            <div className='nft-user__info'>
-              <h4 className='nft-user__name'>{artist}</h4>
-              <Typography
-                color='secondary'
-                fontSize={'0.8rem'}
-                className='nft-user__role'
-              >
-                ARTIST
-              </Typography>
+        <div className='info__users-box'>
+          <div className='info__user-box'>
+            <Avatar />
+            <div className='info__user__details'>
+              <h3 className='info__user__details-name'>{artist}</h3>
+              <h4 className='info__user__details-role'>Artist</h4>
             </div>
           </div>
-          <div className='nft-user'>
-            <Avatar className='nft-user__avatar'></Avatar>
-            <div className='nft-user__info'>
-              <h4 className='nft-user__name'>{owner}</h4>
-              <Typography
-                color='secondary'
-                fontSize={'0.8rem'}
-                className='nft-user__role'
-              >
-                OWNER
-              </Typography>
+          <div className='info__user-box'>
+            <Avatar />
+            <div className='info__user__details'>
+              <h3 className='info__user__details-name'>{owner}</h3>
+              <h4 className='info__user__details-role'>Owner</h4>
             </div>
           </div>
         </div>
-      </Box>
-    </Box>
+      </div>
+    </section>
   );
 };
 const mapStateToProps = (state) => {

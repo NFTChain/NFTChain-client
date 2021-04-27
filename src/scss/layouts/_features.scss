@@ -4,7 +4,6 @@
   padding: 6rem 2rem;
 
   &__content {
-    margin: 0 auto;
     @include flexCenter;
     flex-wrap: wrap;
   }
