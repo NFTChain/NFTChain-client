@@ -1,33 +1,86 @@
-.upload-and-preview {
-  @include flexCenter;
+.create-nft-container {
+  @include bgGradient;
+}
+
+.upload-preview-container {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   width: 100%;
 }
 
-.upload-file-container {
-  width: 70%;
+.upload-form {
+  background-color: #fff;
+  border-radius: 0.5rem;
+  box-shadow: 0px 5px 20px rgba(49, 104, 146, 0.25);
+  width: 500px;
+}
+.upload-form-row {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
-.upload-file-box {
-  @include flexCenter;
-  border: 2px dashed rgba(4, 4, 5, 0.1);
-  height: 5rem;
-  width: 100%;
-  border-radius: 16px;
+.upload-card {
+  background-color: #fff;
+  width: 500px;
+  border-radius: 0.5rem;
+  box-shadow: 0px 5px 20px rgba(49, 104, 146, 0.25);
+
+  .upload-card-body {
+    padding: 3.5rem 1.25rem;
+
+    .upload-card-title {
+      color: #1689ff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 0.25rem;
+    }
+
+    .upload-card-subtitle {
+      color: #777;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
 }
 
-.preview-container {
-  width: 30%;
+.file-upload {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4rem 1.5rem;
+  margin-top: 2rem;
+  border: 3px dashed #9dceff;
+  border-radius: 0.5rem;
+  transition: background-color 0.25s ease-out;
+
+  &:hover {
+    background-color: #dbedff;
+  }
+
+  .file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+  }
 }
 
-.preview-box {
-  border-radius: 16px;
-  border: 1px solid rgba(4, 4, 5, 0.1);
-  width: 5rem;
-  height: 5rem;
+.icon {
+  width: 75px;
+  margin-bottom: 1rem;
 }
 
-.preview-image {
-  border-radius: 16px;
-  width: 5rem;
-  height: 5rem;
+@media (max-width: 600px) {
+  .icon {
+    width: 50px;
+  }
 }
