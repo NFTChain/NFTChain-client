@@ -1,11 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import UploadNFTForm from './components';
-import { connectToContract } from '../../store/actions/contractActions';
 import ConnectWallet from '../ConnectWallet';
 
-const CreateNFT = ({ BEP721Balance }) => {
-  if (!BEP721Balance) {
+const CreateNFT = ({ isConnected }) => {
+  if (!isConnected) {
     return <ConnectWallet />;
   }
 
@@ -13,8 +12,8 @@ const CreateNFT = ({ BEP721Balance }) => {
 };
 const mapStateToProps = (state) => {
   return {
-    BEP721Balance: state.contracts.BEP721Balance,
+    isConnected: state.ui.isConnected,
   };
 };
 
-export default connect(mapStateToProps, { connectToContract })(CreateNFT);
+export default connect(mapStateToProps)(CreateNFT);

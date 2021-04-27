@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
-import { startAction, stopAction } from '../../store/actions/uiActions';
+import {
+  startAction,
+  stopAction,
+  setConnection,
+} from '../../store/actions/uiActions';
 import { BEP20ContractString, BEP721ContractString } from 'utils/getContract';
 import Loader from 'views/Loader';
 import metamaskLogo from '../../assets/metamask.png';
@@ -15,10 +19,12 @@ const ConnectWallet = ({
   stopAction,
   loading,
   connectToContract,
+  setConnection,
 }) => {
   useEffect(() => {
     if (BEP721Contract && BEP20Contract) {
       stopAction();
+      setConnection(true);
     }
   }, [BEP721Contract, BEP20Contract]);
 
@@ -50,9 +56,6 @@ const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
     BEP20Contract: state.contracts.BEP20Contract,
-    // signerAddress: state.contracts.signerAddress,
-    // BEP721Balance: state.contracts.BEP721Balance,
-    // BEP20Balance: state.contracts.BEP20Balance,
     loading: state.ui.loading,
   };
 };
@@ -61,4 +64,5 @@ export default connect(mapStateToProps, {
   connectToContract,
   startAction,
   stopAction,
+  setConnection,
 })(ConnectWallet);

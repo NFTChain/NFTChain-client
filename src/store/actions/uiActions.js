@@ -7,3 +7,8 @@ export const startAction = () => ({
 export const stopAction = () => ({
   type: uiActionTypes.STOP_ACTION,
 });
+
+export const setConnection = (isConnected) => ({
+  type: uiActionTypes.SET_CONNECTION,
+  payload: isConnected,
+});

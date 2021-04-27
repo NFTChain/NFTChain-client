@@ -6,6 +6,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Box from '@material-ui/core/Box';
+import { connect } from 'react-redux';
+import { setCurrentNFT } from '../../../store/actions/marketplaceActions';
 
 const NFTCard = ({
   image,
@@ -18,9 +20,30 @@ const NFTCard = ({
   limit,
   count,
   artistAddress,
+  setCurrentNFT,
 }) => {
+  const setNFT = () => {
+    const NFT = {
+      image,
+      title,
+      id,
+      description,
+      price,
+      artist,
+      owner,
+      limit,
+      count,
+      artistAddress,
+    };
+    setCurrentNFT(NFT);
+  };
+
   return (
-    <Link to={`/marketplace/${id}`} className='card-img__wrapper'>
+    <Link
+      to={`/marketplace/${id}`}
+      onClick={setNFT}
+      className='card-img__wrapper'
+    >
       <section className='Cards'>
         <div className='product_card'>
           <img src={image} className='product_image' alt='PRODUCT' />
@@ -43,10 +66,18 @@ const NFTCard = ({
   );
 };
 
-export default NFTCard;
+const mapStateToProps = (state) => {
+  return {
+    BEP721Contract: state.contracts.BEP721Contract,
+    BEP20Contract: state.contracts.BEP20Contract,
+    signerAddress: state.contracts.signerAddress,
+    currentNFT: state.marketplace.currentNFT,
+  };
+};
 
-{
-  /* // <Box bgcolor='background.default' className='card'>
+export default connect(mapStateToProps, { setCurrentNFT })(NFTCard);
+
+/* // <Box bgcolor='background.default' className='card'>
     //   <Link to={linkConfig} className='card-img__wrapper'>
     //     <img className='card-img' src={image} alt='digital art' />
     //   </Link>
@@ -70,4 +101,3 @@ export default NFTCard;
     //     </div>
     //   </div>
     // </Box> */
-}

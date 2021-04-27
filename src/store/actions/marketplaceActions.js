@@ -5,7 +5,7 @@ export const setAllNFTs = (NFTs) => ({
   payload: NFTs,
 });
 
-export const setSingleNFT = (NFT) => ({
+export const setCurrentNFT = (NFT) => ({
   type: marketplaceActionTypes.SET_CURRENT_NFT,
   payload: NFT,
 });
