@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Box from '@material-ui/core/Box';
 
 const NFTCard = ({
   image,
@@ -20,25 +19,23 @@ const NFTCard = ({
   artistAddress,
 }) => {
   return (
-    <Link to={`/marketplace/${id}`} className='card-img__wrapper'>
-      <section className='Cards'>
-        <div className='product_card'>
-          <img src={image} className='product_image' alt='PRODUCT' />
-          <section>
-            <h1 className='title'>Vintage Classic Camera</h1>
-            <span className='price'>$70</span>
-            <strike>$90</strike>
-            <span className='discount'>20% OFF</span>
-            <p className='rating'>
-              <span className='fa fa-star checked'></span>
-              <span className='fa fa-star checked'></span>
-              <span className='fa fa-star checked'></span>
-              <span className='fa fa-star'></span>
-              <span className='fa fa-star'></span>
-            </p>
-          </section>
-        </div>
-      </section>
+    <Link to={`/marketplace/${id}`} className='card'>
+      <div className='product_card'>
+        <img src={image} className='product_image' alt='PRODUCT' />
+        <section>
+          <h1 className='title'>Vintage Classic Camera</h1>
+          <span className='price'>$70</span>
+          <strike>$90</strike>
+          <span className='discount'>20% OFF</span>
+          <p className='rating'>
+            <span className='fa fa-star checked'></span>
+            <span className='fa fa-star checked'></span>
+            <span className='fa fa-star checked'></span>
+            <span className='fa fa-star'></span>
+            <span className='fa fa-star'></span>
+          </p>
+        </section>
+      </div>
     </Link>
   );
 };
