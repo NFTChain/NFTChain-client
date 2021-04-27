@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-constant-condition */
 import React, { useRef, useEffect, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import {
@@ -8,15 +9,37 @@ import {
   AlphaPicker,
 } from 'react-color';
 import LZ from 'lz-string';
+import useLocalStorage from 'utils/localStorage';
+import {
+  Row,
+  Button,
+  Input,
+  InputNumber,
+  Form,
+  message,
+  Col,
+  Slider,
+  Space,
+  notification,
+} from 'antd';
+import {
+  UndoOutlined,
+  ClearOutlined,
+  PlaySquareOutlined,
+  HighlightOutlined,
+  BgColorsOutlined,
+  BorderOutlined,
+} from '@ant-design/icons';
 
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
 const PaintingFactoy = (props) => {
-  const calculatedVmin = Math.min(window.innerHeight, window.innerWidth);
+  const calculatedVmin = Math.min(window.innerWidth, window.innerHeight);
   const [size, setSize] = useState([
-    0.85 * calculatedVmin,
-    0.85 * calculatedVmin,
+    0.6 * calculatedVmin,
+    0.675 * calculatedVmin,
   ]);
+  const [drawing, setDrawing] = useLocalStorage('drawing');
   const drawingCanvas = useRef(null);
   const [color, setColor] = useState('color', '#666666');
   const [drawingSize, setDrawingSize] = useState(0);
@@ -39,7 +62,7 @@ const PaintingFactoy = (props) => {
 
   const saveDrawing = (newDrawing) => {
     let savedData = LZ.compress(newDrawing.getSaveData());
-    props.setDrawing(savedData);
+    setDrawing(savedData);
   };
 
   const triggerOnChange = (lines) => {
@@ -134,10 +157,183 @@ const PaintingFactoy = (props) => {
     triggerOnChange(lines);
   };
 
+  const onFinishFailed = (errorInfo) => {
+    console.log('Failed:', errorInfo);
+  };
+
+  const createInk = (errorInfo) => {
+    console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
+  };
+
+  const sending = (errorInfo) => {
+    console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
+  };
+
   const PickerDisplay = pickers[picker % pickers.length];
+
+  let top, bottom;
+  if (true) {
+    top = (
+      <div style={{ width: '90vmin', margin: '0 auto', marginBottom: 16 }}>
+        <Form
+          layout={'inline'}
+          name='createInk'
+          //initialValues={{ limit: 0 }}
+          onFinish={createInk}
+          onFinishFailed={onFinishFailed}
+          labelAlign={'middle'}
+          style={{ justifyContent: 'center' }}
+        >
+          <Form.Item></Form.Item>
+
+          <Form.Item
+            name='title'
+            rules={[
+              { required: true, message: 'What is this work of art called?' },
+            ]}
+          >
+            <Input placeholder={'name'} style={{ fontSize: 16 }} />
+          </Form.Item>
+
+          <Form.Item
+            name='limit'
+            rules={[
+              { required: true, message: 'How many inks can be minted?' },
+            ]}
+          >
+            <InputNumber
+              placeholder={'limit'}
+              style={{ fontSize: 16 }}
+              min={0}
+              precision={0}
+            />
+          </Form.Item>
+
+          <Form.Item>
+            <Button loading={sending} type='primary' htmlType='submit'>
+              Ink!
+            </Button>
+          </Form.Item>
+        </Form>
+
+        <div style={{ marginTop: 16 }}>
+          <Button onClick={() => undo()}>
+            <UndoOutlined /> UNDO
+          </Button>
+          <Button
+            onClick={() => {
+              drawingCanvas.current.clear();
+              props.setDrawing();
+            }}
+          >
+            <ClearOutlined /> CLEAR
+          </Button>
+          <Button
+            onClick={() => {
+              drawingCanvas.current.loadSaveData(
+                LZ.decompress(props.drawing),
+                false,
+              );
+            }}
+          >
+            <PlaySquareOutlined /> PLAY
+          </Button>
+        </div>
+      </div>
+    );
+
+    bottom = (
+      <div style={{ marginTop: 16 }}>
+        <Row
+          style={{
+            width: '90vmin',
+            margin: '0 auto',
+            marginTop: '4vh',
+            display: 'inline-flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Space>
+            <PickerDisplay color={color} onChangeComplete={updateColor} />
+            <Button
+              onClick={() => {
+                setPicker(picker + 1);
+              }}
+            >
+              <HighlightOutlined />
+            </Button>
+          </Space>
+        </Row>
+        <Row
+          style={{
+            width: '90vmin',
+            margin: '0 auto',
+            marginTop: '4vh',
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          <Col span={12}>
+            <AlphaPicker onChangeComplete={updateColor} color={color} />
+          </Col>
+        </Row>
+        <Row
+          style={{
+            width: '90vmin',
+            margin: '0 auto',
+            marginTop: '4vh',
+            justifyContent: 'center',
+          }}
+        >
+          <Col span={12}>
+            <Slider
+              min={1}
+              max={100}
+              onChange={updateBrushRadius}
+              value={typeof brushRadius === 'number' ? brushRadius : 0}
+            />
+          </Col>
+          <Col span={4}>
+            <InputNumber
+              min={1}
+              max={100}
+              style={{ margin: '0 16px' }}
+              value={brushRadius}
+              onChange={updateBrushRadius}
+            />
+          </Col>
+        </Row>
+        <Row
+          style={{
+            width: '90vmin',
+            margin: '0 auto',
+            marginTop: '4vh',
+            justifyContent: 'center',
+          }}
+        >
+          <Space>
+            <Col span={4}>
+              <Button onClick={() => fillBackground(color)}>
+                <BgColorsOutlined />
+                Background
+              </Button>
+            </Col>
+            <Col span={4}>
+              <Button onClick={() => drawFrame(color, brushRadius)}>
+                <BorderOutlined />
+                Frame
+              </Button>
+            </Col>
+          </Space>
+        </Row>
+      </div>
+    );
+  }
 
   return (
     <div style={{ textAlign: 'center' }}>
+      {top}
       <div
         style={{
           backgroundColor: '#666666',
@@ -163,6 +359,7 @@ const PaintingFactoy = (props) => {
           loadTimeOffset={3}
         />
       </div>
+      {bottom}
     </div>
   );
 };
