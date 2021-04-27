@@ -5,6 +5,8 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { setCurrentNFT } from '../../../store/actions/marketplaceActions';
 
 const NFTCard = ({
   image,
@@ -17,11 +19,32 @@ const NFTCard = ({
   limit,
   count,
   artistAddress,
+  setCurrentNFT,
 }) => {
+  const setNFT = () => {
+    const NFT = {
+      image,
+      title,
+      id,
+      description,
+      price,
+      artist,
+      owner,
+      limit,
+      count,
+      artistAddress,
+    };
+    setCurrentNFT(NFT);
+  };
+
   return (
     <div className='card'>
       <div className='card__content'>
-        <Link to={`/marketplace/${id}`} className='card__image-box'>
+        <Link
+          to={`/marketplace/${id}`}
+          onClick={setNFT}
+          className='card__image-box'
+        >
           <div
             style={{ backgroundImage: `url(${image})` }}
             className='card__image'
@@ -43,31 +66,13 @@ const NFTCard = ({
   );
 };
 
-export default NFTCard;
+const mapStateToProps = (state) => {
+  return {
+    BEP721Contract: state.contracts.BEP721Contract,
+    BEP20Contract: state.contracts.BEP20Contract,
+    signerAddress: state.contracts.signerAddress,
+    currentNFT: state.marketplace.currentNFT,
+  };
+};
 
-{
-  /* // <Box bgcolor='background.default' className='card'>
-    //   <Link to={linkConfig} className='card-img__wrapper'>
-    //     <img className='card-img' src={image} alt='digital art' />
-    //   </Link>
-    //   <div className='card-info'>
-    //     <h3>{title}</h3>
-    //     <p>{description}</p>
-    //     <div className='card-info__actions'>
-    //       <button className='button'>Buy</button>
-    //       <p>Price: {price}</p>
-    //     </div>
-    //     <div className='card-info__separate'></div>
-    //     <div className='card-info__creators'>
-    //       <div className='card-info__creator'>
-    //         <p className='card-info__title'>Artist</p>
-    //         <p className='card-info__name'>User: {artist}</p>
-    //       </div>
-    //       <div className='card-info__creator'>
-    //         <p className='card-info__title'>Owner</p>
-    //         <p className='card-info__name'>User: {owner}</p>
-    //       </div>
-    //     </div>
-    //   </div>
-    // </Box> */
-}
+export default connect(mapStateToProps, { setCurrentNFT })(NFTCard);

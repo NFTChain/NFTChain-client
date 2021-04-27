@@ -2,6 +2,7 @@ import * as uiActionTypes from '../actionTypes/uiActionTypes';
 
 const initialState = {
   loading: false,
+  isConnected: false,
 };
 
 const uiReducer = (state = initialState, action) => {
@@ -15,6 +16,11 @@ const uiReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
+      };
+    case uiActionTypes.SET_CONNECTION:
+      return {
+        ...state,
+        isConnected: action.payload,
       };
     default:
       return state;

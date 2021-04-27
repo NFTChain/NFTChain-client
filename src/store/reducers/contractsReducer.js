@@ -13,7 +13,9 @@ const initialState = {
 };
 
 const decideWhichContract = (payload) => {
-  const result = { signerAddress: payload.signerAddress };
+  const result = {
+    ...(payload.signerAddress && { signerAddress: payload.signerAddress }),
+  };
   switch (payload.contractType) {
     case BEP20ContractString:
       result.BEP20Contract = payload.token;

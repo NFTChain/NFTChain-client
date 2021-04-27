@@ -3,32 +3,29 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
 import { startAction, stopAction } from '../../store/actions/uiActions';
-import { BEP721ContractString } from '../../utils/getContract';
 import Loader from '../Loader';
 import { utils } from 'ethers';
 import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
-
+import ConnectWallet from 'views/ConnectWallet';
 
 const Holdings = ({
   BEP721Contract,
-  connectToContract,
   signerAddress,
   loading,
   startAction,
   stopAction,
+  isConnected,
 }) => {
   const [unmintedHoldings, setUnmintedHoldings] = useState([]);
   const [mintedHoldings, setMintedHoldings] = useState([]);
 
   useEffect(() => {
-    if (BEP721Contract && !loading) {
-      // if contract is loaded and didnt call getHoldings already
+    if (isConnected) {
+      // if contracts are loaded and try to get holdings
       getHoldings();
-    } else {
-      connectToContract(BEP721ContractString); // show connect to wallet page instead of initialize directly because of user experience
     }
-  }, [BEP721Contract]);
+  }, [isConnected]);
 
   const getHoldings = async () => {
     startAction();
@@ -178,8 +175,8 @@ const Holdings = ({
     }
   };
 
-  if (!BEP721Contract && !signerAddress) {
-    return <div>You need to connect to your wallet</div>; // return sign in wallet page
+  if (!isConnected) {
+    return <ConnectWallet />;
   } else if (loading) {
     return <Loader />;
   }
@@ -191,7 +188,11 @@ const Holdings = ({
         {unmintedHoldings.length > 0 &&
           unmintedHoldings.map((item) => {
             return (
-              <NFTCard key={item.id} image={item.image} price={item.currentPrice} />
+              <NFTCard
+                key={item.id}
+                image={item.image}
+                price={item.currentPrice}
+              />
             );
           })}
       </div>
@@ -200,7 +201,11 @@ const Holdings = ({
         {mintedHoldings.length > 0 &&
           mintedHoldings.map((item) => {
             return (
-              <NFTCard key={item.id} image={item.image} price={item.currentPrice} />
+              <NFTCard
+                key={item.id}
+                image={item.image}
+                price={item.currentPrice}
+              />
             );
           })}
       </div>
@@ -212,6 +217,7 @@ const mapStateToProps = (state) => {
     signerAddress: state.contracts.signerAddress,
     BEP721Contract: state.contracts.BEP721Contract,
     loading: state.ui.loading,
+    isConnected: state.ui.isConnected,
   };
 };
 

@@ -22,7 +22,7 @@ const Marketplace = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    connectToContract(BEP721ContractString);
+    connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
   }, []);
 
   useEffect(() => {
