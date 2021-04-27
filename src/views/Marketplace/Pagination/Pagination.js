@@ -22,22 +22,26 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
 
   return (
     <nav className='pagination'>
-      <ul className='pagination-list'>
+      <ul className='pagination__list'>
         <AiOutlineArrowLeft
-          className='pagination-arrow'
+          className='pagination__arrow'
           onClick={handlePreviousPageClick}
         />
         {pageNumbers.map((num) => (
           <li
             key={num}
             onClick={() => setCurrentPage(num)}
-            className={currentPage == num ? 'active page-link' : 'page-link'}
+            className={
+              currentPage == num
+                ? 'pagination__link--active pagination__link'
+                : 'pagination__link'
+            }
           >
             {num}
           </li>
         ))}
         <AiOutlineArrowRight
-          className='pagination-arrow'
+          className='pagination__arrow'
           onClick={handleNextPageClick}
         />
       </ul>
