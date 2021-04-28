@@ -191,11 +191,11 @@ const UploadNFTForm = ({
         {/* Start of form  */}
         <H3 text='Item Deails' />
 
-        <Text text='Item name' />
+        <Text text='Item name' className='create-nft__label' />
 
         <FormInput type='text' value={title} onChange={handleTitleChange} />
 
-        <Text text='Description' />
+        <Text text='Description' className='create-nft__label' />
 
         <FormInput
           type='text'
@@ -203,15 +203,18 @@ const UploadNFTForm = ({
           onChange={handleDescriptionChange}
         />
 
-        <Text text='Artist' />
+        <Text text='Artist' className='create-nft__label' />
 
         <FormInput type='text' value={artist} onChange={handleArtistChange} />
 
-        <Text text='How many NFTs do you want to create for your file?' />
+        <Text
+          text='How many NFTs do you want to create for your file?'
+          className='create-nft__label'
+        />
 
         <FormInput type='text' value={limit} onChange={handleLimitChange} />
 
-        <Text text='Price in NFTC' style={{ fontWeight: 900 }} />
+        <Text text='Price in NFTC' className='create-nft__label' />
 
         <FormInput type='text' value={price} onChange={handlePriceChange} />
         <Button
