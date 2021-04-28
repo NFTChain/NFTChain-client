@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
 import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -31,12 +29,15 @@ const UploadNFTForm = ({
   const [limit, setLimit] = useState('');
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const fileType = file.type.split('/')[0];
+    setFileType(fileType);
+    setFile(file);
     const reader = new FileReader();
     reader.onload = (e) => {
       setPreview(e.target.result);
     };
-    reader.readAsDataURL(event.target.files[0]);
+    reader.readAsDataURL(file);
   };
 
   const handleLimitChange = (event) => {
@@ -57,10 +58,6 @@ const UploadNFTForm = ({
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-  };
-
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
   };
 
   const UploadAndCreateUnmintedNFT = async () => {
@@ -194,20 +191,6 @@ const UploadNFTForm = ({
         </div>
         {/* Start of form  */}
         <div className='upload-form-row'>
-          <div className='upload-form-col'>
-            <InputLabel id='file-type-label'>File type</InputLabel>
-            <Select
-              labelId='file-type-selector'
-              id='file-type'
-              value={fileType}
-              onChange={handleFileTypeChange}
-            >
-              <MenuItem value={'music'}>Music</MenuItem>
-              <MenuItem value={'image'}>Image</MenuItem>
-              <MenuItem value={'video'}>Video</MenuItem>
-              <MenuItem value={'3d-asset'}>3D Asset</MenuItem>
-            </Select>
-          </div>
           <div className='upload-form-col'>
             <InputLabel htmlFor='title-label'>Title</InputLabel>
             <InputBase
