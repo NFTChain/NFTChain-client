@@ -1,67 +1,203 @@
+// .card {
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   width: 27rem;
+//   background: $primary-dark-2;
+//   margin: 2rem 1rem;
+//   border-radius: 3px;
+//   box-shadow: 0px 3px 1px -2px rgb(0, 0, 0 / 20%),
+//     0px 2px 2px 0px rgb(0, 0, 0 / 14%), 0px 1px 5px 0px rgb(0, 0, 0 / 12%);
+
+//   &__content {
+//     width: 100%;
+//     height: 100%;
+//   }
+
+//   &__image-box {
+//     display: block;
+//   }
+
+//   &__image {
+//     max-width: 270px;
+//     height: 270px;
+//     // background-size: contain;
+//     // background-repeat: no-repeat;
+//     // background-position: center center;
+//     object-fit: cover;
+//   }
+
+//   &__info {
+//     padding: 1rem;
+//     color: $card-text-2;
+//   }
+
+//   &__info-row-1 {
+//     margin-bottom: 1.2rem;
+//   }
+
+//   &__info-row-2 {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//   }
+
+//   &__title {
+//     font-size: 2rem;
+//     font-weight: 500;
+//   }
+
+//   &__description {
+//     font-weight: 300;
+//     white-space: nowrap;
+//     overflow: hidden;
+//     text-overflow: ellipsis;
+//     color: $card-text-1;
+//     font-size: 1.5rem;
+//   }
+
+//   &__price {
+//     font-size: 1.2rem;
+//     color: $card-text-1;
+//   }
+
+//   &__artist {
+//     font-size: 1.2rem;
+//     color: $card-text-1;
+//   }
+// }
+
+/// START OF NEW CODE
+
+// body {
+//   margin: 0;
+//   padding: 0;
+//   min-height: 100vh;
+//   background: #eceff1;
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   font-family: 'DM Sans', system-ui, sans-serif;
+//   color: #263238;
+// }
+
 .card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 27rem;
-  background: $primary-dark-2;
-  margin: 2rem 1rem;
-  border-radius: 3px;
-  box-shadow: 0px 3px 1px -2px rgb(0, 0, 0 / 20%),
-    0px 2px 2px 0px rgb(0, 0, 0 / 14%), 0px 1px 5px 0px rgb(0, 0, 0 / 12%);
-
-  &__content {
-    width: 100%;
-    height: 100%;
+  width: 22rem;
+  max-width: 90%;
+  border: solid 4px #fff;
+  border-radius: 2rem;
+  padding: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  background: #eceff1;
+  box-shadow: 0 16px 32px #cfd8dc;
+  transition: all 400ms ease;
+  &:hover {
+    background: #fff;
   }
-
-  &__image-box {
-    display: block;
+  &__body {
+    background: #fff;
+    border-radius: 1.25rem;
+    padding: 0.75rem;
   }
-
+  &__top {
+    display: flex;
+    font-weight: 500;
+  }
+  &__owner,
+  &__creator {
+    width: 50%;
+    display: flex;
+  }
+  &__owner {
+    position: relative;
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: -1px;
+      width: 2px;
+      height: 100%;
+      border-radius: 2px;
+      background: #eceff1;
+    }
+  }
+  &__creator {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  &__avatar {
+    width: 3rem;
+    height: 3rem;
+    background: #eceff1;
+    border-radius: 100%;
+    flex-shrink: 0;
+  }
+  &__user {
+    padding: 0 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    &__title {
+      font-size: 0.75rem;
+      color: #b0bec5;
+    }
+  }
   &__image {
-    max-width: 270px;
-    height: 270px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center center;
+    padding-top: 75%;
+    position: relative;
+    overflow: hidden;
+    margin-top: 0.75rem;
+    border-radius: 1rem;
+    background: #eceff1;
+    box-shadow: 0 16px 32px #eceff1;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   }
-
   &__info {
-    padding: 1rem;
-    color: $card-text-2;
+    margin: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    p {
+      margin: 0;
+    }
   }
-
-  &__info-row-1 {
-    margin-bottom: 1.2rem;
-  }
-
-  &__info-row-2 {
+  &__footer {
+    background: #fff;
+    padding: 0.75rem;
+    border-radius: 0.75rem 0.75rem 1.75rem 1.75rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
-
-  &__title {
-    font-size: 2rem;
+  &__btn {
+    width: 48%;
+    padding: 1rem;
+    text-align: center;
     font-weight: 500;
-  }
-
-  &__description {
-    font-weight: 300;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    color: $card-text-1;
-    font-size: 1.5rem;
-  }
-
-  &__price {
-    font-size: 1.2rem;
-    color: $card-text-1;
-  }
-
-  &__artist {
-    font-size: 1.2rem;
-    color: $card-text-1;
+    transition: all 200ms ease;
+    &--primary {
+      background: #263238;
+      color: #eceff1;
+      border-radius: 0.5rem 0.5rem 1.25rem 0.5rem;
+      &:hover {
+        background: #304ffe;
+      }
+    }
+    &--secondary {
+      border-radius: 0.5rem 0.5rem 0.5rem 1.25rem;
+      &:hover {
+        background: #eceff1;
+        color: #304ffe;
+      }
+    }
   }
 }
