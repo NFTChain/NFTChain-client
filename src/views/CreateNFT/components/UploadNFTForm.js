@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import { H3 } from 'components/Headings';
 import Text from 'components/Text';
 import BackupIcon from '@material-ui/icons/Backup';
+import FormInput from 'components/FormInput';
 
 const UploadNFTForm = ({
   BEP721Contract,
@@ -190,54 +191,39 @@ const UploadNFTForm = ({
           </div>
         </div>
         {/* Start of form  */}
-        <div className='upload-form-row'>
-          <div className='upload-form-col'>
-            <InputLabel htmlFor='title-label'>Title</InputLabel>
-            <InputBase
-              id='title-input'
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </div>
-        </div>
-        <div className='upload-form-row'>
-          <div className='upload-form-col'>
-            <InputLabel htmlFor='description-label'>Description</InputLabel>
-            <InputBase
-              id='description-id'
-              value={description}
-              onChange={handleDescriptionChange}
-            />
-          </div>
-          <div className='upload-form-col'>
-            <InputLabel htmlFor='artist-label'>Artist</InputLabel>
-            <InputBase
-              id='artist-id'
-              value={artist}
-              onChange={handleArtistChange}
-            />
-          </div>
-        </div>
-        <div className='upload-form-row'>
-          <div className='upload-form-col'>
-            <InputLabel htmlFor='limit-label'>
-              How many NFTs do you want to create for your file?
-            </InputLabel>
-            <InputBase
-              id='limit-id'
-              value={limit}
-              onChange={handleLimitChange}
-            />
-          </div>
-          <div className='upload-form-col'>
-            <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
-            <InputBase
-              id='price-id'
-              value={price}
-              onChange={handlePriceChange}
-            />
-          </div>
-        </div>
+        <H3 text='Item Deails' />
+
+        <Text text='Item name' />
+
+        <FormInput
+          type='text'
+          value={title}
+          onChange={handleTitleChange}
+          className=''
+        />
+
+        <InputLabel htmlFor='description-label'>Description</InputLabel>
+        <InputBase
+          id='description-id'
+          value={description}
+          onChange={handleDescriptionChange}
+        />
+
+        <InputLabel htmlFor='artist-label'>Artist</InputLabel>
+        <InputBase
+          id='artist-id'
+          value={artist}
+          onChange={handleArtistChange}
+        />
+
+        <InputLabel htmlFor='limit-label'>
+          How many NFTs do you want to create for your file?
+        </InputLabel>
+        <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
+
+        <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
+        <InputBase id='price-id' value={price} onChange={handlePriceChange} />
+
         <Button
           onClick={UploadAndCreateUnmintedNFT}
           variant='contained'
