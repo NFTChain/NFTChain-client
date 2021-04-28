@@ -22,13 +22,21 @@ const Marketplace = ({
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
-  }, []);
-
-  useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
     if (BEP721Contract) {
-      fetchOnSaleNFTs();
+      debugger;
+      // if we have nfts already from localstorage set them
+      if (allNFTs.length > 0) {
+        debugger;
+        setNFTs(allNFTs); // not optimal, we should just use global state or just component state and not have it in two places
+        // the localstorage is also not perfect, we should save in a variable when we set the last time the localstorage to check next time how old the data is
+      } else {
+        debugger;
+        fetchOnSaleNFTs();
+      }
+    } else {
+      debugger;
+      connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
     }
   }, [BEP721Contract]);
 
@@ -36,6 +44,7 @@ const Marketplace = ({
     try {
       // fetch NFTs from IPFS to be able to modify the data how we need it
       const getNFTs = (await getFilesFromIPFS()).rows;
+      debugger;
 
       // array where push matches into
       const NFTInfoArray = [];
@@ -96,7 +105,7 @@ const Marketplace = ({
         'error',
         'Something went wrong getting getting the NFTs, please reload the site',
         10000,
-      );
+      )();
     }
   };
 
@@ -105,6 +114,7 @@ const Marketplace = ({
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
   if (currentNFTS.length === 0) return <Loader />;
+
   return (
     <section className='marketplace'>
       <div className='marketplace__content container'>

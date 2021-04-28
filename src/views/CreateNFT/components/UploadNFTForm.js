@@ -114,7 +114,7 @@ const UploadNFTForm = ({
               'error',
               'This NFT got already created, if you think this is wrong please reach out to support.',
               10000,
-            );
+            )();
           } else {
             // else continue creating NFT
             await mintNFTTokenForUploadedFile(
@@ -128,7 +128,7 @@ const UploadNFTForm = ({
         createNotification(
           'error',
           'Upload of file was unsuccesful, please try again',
-          4000,
+          8000,
         )();
       }
     } else {

@@ -85,7 +85,7 @@ const Holdings = ({
         'error',
         'Something went wrong loading your NFTs, please reach out to support.',
         5000,
-      );
+      )();
     } finally {
       stopAction();
     }
