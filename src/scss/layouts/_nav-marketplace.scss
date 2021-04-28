@@ -1,0 +1,51 @@
+.nav-marketplace {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 7vh;
+
+  &__left-side {
+    // width: 35%;
+    display: flex;
+  }
+
+  &__right-side {
+    // width: 35%;
+    display: flex;
+  }
+
+  &__logo-container {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-right: 2px solid $primary-text-1;
+    padding-right: 1rem;
+  }
+
+  &__logo-link {
+    width: 100%;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__logo-img {
+    width: 20%;
+    height: 3.3rem;
+  }
+
+  &__discover-how {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__link {
+    text-decoration: none;
+    padding: 1rem;
+  }
+}
