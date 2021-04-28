@@ -47,7 +47,6 @@ const Marketplace = ({
             NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(
               NFT.ipfs_pin_hash,
             );
-            debugger;
 
             NFTInfoObject = {
               id: NFTInfoPromise[0].toString(),
@@ -58,7 +57,6 @@ const Marketplace = ({
             };
 
             owner = await BEP721Contract.ownerOf(NFTInfoObject.id); // if promise resolves, we know token is minted and get the address of the holder
-            debugger;
           } catch (error) {
             if (error.reason === 'ERC721: owner query for nonexistent token') {
               owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner

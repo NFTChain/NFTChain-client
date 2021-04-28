@@ -110,7 +110,7 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`$ ${price * 0.1}0`}
+            text={`$ ${price * 0.1}`}
             style={{
               borderRadius: '3px',
               color: '#00ab55',
@@ -177,11 +177,11 @@ const NFTInfoPage = ({
           />
         </div>
         <div className='info-page__artist-owner'>
-          <div className='card__creator'>
+          <div className='card__owner'>
             <div className='card__avatar'></div>
             <div className='card__user'>
-              <span className='card__user__title'>Created by</span>
-              <span className='card__user__code'>20AR02</span>
+              <span className='card__user__title'>Owned by</span>
+              <span className='card__user__code'>2304RC</span>
             </div>
           </div>
         </div>
