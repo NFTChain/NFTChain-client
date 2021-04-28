@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -11,6 +12,11 @@ import Text from 'components/Text';
 import BackupIcon from '@material-ui/icons/Backup';
 import FormInput from 'components/FormInput';
 import Button from 'components/Button';
+import {
+  marginTopAndBottom,
+  marginTop,
+  marginBottom,
+} from 'utils/globalStyles';
 
 const UploadNFTForm = ({
   BEP721Contract,
@@ -176,7 +182,7 @@ const UploadNFTForm = ({
     <div className='create-nft'>
       <div className='create-nft__left-side'>
         <H3 text='Upload file' />
-        <Text text='Choose your file to upload' />
+        <Text text='Choose your file to upload' style={marginTopAndBottom} />
         <div className='create-nft__upload-card'>
           <div className='create-nft__file-upload'>
             <input
@@ -189,34 +195,73 @@ const UploadNFTForm = ({
           </div>
         </div>
         {/* Start of form  */}
-        <H3 text='Item Deails' />
+        <H3 text='Item Deails' style={marginTop} />
 
-        <Text text='Item name' className='create-nft__label' />
-
-        <FormInput type='text' value={title} onChange={handleTitleChange} />
-
-        <Text text='Description' className='create-nft__label' />
+        <Text
+          text='Item name'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
 
         <FormInput
+          type='text'
+          placeholder={`e. g. 'Cryptopunk'`}
+          value={title}
+          onChange={handleTitleChange}
+        />
+
+        <Text
+          text='Description'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          placeholder='Give your NFT an interesting description'
           type='text'
           value={description}
           onChange={handleDescriptionChange}
         />
 
-        <Text text='Artist' className='create-nft__label' />
+        <Text
+          text='Artist'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
 
-        <FormInput type='text' value={artist} onChange={handleArtistChange} />
+        <FormInput
+          type='text'
+          placeholder='How is the name of the artist?'
+          value={artist}
+          onChange={handleArtistChange}
+        />
 
         <Text
           text='How many NFTs do you want to create for your file?'
           className='create-nft__label'
+          style={marginTopAndBottom}
         />
 
-        <FormInput type='text' value={limit} onChange={handleLimitChange} />
+        <FormInput
+          type='number'
+          placeholder='Choose for creating a rare NFT'
+          value={limit}
+          onChange={handleLimitChange}
+        />
 
-        <Text text='Price in NFTC' className='create-nft__label' />
+        <Text
+          text='Price in NFTC'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
 
-        <FormInput type='text' value={price} onChange={handlePriceChange} />
+        <FormInput
+          type='number'
+          placeholder='The price in NFTC'
+          value={price}
+          onChange={handlePriceChange}
+          style={marginBottom}
+        />
         <Button
           text='Create NFT'
           onClick={UploadAndCreateUnmintedNFT}
@@ -225,14 +270,16 @@ const UploadNFTForm = ({
       </div>
 
       {/* start of preview */}
-      <NTFCard
-        image={preview && preview}
-        title={title && title}
-        price={price && price}
-        owner={artist && artist}
-        artist={artist && artist}
-        description={description && description}
-      />
+      <div className='create-nft__right-side'>
+        <NTFCard
+          image={preview && preview}
+          title={title && title}
+          price={price && price}
+          owner={artist && artist}
+          artist={artist && artist}
+          description={description && description}
+        />
+      </div>
     </div>
   );
 };

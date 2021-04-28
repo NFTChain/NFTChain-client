@@ -37,10 +37,10 @@ const Nav = () => {
           </Link>
         </div>
         <div className='nav-marketplace__discover-how'>
-          <Link to='/' className='nav-marketplace__link'>
+          <Link to='/marketplace' className='nav-marketplace__link'>
             <H6 text={'Discover'} style={{ color: '#101b32' }} />
           </Link>
-          <Link to='/' className='nav-marketplace__link'>
+          <Link to='/marketplace' className='nav-marketplace__link'>
             <H6 text={'How it works'} />
           </Link>
         </div>

@@ -1,15 +1,25 @@
 .create-nft {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-around;
   align-items: center;
   width: 100%;
 
   &__left-side {
     width: 70%;
+    padding: 1.5rem;
+  }
+
+  &__right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #263238;
+    width: 30%;
   }
 
   &__upload-card {
-    width: 70%;
+    width: 90%;
     border-radius: 0.5rem;
   }
 
