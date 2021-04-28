@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { utils } from 'ethers';
@@ -8,11 +6,11 @@ import { startAction, stopAction } from '../../../store/actions/uiActions';
 import { createNotification } from '../../../utils/createNotification';
 import Loader from 'views/Loader';
 import NTFCard from 'views/Marketplace/NFTCard';
-import Button from '@material-ui/core/Button';
 import { H3 } from 'components/Headings';
 import Text from 'components/Text';
 import BackupIcon from '@material-ui/icons/Backup';
 import FormInput from 'components/FormInput';
+import Button from 'components/Button';
 
 const UploadNFTForm = ({
   BEP721Contract,
@@ -195,42 +193,32 @@ const UploadNFTForm = ({
 
         <Text text='Item name' />
 
+        <FormInput type='text' value={title} onChange={handleTitleChange} />
+
+        <Text text='Description' />
+
         <FormInput
           type='text'
-          value={title}
-          onChange={handleTitleChange}
-          className=''
-        />
-
-        <InputLabel htmlFor='description-label'>Description</InputLabel>
-        <InputBase
-          id='description-id'
           value={description}
           onChange={handleDescriptionChange}
         />
 
-        <InputLabel htmlFor='artist-label'>Artist</InputLabel>
-        <InputBase
-          id='artist-id'
-          value={artist}
-          onChange={handleArtistChange}
-        />
+        <Text text='Artist' />
 
-        <InputLabel htmlFor='limit-label'>
-          How many NFTs do you want to create for your file?
-        </InputLabel>
-        <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
+        <FormInput type='text' value={artist} onChange={handleArtistChange} />
 
-        <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
-        <InputBase id='price-id' value={price} onChange={handlePriceChange} />
+        <Text text='How many NFTs do you want to create for your file?' />
 
+        <FormInput type='text' value={limit} onChange={handleLimitChange} />
+
+        <Text text='Price in NFTC' style={{ fontWeight: 900 }} />
+
+        <FormInput type='text' value={price} onChange={handlePriceChange} />
         <Button
+          text='Create NFT'
           onClick={UploadAndCreateUnmintedNFT}
-          variant='contained'
-          color='primary'
-        >
-          Create NFT
-        </Button>
+          style={{ width: '20%' }}
+        />
       </div>
 
       {/* start of preview */}
