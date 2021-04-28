@@ -20,7 +20,7 @@ import Layout from './views/Layout';
 const Routes = () => {
   return (
     <Switch>
-      <Route exact path='/' component={<LandingPage />} />
+      <Route exact path='/' component={LandingPage} />
       <Route
         path='/createNFT'
         render={() => <Layout children={<CreateNFT />} />}
