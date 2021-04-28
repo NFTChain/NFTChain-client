@@ -2,7 +2,6 @@
 /* eslint  no-undef: 0 */ // --> OFF
 
 import React, { useState } from 'react';
-import { Avatar, Box, Typography } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
@@ -10,6 +9,7 @@ import ConnectWallet from 'views/ConnectWallet';
 import { H1 } from 'components/Headings';
 import Text from 'components/Text';
 import Button from 'components/Button';
+import { marginTop, marginTopAndBottom } from 'utils/globalStyles';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -32,7 +32,7 @@ const NFTInfoPage = ({
   } = currentNFT;
 
   const [pressedBuy, setPressedBuy] = useState(false);
-  // const [pressedBuy, setPressedBuy] = useState(false);
+  const [currentInfoView, setCurrentInfoView] = useState(1);
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
@@ -62,14 +62,22 @@ const NFTInfoPage = ({
   };
 
   const handleInfoViewChange = (event) => {
-    switch (event.target.value) {
+    // used for displaying different info and showing which info is open
+    switch (event.target.textContent) {
       case 'Info':
+        setCurrentInfoView(1);
+
         return;
       case 'Chat':
+        setCurrentInfoView(2);
+
         return;
       case 'Owner':
+        setCurrentInfoView(3);
+
         return;
       case 'History':
+        setCurrentInfoView(4);
         return;
     }
   };
@@ -85,7 +93,7 @@ const NFTInfoPage = ({
       </div>
       <div className='info-page__info-container'>
         <H1 text={title} />
-        <div className='info-page__price-limit'>
+        <div className='info-page__price-limit' style={marginTopAndBottom}>
           <Text
             text={`${price}0 NFT`}
             style={{
@@ -102,26 +110,80 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
+            text={`$ ${price * 0.1}0`}
             style={{
               borderRadius: '3px',
-              fontSize: '1rem',
               color: '#00ab55',
               border: '2px solid #00ab55',
               fontWeight: 900,
               padding: '0.3rem',
+              marginRight: '1rem',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
+              fontSize: '1rem',
+            }}
+          />
+          <Text
+            text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
+            style={
+              {
+                // borderRadius: '3px',
+                // fontSize: '1rem',
+                // color: '#00ab55',
+                // border: '2px solid #00ab55',
+                // fontWeight: 900,
+                // padding: '0.3rem',
+                // display: 'flex',
+                // justifyContent: 'center',
+                // alignItems: 'center',
+              }
+            }
+          />
+        </div>
+        <Text text={description} />
+        <div className='info-page__info-navigator'>
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Info'}
+            style={{
+              backgroundColor: currentInfoView === 1 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 1 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Chat'}
+            style={{
+              backgroundColor: currentInfoView === 2 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 2 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Owner'}
+            style={{
+              backgroundColor: currentInfoView === 3 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 3 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'History'}
+            style={{
+              backgroundColor: currentInfoView === 4 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 4 ? '#FFF' : '#959595',
             }}
           />
         </div>
-        <Text text={description} style={{ marginTop: '2rem' }} />
-        <div className='info-page__info-navigator'>
-          <Button onClick={handleInfoViewChange} text={'Info'} />
-          <Button onClick={handleInfoViewChange} text={'Chat'} />
-          <Button onClick={handleInfoViewChange} text={'Owner'} />
-          <Button onClick={handleInfoViewChange} text={'History'} />
+        <div className='info-page__artist-owner'>
+          <div className='card__creator'>
+            <div className='card__avatar'></div>
+            <div className='card__user'>
+              <span className='card__user__title'>Created by</span>
+              <span className='card__user__code'>20AR02</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
