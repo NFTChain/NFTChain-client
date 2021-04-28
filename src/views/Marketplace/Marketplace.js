@@ -24,18 +24,8 @@ const Marketplace = ({
   useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
     if (BEP721Contract) {
-      debugger;
-      // if we have nfts already from localstorage set them
-      if (allNFTs.length > 0) {
-        debugger;
-        setNFTs(allNFTs); // not optimal, we should just use global state or just component state and not have it in two places
-        // the localstorage is also not perfect, we should save in a variable when we set the last time the localstorage to check next time how old the data is
-      } else {
-        debugger;
-        fetchOnSaleNFTs();
-      }
+      fetchOnSaleNFTs();
     } else {
-      debugger;
       connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
     }
   }, [BEP721Contract]);
@@ -44,9 +34,8 @@ const Marketplace = ({
     try {
       // fetch NFTs from IPFS to be able to modify the data how we need it
       const getNFTs = (await getFilesFromIPFS()).rows;
-      debugger;
 
-      // array where push matches into
+      // array where we push matches into
       const NFTInfoArray = [];
 
       // Promise.all because we have a list of promises
@@ -58,6 +47,7 @@ const Marketplace = ({
             NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(
               NFT.ipfs_pin_hash,
             );
+            debugger;
 
             NFTInfoObject = {
               id: NFTInfoPromise[0].toString(),
@@ -68,6 +58,7 @@ const Marketplace = ({
             };
 
             owner = await BEP721Contract.ownerOf(NFTInfoObject.id); // if promise resolves, we know token is minted and get the address of the holder
+            debugger;
           } catch (error) {
             if (error.reason === 'ERC721: owner query for nonexistent token') {
               owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner
@@ -97,6 +88,7 @@ const Marketplace = ({
         }),
       );
       setNFTs(NFTInfoArray);
+
       setAllNFTs(NFTInfoArray);
     } catch (error) {
       console.log(error);

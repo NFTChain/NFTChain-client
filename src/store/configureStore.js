@@ -8,28 +8,7 @@ import uiReducer from './reducers/uiReducer';
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const saveToLocalStorage = (state) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localStorage.setItem('state', serializedState);
-  } catch (e) {
-    // console.log(e);
-  }
-};
-
-const loadFromLocalStorage = () => {
-  try {
-    const serializedState = localStorage.getItem('state');
-    if (serializedState === null) return undefined;
-    return JSON.parse(serializedState);
-  } catch (e) {
-    return undefined;
-  }
-};
-
 export default () => {
-  const persistedState = loadFromLocalStorage();
-
   const store = createStore(
     combineReducers({
       auth: authReducer,
@@ -38,11 +17,8 @@ export default () => {
       ui: uiReducer,
       marketplace: marketplaceReducer,
     }),
-    persistedState,
     composeWithDevTools(applyMiddleware(thunk, logger)),
   );
-
-  store.subscribe(() => saveToLocalStorage(store.getState()));
 
   return store;
 };
