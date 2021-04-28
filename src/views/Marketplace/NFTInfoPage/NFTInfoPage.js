@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
 import ConnectWallet from 'views/ConnectWallet';
+import { H1 } from 'components/Headings';
+import Text from 'components/Text';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -116,9 +118,44 @@ const NFTInfoPage = ({
     // </Box>
     <div className='info-page'>
       <div className='info-page__image-container'>
-        <img src={image} alt='NFT art' className='info-page__image' />
+        <img src={image} alt='NFT art' />
       </div>
-      <div className='info-page__info-container'></div>
+      <div className='info-page__info-container'>
+        <H1 text={title} />
+        <div className='info-page__price-limit'>
+          <Text
+            text={`${price}0 NFT`}
+            style={{
+              borderRadius: '3px',
+              color: '#00ab55',
+              border: '2px solid #00ab55',
+              fontWeight: 900,
+              padding: '0.3rem',
+              marginRight: '1rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '1rem',
+            }}
+          />
+          <Text
+            text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
+            style={{
+              borderRadius: '3px',
+              fontSize: '1rem',
+              color: '#00ab55',
+              border: '2px solid #00ab55',
+              fontWeight: 900,
+              padding: '0.3rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          />
+        </div>
+        <Text text={description} style={{ marginTop: '2rem' }} />
+        <div className=''></div>
+      </div>
     </div>
   );
 };
