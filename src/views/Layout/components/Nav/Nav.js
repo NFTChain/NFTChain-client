@@ -9,6 +9,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Badge from '@material-ui/core/Badge';
 import MailIcon from '@material-ui/icons/Mail';
 import { withStyles } from '@material-ui/core/styles';
+import Button from '../../../../components/Button';
 
 const StyledBadge = withStyles((theme) => ({
   badge: {
@@ -46,6 +47,7 @@ const Nav = () => {
       </div>
       <div className='nav-marketplace__right-side'>
         <OutlinedInput
+          style={{ height: '3rem' }}
           id='outlined-adornment-password'
           type={'text'}
           value={search}
@@ -58,8 +60,15 @@ const Nav = () => {
           labelWidth={70}
         />
         <StyledBadge variant='dot'>
-          <MailIcon />
+          <MailIcon style={{ fontSize: 25 }} />
         </StyledBadge>
+        <Button text={'Upload'} style={{ height: '3rem' }} />
+
+        <Button
+          text={'Connect Wallet'}
+          className='white-button'
+          style={{ height: '3rem' }}
+        />
       </div>
     </nav>
   );

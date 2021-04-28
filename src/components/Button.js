@@ -1,8 +1,9 @@
 import React from 'react';
 
-const Button = ({ onClick, style, className, text }) => {
+// Right now we have class 'blue-button' and 'white-button'
+const Button = ({ onClick, style, className = 'blue-button', text }) => {
   return (
-    <div onClick={onClick} className={`main-button ${className}`} style={style}>
+    <div onClick={onClick} className={className} style={style}>
       {text}
     </div>
   );

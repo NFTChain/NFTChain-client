@@ -18,3 +18,26 @@
   line-height: 20.7px;
   font-weight: 900;
 }
+
+.blue-button {
+  font-size: 1.2rem;
+  border-radius: 16px;
+  background-color: $primary-blue;
+  color: $primary-white;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.white-button {
+  font-size: 1.2rem;
+  border-radius: 16px;
+  background-color: $primary-white;
+  color: $primary-dark-1;
+  border: 1px solid $primary-dark-1;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
