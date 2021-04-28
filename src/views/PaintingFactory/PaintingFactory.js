@@ -33,7 +33,7 @@ import {
 
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
-const PaintingFactoy = (props) => {
+const PaintingFactory = (props) => {
   const calculatedVmin = Math.min(window.innerWidth, window.innerHeight);
   const [size, setSize] = useState([
     0.6 * calculatedVmin,
@@ -41,9 +41,9 @@ const PaintingFactoy = (props) => {
   ]);
   const [drawing, setDrawing] = useLocalStorage('drawing');
   const drawingCanvas = useRef(null);
-  const [color, setColor] = useState('color', '#666666');
+  const [color, setColor] = useLocalStorage('color', '#666666');
   const [drawingSize, setDrawingSize] = useState(0);
-  const [picker, setPicker] = useState('picker', 0);
+  const [picker, setPicker] = useLocalStorage('picker', 0);
   const [brushRadius, setBrushRadius] = useState(8);
 
   const updateColor = (value) => {
@@ -223,7 +223,7 @@ const PaintingFactoy = (props) => {
           <Button
             onClick={() => {
               drawingCanvas.current.clear();
-              props.setDrawing();
+              setDrawing();
             }}
           >
             <ClearOutlined /> CLEAR
@@ -364,4 +364,4 @@ const PaintingFactoy = (props) => {
   );
 };
 
-export default PaintingFactoy;
+export default PaintingFactory;
