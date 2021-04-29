@@ -176,15 +176,6 @@ const NFTInfoPage = ({
             }}
           />
         </div>
-        <div className='info-page__artist-owner'>
-          <div className='card__owner'>
-            <div className='card__avatar'></div>
-            <div className='card__user'>
-              <span className='card__user__title'>Owned by</span>
-              <span className='card__user__code'>2304RC</span>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

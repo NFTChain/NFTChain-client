@@ -5,7 +5,7 @@ import Socials from '../Socials';
 const Footer = () => {
   return (
     <div className='footer-marketplace'>
-      <div className='container footer-marketplace__content'>
+      <div className='footer-marketplace__content'>
         <div className='footer-marketplace__row'>
           <div className='footer-marketplace__text'>
             <h3 className='footer-marketplace__title'>NFTChain</h3>
