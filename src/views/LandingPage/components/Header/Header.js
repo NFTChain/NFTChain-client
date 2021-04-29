@@ -11,28 +11,43 @@ const Header = () => {
           style={{ position: 'absolute' }}
           params={{
             particles: {
-              number: {
-                value: 50,
-              },
-              opacity: {
-                value: 0.5,
-              },
               color: {
-                value: '#FFFFFF', // color of poits
+                value: '#ffffff',
+              },
+              links: {
+                color: '#ffffff',
+                distance: 120,
+                enable: true,
+                opacity: 0.1,
+                width: 1,
               },
               collisions: {
                 enable: true,
               },
-              links: {
-                // styling for the lines / connections
-                color: '#FFFFFF',
-                distance: 150,
+              move: {
+                direction: 'none',
                 enable: true,
-                opacity: 0.5,
-                width: 2,
+                outMode: 'bounce',
+                random: false,
+                speed: 2,
+                straight: false,
+              },
+              number: {
+                density: {
+                  enable: true,
+                  value_area: 800,
+                },
+                value: 80,
+              },
+              opacity: {
+                value: 0.2,
+              },
+              shape: {
+                type: 'circle',
               },
               size: {
-                value: 3,
+                random: true,
+                value: 2,
               },
             },
             interactivity: {

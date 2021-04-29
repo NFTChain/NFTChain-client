@@ -3,21 +3,17 @@
   padding: 0 2rem;
 
   &__content {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    @include flex(row, flex-end);
     margin: 0 auto;
   }
 
   &__link,
   &:link,
   &:visited {
-    display: flex;
+    @include flex;
     font-size: 2rem;
     background: $primary-blue;
 
-    justify-content: center;
-    align-items: center;
     border-radius: 50%;
     height: 3rem;
     width: 3rem;

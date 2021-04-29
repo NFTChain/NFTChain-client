@@ -5,17 +5,14 @@
     clear: both;
   }
 }
-@mixin flexCenterCol {
+
+@mixin flex($dir: row, $jc: center, $ai: center) {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  flex-direction: $dir;
+  justify-content: $jc;
+  align-items: $ai;
 }
-@mixin flexCenter {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
 @mixin bgGradient {
   background-image: linear-gradient(
     to right bottom,
