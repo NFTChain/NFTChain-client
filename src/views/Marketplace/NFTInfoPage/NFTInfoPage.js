@@ -10,6 +10,7 @@ import { H1 } from 'components/Headings';
 import Text from 'components/Text';
 import Button from 'components/Button';
 import { marginTop, marginTopAndBottom } from 'utils/globalStyles';
+import ArtistAndOwner from './components/ArtistAndOwner';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -33,6 +34,12 @@ const NFTInfoPage = ({
 
   const [pressedBuy, setPressedBuy] = useState(false);
   const [currentInfoView, setCurrentInfoView] = useState(1);
+  const [currentInfoComponent, setCurrentInfoComponent] = useState(
+    <ArtistAndOwner
+      artist={artistAddress}
+      owner={owner === artist ? artistAddress : owner}
+    />,
+  );
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
@@ -176,6 +183,7 @@ const NFTInfoPage = ({
             }}
           />
         </div>
+        {currentInfoComponent}
       </div>
     </div>
   );

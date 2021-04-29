@@ -1,24 +1,23 @@
 import React from 'react';
+import Text from 'components/Text';
+import { H6 } from 'components/Headings';
 
 const ArtistAndOwner = ({ artist, owner }) => {
   return (
     <div className='artist-and-owner'>
-      <div className='artist-and-owner__container'>
-        <div className='artist-and-owner__card'>
-          <div className='artist-and-owner__avatar' />
-          <div className='artist-and-owner__user'>
-            <span className='artist-and-owner__title'>Owner</span>
-            <span className='artist-and-owner__code'>{owner.slice(0.4)}</span>
-          </div>
+      <div className='artist-and-owner__card'>
+        <div className='artist-and-owner__avatar' />
+        <div className='artist-and-owner__info'>
+          <Text text='Owner' />
+          <H6 text={owner.slice(0, 6)} />
         </div>
       </div>
-      <div className='artist-and-owner__container'>
-        <div className='artist-and-owner__card'>
-          <div className='artist-and-owner__avatar' />
-          <div className='artist-and-owner__user'>
-            <span className='artist-and-owner__title'>Artist</span>
-            <span className='artist-and-owner__code'>{artist.slice(0, 4)}</span>
-          </div>
+
+      <div className='artist-and-owner__card'>
+        <div className='artist-and-owner__avatar' />
+        <div className='artist-and-owner__info'>
+          <Text text='Artist' />
+          <H6 text={artist.slice(0, 6)} />
         </div>
       </div>
     </div>
