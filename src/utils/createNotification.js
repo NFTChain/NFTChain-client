@@ -4,16 +4,16 @@ export const createNotification = (type, message, length) => {
   return () => {
     switch (type) {
       case 'info':
-        NotificationManager.info('Info message', message, length);
+        NotificationManager.info(message, 'Info message', length);
         break;
       case 'success':
-        NotificationManager.success('Success message', message, length);
+        NotificationManager.success(message, 'Success message', length);
         break;
       case 'warning':
-        NotificationManager.warning('Warning message', message, length);
+        NotificationManager.warning(message, 'Warning message', length);
         break;
       case 'error':
-        NotificationManager.error('Error message', message, length);
+        NotificationManager.error(message, 'Error message', length);
         break;
     }
   };

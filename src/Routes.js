@@ -7,6 +7,7 @@ import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage';
 import CreateNFT from './views/CreateNFT';
 import Litepaper from './views/Litepaper';
+import PaintingFactory from './views/PaintingFactory';
 import Layout from './views/Layout';
 
 // // Authentication component
@@ -19,11 +20,7 @@ import Layout from './views/Layout';
 const Routes = () => {
   return (
     <Switch>
-      <Route
-        exact
-        path='/'
-        render={() => <Layout children={<LandingPage />} />}
-      />
+      <Route exact path='/' component={LandingPage} />
       <Route
         path='/createNFT'
         render={() => <Layout children={<CreateNFT />} />}
@@ -44,6 +41,10 @@ const Routes = () => {
       <Route
         path='/marketplace/:id'
         render={() => <Layout children={<NFTInfoPage />} />}
+      />
+      <Route
+        path='/paintingFactory'
+        render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
         exact

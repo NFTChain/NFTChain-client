@@ -1,14 +1,22 @@
+/* eslint-disable quotes */
 import React, { useState } from 'react';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import InputBase from '@material-ui/core/InputBase';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { utils } from 'ethers';
 import { startAction, stopAction } from '../../../store/actions/uiActions';
 import { createNotification } from '../../../utils/createNotification';
 import Loader from 'views/Loader';
+import NTFCard from 'views/Marketplace/NFTCard';
+import { H3 } from 'components/Headings';
+import Text from 'components/Text';
+import BackupIcon from '@material-ui/icons/Backup';
+import FormInput from 'components/FormInput';
+import Button from 'components/Button';
+import {
+  marginTopAndBottom,
+  marginTop,
+  marginBottom,
+} from 'utils/globalStyles';
 
 const UploadNFTForm = ({
   BEP721Contract,
@@ -26,12 +34,15 @@ const UploadNFTForm = ({
   const [limit, setLimit] = useState('');
 
   const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+    const file = event.target.files[0];
+    const fileType = file.type.split('/')[0];
+    setFileType(fileType);
+    setFile(file);
     const reader = new FileReader();
     reader.onload = (e) => {
       setPreview(e.target.result);
     };
-    reader.readAsDataURL(event.target.files[0]);
+    reader.readAsDataURL(file);
   };
 
   const handleLimitChange = (event) => {
@@ -52,10 +63,6 @@ const UploadNFTForm = ({
 
   const handleDescriptionChange = (event) => {
     setDescription(event.target.value);
-  };
-
-  const handleFileTypeChange = (event) => {
-    setFileType(event.target.value);
   };
 
   const UploadAndCreateUnmintedNFT = async () => {
@@ -107,7 +114,7 @@ const UploadNFTForm = ({
               'error',
               'This NFT got already created, if you think this is wrong please reach out to support.',
               10000,
-            );
+            )();
           } else {
             // else continue creating NFT
             await mintNFTTokenForUploadedFile(
@@ -121,7 +128,7 @@ const UploadNFTForm = ({
         createNotification(
           'error',
           'Upload of file was unsuccesful, please try again',
-          4000,
+          8000,
         )();
       }
     } else {
@@ -138,7 +145,7 @@ const UploadNFTForm = ({
         4000,
       )();
       const parsedEtherPrice = utils.parseEther(price);
-      debugger;
+
       const createUnmintedNFT = await BEP721Contract.createInk(
         IPFSHash,
         limit,
@@ -163,7 +170,6 @@ const UploadNFTForm = ({
     const searchForId = Number(
       (await BEP721Contract.inkIdByUrl(IPFSHash)).toString(),
     );
-    debugger;
 
     return searchForId > 0; // if id is higher than 0 we know the same file got already uploaded
   };
@@ -173,55 +179,107 @@ const UploadNFTForm = ({
   }
 
   return (
-    <div>
-      <div className='upload-and-preview'>
-        <div className='upload-file-container'>
-          <h3>Upload file</h3>
-          <div className='upload-file-box'>
-            <input type='file' onChange={handleFileChange} />
+    <div className='create-nft'>
+      <div className='create-nft__left-side'>
+        <H3 text='Upload file' />
+        <Text text='Choose your file to upload' style={marginTopAndBottom} />
+        <div className='create-nft__upload-card'>
+          <div className='create-nft__file-upload'>
+            <input
+              className='create-nft__file-input'
+              type='file'
+              onChange={handleFileChange}
+            />
+            <BackupIcon style={{ color: '#959595', fontSize: '4rem' }} />
+            <Text text='PNG, GIF, MP4 and more, just try out.' />
           </div>
         </div>
+        {/* Start of form  */}
+        <H3 text='Item Deails' style={marginTop} />
 
-        <div className='preview-container'>
-          <h3>Preview</h3>
-          <div className='preview-box'>
-            <img src={preview} className='preview-image' />
-          </div>
-          {/* this img tag is the preview of the file, we need to handle multiple file types at a later point */}
-        </div>
+        <Text
+          text='Item name'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          type='text'
+          placeholder={`e. g. 'Cryptopunk'`}
+          value={title}
+          onChange={handleTitleChange}
+        />
+
+        <Text
+          text='Description'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          placeholder='Give your NFT an interesting description'
+          type='text'
+          value={description}
+          onChange={handleDescriptionChange}
+        />
+
+        <Text
+          text='Artist'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          type='text'
+          placeholder='How is the name of the artist?'
+          value={artist}
+          onChange={handleArtistChange}
+        />
+
+        <Text
+          text='How many NFTs do you want to create for your file?'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          type='number'
+          placeholder='Choose for creating a rare NFT'
+          value={limit}
+          onChange={handleLimitChange}
+        />
+
+        <Text
+          text='Price in NFTC'
+          className='create-nft__label'
+          style={marginTopAndBottom}
+        />
+
+        <FormInput
+          type='number'
+          placeholder='The price in NFTC'
+          value={price}
+          onChange={handlePriceChange}
+          style={marginBottom}
+        />
+        <Button
+          text='Create NFT'
+          onClick={UploadAndCreateUnmintedNFT}
+          style={{ width: '20%' }}
+        />
       </div>
-      <InputLabel id='file-type-label'>File type</InputLabel>
-      <Select
-        labelId='file-type-selector'
-        id='file-type'
-        value={fileType}
-        onChange={handleFileTypeChange}
-      >
-        <MenuItem value={'music'}>Music</MenuItem>
-        <MenuItem value={'image'}>Image</MenuItem>
-        <MenuItem value={'video'}>Video</MenuItem>
-        <MenuItem value={'3d-asset'}>3D Asset</MenuItem>
-      </Select>
-      <InputLabel htmlFor='title-label'>Title</InputLabel>
-      <InputBase id='title-input' value={title} onChange={handleTitleChange} />
-      <InputLabel htmlFor='description-label'>Description</InputLabel>
-      <InputBase
-        id='description-id'
-        value={description}
-        onChange={handleDescriptionChange}
-      />
-      <InputLabel htmlFor='artist-label'>Artist</InputLabel>
-      <InputBase id='artist-id' value={artist} onChange={handleArtistChange} />
 
-      <InputLabel htmlFor='limit-label'>
-        How many NFTs do you want to create for your art?
-      </InputLabel>
-      <InputBase id='limit-id' value={limit} onChange={handleLimitChange} />
-      <InputLabel htmlFor='price-label'>Price in NFTC</InputLabel>
-      <InputBase id='price-id' value={price} onChange={handlePriceChange} />
-      <button onClick={UploadAndCreateUnmintedNFT}>
-        Connect wallet and create
-      </button>
+      {/* start of preview */}
+      <div className='create-nft__right-side'>
+        <NTFCard
+          image={preview && preview}
+          title={title && title}
+          price={price && price}
+          owner={artist && artist}
+          artist={artist && artist}
+          description={description && description}
+        />
+      </div>
     </div>
   );
 };

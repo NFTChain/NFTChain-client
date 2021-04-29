@@ -1,33 +1,57 @@
-.upload-and-preview {
-  @include flexCenter;
+.create-nft {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
-}
 
-.upload-file-container {
-  width: 70%;
-}
+  &__left-side {
+    width: 70%;
+    padding: 1.5rem;
+  }
 
-.upload-file-box {
-  @include flexCenter;
-  border: 2px dashed rgba(4, 4, 5, 0.1);
-  height: 5rem;
-  width: 100%;
-  border-radius: 16px;
-}
+  &__right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #263238;
+    width: 30%;
+  }
 
-.preview-container {
-  width: 30%;
-}
+  &__upload-card {
+    width: 90%;
+    border-radius: 0.5rem;
+  }
 
-.preview-box {
-  border-radius: 16px;
-  border: 1px solid rgba(4, 4, 5, 0.1);
-  width: 5rem;
-  height: 5rem;
-}
+  &__file-upload {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4rem 1.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.25s ease-out;
+    background-color: $primary-text-1;
 
-.preview-image {
-  border-radius: 16px;
-  width: 5rem;
-  height: 5rem;
+    &:hover {
+      background-color: #dbedff;
+    }
+  }
+
+  &__file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__label {
+    font-weight: 900;
+    font-size: 1rem;
+  }
 }

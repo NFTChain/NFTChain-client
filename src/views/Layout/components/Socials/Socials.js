@@ -9,32 +9,32 @@ import {
 
 const Socials = () => {
   return (
-    <section className='socials'>
-      <div className='socials__content container'>
+    <section className='socials-marketplace'>
+      <div className='socials-marketplace__content container'>
         <a
           href='https://twitter.com/nft_chain'
           target='_blank'
-          className='socials__link'
+          className='socials-marketplace__link'
           rel='noreferrer'
         >
-          <FaTwitter className='socials__icon' />
+          <FaTwitter className='socials-marketplace__icon' />
         </a>
         <a
           href='https://t.me/NFT_Chain'
           target='_blank'
-          className='socials__link'
+          className='socials-marketplace__link'
           rel='noreferrer'
         >
-          <FaTelegramPlane className='socials__icon' />
+          <FaTelegramPlane className='socials-marketplace__icon' />
         </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaFacebookF className='socials__icon' />
+        <a href='#' target='_blank' className='socials-marketplace__link'>
+          <FaFacebookF className='socials-marketplace__icon' />
         </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaRedditAlien className='socials__icon' />
+        <a href='#' target='_blank' className='socials-marketplace__link'>
+          <FaRedditAlien className='socials-marketplace__icon' />
         </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaInstagram className='socials__icon' />
+        <a href='#' target='_blank' className='socials-marketplace__link'>
+          <FaInstagram className='socials-marketplace__icon' />
         </a>
       </div>
     </section>
