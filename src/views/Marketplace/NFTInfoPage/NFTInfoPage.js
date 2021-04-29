@@ -108,7 +108,7 @@ const NFTInfoPage = ({
         <H1 text={title} />
         <div className='info-page__price-limit' style={marginTopAndBottom}>
           <Text
-            text={`${price}0 NFT`}
+            text={`${price}0 NFTC`}
             style={{
               borderRadius: '3px',
               color: '#00ab55',
@@ -126,8 +126,8 @@ const NFTInfoPage = ({
             text={`$ ${price * 0.1}`}
             style={{
               borderRadius: '3px',
-              color: '#00ab55',
-              border: '2px solid #00ab55',
+              // color: '#00ab55',
+              border: '2px solid',
               fontWeight: 900,
               padding: '0.3rem',
               marginRight: '1rem',
