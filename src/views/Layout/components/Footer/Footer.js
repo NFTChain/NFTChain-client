@@ -28,23 +28,23 @@ const Footer = () => {
           </div>
           <div className='footer-marketplace__nav'>
             <ul className='footer-marketplace__nav-list'>
-              <li className='footer-marketplace__nav-item'>
+              {/* <li className='footer-marketplace__nav-item'>
                 <Link to='/litepaper' className='footer-marketplace__nav-link'>
                   litepaper
                 </Link>
-              </li>
+              </li> */}
               <li className='footer-marketplace__nav-item'>
-                <a href='#about' className='footer-marketplace__nav-link'>
-                  about
+                <a href='/marketplace' className='footer-marketplace__nav-link'>
+                  marketplace
                 </a>
               </li>
               <li className='footer-marketplace__nav-item'>
-                <a href='#features' className='footer-marketplace__nav-link'>
+                <a href='/#features' className='footer-marketplace__nav-link'>
                   features
                 </a>
               </li>
               <li className='footer-marketplace__nav-item'>
-                <a href='#roadmap' className='footer-marketplace__nav-link'>
+                <a href='/#roadmap' className='footer-marketplace__nav-link'>
                   roadmap
                 </a>
               </li>
