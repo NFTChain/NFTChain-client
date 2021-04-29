@@ -9,6 +9,8 @@ import {
 import { BEP20ContractString, BEP721ContractString } from 'utils/getContract';
 import Loader from 'views/Loader';
 import metamaskLogo from '../../assets/metamask.png';
+import { Button, H1 } from 'components';
+import { marginTopAndBottom } from 'utils/globalStyles';
 // We need to handle here still different edge cases, what is when the user is for example on a different network
 // or declines the connection to our site, we need to test and handle all cases appopiate
 
@@ -41,13 +43,11 @@ const ConnectWallet = ({
 
   return (
     <div className='connect-wallet-container'>
-      <h2>Connect your wallet</h2>
-      <div className='metamask-logo-container'>
+      <H1 text='Connect your wallet' />
+      <div className='metamask-logo-container' style={marginTopAndBottom}>
         <img className='metamask-logo' src={metamaskLogo} alt='metamask' />
       </div>
-      <button className='button' onClick={connectToContracts}>
-        Connect wallet
-      </button>
+      <Button text='Connect wallet' onClick={connectToContracts} />
     </div>
   );
 };

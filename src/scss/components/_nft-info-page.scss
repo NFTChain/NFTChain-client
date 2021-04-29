@@ -1,22 +1,39 @@
 .info-page {
   @include flex;
-  width: 100%;
-  height: 100%;
+  // height: 100%;
+  width: 100vw;
+  height: 65vh;
 
   &__image-container {
-    height: 100%;
-    width: 60%;
+    // height: 100%;
+    width: 40%;
     border-radius: 16px;
+    // new
+    // padding-top: 75%;
+    // position: relative;
+    // overflow: hidden;
+    // margin-top: 0.75rem;
+    border-radius: 1rem;
+    // background: #eceff1;
+    box-shadow: 0 16px 32px #eceff1;
+
     img {
-      max-width: 100%;
-      max-height: 100%;
+      // max-width: 100%;
+      // max-height: 100%;
       border-radius: 16px;
+      // new
+      // position: absolute;
+      // top: 0;
+      // left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
     }
   }
 
   &__info-container {
     height: 100%;
-    width: 40%;
+    width: 60%;
     @include flex(column);
   }
 

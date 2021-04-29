@@ -40,8 +40,8 @@ const Nav = () => {
           <Link to='/marketplace' className='nav-marketplace__link'>
             <H6 text={'Discover'} style={{ color: '#101b32' }} />
           </Link>
-          <Link to='/marketplace' className='nav-marketplace__link'>
-            <H6 text={'How it works'} />
+          <Link to='/holdings' className='nav-marketplace__link'>
+            <H6 text={'Holdings'} />
           </Link>
         </div>
       </div>
@@ -62,7 +62,9 @@ const Nav = () => {
         <StyledBadge variant='dot'>
           <MailIcon style={{ fontSize: 25 }} />
         </StyledBadge>
-        <Button text={'Upload'} style={{ height: '3rem' }} />
+        <Link to='/createNFT' style={{ textDecoration: 'none' }}>
+          <Button text={'Upload'} style={{ height: '3rem' }} />
+        </Link>
 
         <Button
           text={'Connect Wallet'}
