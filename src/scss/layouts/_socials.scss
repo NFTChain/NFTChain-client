@@ -3,20 +3,15 @@
   padding: 0 2rem;
 
   &__content {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    @include flex(row, flex-end);
   }
 
   &__link,
   &:link,
   &:visited {
-    display: flex;
+    @include flex;
     font-size: 2rem;
     background: $secondary-dark-1;
-
-    justify-content: center;
-    align-items: center;
     border-radius: 50%;
     height: 3rem;
     width: 3rem;

@@ -1,7 +1,5 @@
 .search {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @include flex;
   // background: #e8e8e8;
   border-radius: 25px;
   transition: border 0.2s ease;

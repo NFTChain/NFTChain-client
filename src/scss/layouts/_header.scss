@@ -7,10 +7,7 @@
   }
 
   &__text-box {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    @include flex(column);
     text-align: center;
   }
 }

@@ -104,13 +104,13 @@
     padding: 0.75rem;
   }
   &__top {
-    display: flex;
+    @include flex(row, flex-start, stretch);
     font-weight: 500;
   }
   &__owner,
   &__creator {
     width: 50%;
-    display: flex;
+    @include flex(row, flex-start, stretch);
   }
   &__owner {
     position: relative;
@@ -138,9 +138,7 @@
   }
   &__user {
     padding: 0 0.5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    @include flex(column);
     &__title {
       font-size: 0.75rem;
       color: #b0bec5;
@@ -165,8 +163,7 @@
   }
   &__info {
     margin: 0.75rem;
-    display: flex;
-    justify-content: space-between;
+    @include flex(row, space-between);
     p {
       margin: 0;
     }
@@ -175,9 +172,7 @@
     background: #fff;
     padding: 0.75rem;
     border-radius: 0.75rem 0.75rem 1.75rem 1.75rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between);
   }
   &__btn {
     width: 48%;

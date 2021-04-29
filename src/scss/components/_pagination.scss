@@ -1,14 +1,11 @@
 .pagination {
   max-width: 20rem;
   width: 100%;
-  display: flex;
-  justify-content: center;
+  @include flex(row, center, stretch);
 
   &__list {
-    display: flex;
+    @include flex(row, space-evenly);
     list-style: none;
-    justify-content: space-evenly;
-    align-items: center;
     flex: 1;
   }
 

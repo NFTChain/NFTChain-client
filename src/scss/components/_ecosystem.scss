@@ -5,10 +5,10 @@
     rgba($primary-dark-7, 0.95)
   );
   padding: 10rem 2rem;
-  @include flexCenter;
+  @include flex;
 
   &__content {
-    @include flexCenter;
+    @include flex;
   }
 
   &__box {
