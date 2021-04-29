@@ -1,7 +1,7 @@
 import React from 'react';
 
-const CommingSoon = () => {
+const ComingSoon = () => {
   return <div className='coming-soon'></div>;
 };
 
-export default CommingSoon;
+export default ComingSoon;

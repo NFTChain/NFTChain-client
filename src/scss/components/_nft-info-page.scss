@@ -41,9 +41,8 @@
 
 .artist-and-owner {
   &__card {
-    border-bottom: 2px solid $primary-text-1;
+    border-bottom: thin solid $primary-text-1;
     display: flex;
-    justify-content: center;
     align-items: center;
     width: 100%;
   }

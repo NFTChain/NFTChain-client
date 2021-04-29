@@ -6,10 +6,8 @@ import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
 import ConnectWallet from 'views/ConnectWallet';
-import { H1 } from 'components/Headings';
-import Text from 'components/Text';
-import Button from 'components/Button';
-import { marginTop, marginTopAndBottom } from 'utils/globalStyles';
+import { marginTopAndBottom } from 'utils/globalStyles';
+import { H1, ComingSoon, Text, Button } from 'components';
 import ArtistAndOwner from './components/ArtistAndOwner';
 
 const NFTInfoPage = ({
@@ -73,19 +71,22 @@ const NFTInfoPage = ({
     switch (event.target.textContent) {
       case 'Info':
         setCurrentInfoView(1);
+        setCurrentInfoComponent(ArtistAndOwner);
 
         return;
       case 'Chat':
         setCurrentInfoView(2);
+        setCurrentInfoComponent(ComingSoon);
 
         return;
       case 'Owner':
         setCurrentInfoView(3);
+        setCurrentInfoComponent(ComingSoon);
 
         return;
       case 'History':
         setCurrentInfoView(4);
-        return;
+        setCurrentInfoComponent(ComingSoon);
     }
   };
 
