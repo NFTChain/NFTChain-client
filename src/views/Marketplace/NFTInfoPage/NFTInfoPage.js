@@ -6,10 +6,9 @@ import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
 import { utils } from 'ethers';
 import ConnectWallet from 'views/ConnectWallet';
-import { H1 } from 'components/Headings';
-import Text from 'components/Text';
-import Button from 'components/Button';
-import { marginTop, marginTopAndBottom } from 'utils/globalStyles';
+import { marginTopAndBottom } from 'utils/globalStyles';
+import { H1, ComingSoon, Text, Button } from 'components';
+import ArtistAndOwner from './components/ArtistAndOwner';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -33,6 +32,12 @@ const NFTInfoPage = ({
 
   const [pressedBuy, setPressedBuy] = useState(false);
   const [currentInfoView, setCurrentInfoView] = useState(1);
+  const [currentInfoComponent, setCurrentInfoComponent] = useState(
+    <ArtistAndOwner
+      artist={artistAddress}
+      owner={owner === artist ? artistAddress : owner}
+    />,
+  );
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
@@ -66,19 +71,27 @@ const NFTInfoPage = ({
     switch (event.target.textContent) {
       case 'Info':
         setCurrentInfoView(1);
+        setCurrentInfoComponent(
+          <ArtistAndOwner
+            artist={artistAddress}
+            owner={owner === artist ? artistAddress : owner}
+          />,
+        );
 
         return;
       case 'Chat':
         setCurrentInfoView(2);
+        setCurrentInfoComponent(<ComingSoon />);
 
         return;
       case 'Owner':
         setCurrentInfoView(3);
+        setCurrentInfoComponent(<ComingSoon />);
 
         return;
       case 'History':
         setCurrentInfoView(4);
-        return;
+        setCurrentInfoComponent(<ComingSoon />);
     }
   };
 
@@ -95,7 +108,7 @@ const NFTInfoPage = ({
         <H1 text={title} />
         <div className='info-page__price-limit' style={marginTopAndBottom}>
           <Text
-            text={`${price}0 NFT`}
+            text={`${price}0 NFTC`}
             style={{
               borderRadius: '3px',
               color: '#00ab55',
@@ -110,11 +123,11 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`$ ${price * 0.1}`}
+            text={`$${Math.ceil(price * 0.1)}.00`}
             style={{
               borderRadius: '3px',
-              color: '#00ab55',
-              border: '2px solid #00ab55',
+              // color: '#00ab55',
+              border: '2px solid',
               fontWeight: 900,
               padding: '0.3rem',
               marginRight: '1rem',
@@ -176,15 +189,7 @@ const NFTInfoPage = ({
             }}
           />
         </div>
-        <div className='info-page__artist-owner'>
-          <div className='card__owner'>
-            <div className='card__avatar'></div>
-            <div className='card__user'>
-              <span className='card__user__title'>Owned by</span>
-              <span className='card__user__code'>2304RC</span>
-            </div>
-          </div>
-        </div>
+        {currentInfoComponent}
       </div>
     </div>
   );

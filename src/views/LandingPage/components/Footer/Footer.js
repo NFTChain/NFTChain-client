@@ -28,14 +28,14 @@ const Footer = () => {
           </div>
           <div className='footer__nav'>
             <ul className='footer__nav-list'>
-              <li className='footer__nav-item'>
+              {/* <li className='footer__nav-item'>
                 <Link to='/litepaper' className='footer__nav-link'>
                   litepaper
                 </Link>
-              </li>
+              </li> */}
               <li className='footer__nav-item'>
-                <a href='#about' className='footer__nav-link'>
-                  about
+                <a href='/marketplace' className='footer__nav-link'>
+                  marketplace
                 </a>
               </li>
               <li className='footer__nav-item'>

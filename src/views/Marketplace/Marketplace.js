@@ -5,18 +5,29 @@ import Pagination from './Pagination';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../store/actions/contractActions';
+import {
+  startAction,
+  stopAction,
+  setError,
+} from '../../store/actions/uiActions';
 import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import { BEP721ContractString } from '../../utils/getContract';
 import { utils } from 'ethers';
 import Loader from 'views/Loader';
 import Filters from './Filters';
 import { createNotification } from 'utils/createNotification';
+import { H1 } from 'components';
 
 const Marketplace = ({
   BEP721Contract,
   connectToContract,
   allNFTs,
   setAllNFTs,
+  loading,
+  stopAction,
+  startAction,
+  setError,
+  error,
 }) => {
   const [NFTs, setNFTs] = useState([]);
   const [NFTPerPage] = useState(3);
@@ -27,6 +38,7 @@ const Marketplace = ({
     if (BEP721Contract) {
       fetchOnSaleNFTs();
     } else {
+      startAction();
       connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
     }
   }, [BEP721Contract]);
@@ -34,8 +46,8 @@ const Marketplace = ({
   const fetchOnSaleNFTs = async () => {
     try {
       // fetch NFTs from IPFS to be able to modify the data how we need it
-      const getNFTs = (await getFilesFromIPFS()).rows;
-
+      let getNFTs = await getFilesFromIPFS();
+      getNFTs = getNFTs.rows;
       // array where we push matches into
       const NFTInfoArray = [];
 
@@ -87,16 +99,20 @@ const Marketplace = ({
         }),
       );
       setNFTs(NFTInfoArray);
-
       setAllNFTs(NFTInfoArray);
     } catch (error) {
       console.log(error);
       debugger;
+      setError(
+        'Something went wrong getting the art, please refresh the site.',
+      );
       createNotification(
         'error',
-        'Something went wrong getting getting the NFTs, please reload the site',
+        'Something went wrong getting the NFTs, please reload the site',
         10000,
       )();
+    } finally {
+      stopAction();
     }
   };
 
@@ -104,7 +120,8 @@ const Marketplace = ({
   const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
-  if (currentNFTS.length === 0) return <Loader />;
+  if (loading) return <Loader />;
+  else if (error) return <H1 text={error} />; // lets create an something went wrong screen for such cases
 
   return (
     <section className='marketplace'>
@@ -132,9 +149,15 @@ const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
     allNFTs: state.marketplace.allNFTs,
+    loading: state.ui.loading,
+    error: state.ui.error,
   };
 };
 
-export default connect(mapStateToProps, { connectToContract, setAllNFTs })(
-  Marketplace,
-);
+export default connect(mapStateToProps, {
+  connectToContract,
+  setAllNFTs,
+  stopAction,
+  startAction,
+  setError,
+})(Marketplace);

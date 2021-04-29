@@ -45,14 +45,21 @@ const NFTCard = ({
             <div className='card__avatar'></div>
             <div className='card__user'>
               <span className='card__user__title'>Owned by</span>
-              <span className='card__user__code'>2304RC</span>
+              <span className='card__user__code'>
+                {owner &&
+                  artist &&
+                  artistAddress &&
+                  (owner === artist ? artistAddress : owner).slice(0, 5)}
+              </span>
             </div>
           </div>
           <div className='card__creator'>
             <div className='card__avatar'></div>
             <div className='card__user'>
               <span className='card__user__title'>Created by</span>
-              <span className='card__user__code'>20AR02</span>
+              <span className='card__user__code'>
+                {artistAddress && artistAddress.slice(0, 5)}
+              </span>
             </div>
           </div>
         </div>
@@ -64,7 +71,7 @@ const NFTCard = ({
         <p>
           <b>Price:</b> NFTC {price}0
         </p>
-        <p>($3,565.48)</p>
+        <p>(${Math.ceil(price * 0.1)})</p>
       </div>
       <div className='card__footer'>
         <span className='card__btn card__btn--secondary'>View history</span>

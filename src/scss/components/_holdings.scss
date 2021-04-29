@@ -1,11 +1,22 @@
 .holdings {
   @include flex(column);
-}
+  flex-wrap: wrap;
+  margin-top: 1rem;
 
-.card-list {
-  @include flex(column);
-}
+  &__container {
+    @include flex(column);
+    flex-wrap: wrap;
+  }
 
-.single__card {
-  @include flex(column);
+  &__card-list {
+    @include flex;
+    flex-wrap: wrap;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    color: #263238;
+    width: 30%;
+  }
+
+  &__single-card {
+    @include flex(column);
+  }
 }
