@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Socials from '../../../LandingPage/components/Socials';
+import Socials from '../Socials';
 
 const Footer = () => {
   return (
