@@ -71,22 +71,27 @@ const NFTInfoPage = ({
     switch (event.target.textContent) {
       case 'Info':
         setCurrentInfoView(1);
-        setCurrentInfoComponent(ArtistAndOwner);
+        setCurrentInfoComponent(
+          <ArtistAndOwner
+            artist={artistAddress}
+            owner={owner === artist ? artistAddress : owner}
+          />,
+        );
 
         return;
       case 'Chat':
         setCurrentInfoView(2);
-        setCurrentInfoComponent(ComingSoon);
+        setCurrentInfoComponent(<ComingSoon />);
 
         return;
       case 'Owner':
         setCurrentInfoView(3);
-        setCurrentInfoComponent(ComingSoon);
+        setCurrentInfoComponent(<ComingSoon />);
 
         return;
       case 'History':
         setCurrentInfoView(4);
-        setCurrentInfoComponent(ComingSoon);
+        setCurrentInfoComponent(<ComingSoon />);
     }
   };
 
