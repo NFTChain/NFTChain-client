@@ -38,31 +38,39 @@ const NFTCard = ({
   };
 
   return (
-    <div className='card'>
-      <div className='card__content'>
-        <Link
-          to={`/marketplace/${id}`}
-          onClick={setNFT}
-          className='card__image-box'
-        >
-          <div
-            style={{ backgroundImage: `url(${image})` }}
-            className='card__image'
-            alt='nft card'
-          />
-        </Link>
-        <section className='card__info'>
-          <div className='card__info-row-1'>
-            <h1 className='card__title'>{title}</h1>
-            <h4 className='card__description'>{description}</h4>
+    <Link to={`/marketplace/${id}`} onClick={setNFT} className='card'>
+      <div className='card__body'>
+        <div className='card__top'>
+          <div className='card__owner'>
+            <div className='card__avatar'></div>
+            <div className='card__user'>
+              <span className='card__user__title'>Owned by</span>
+              <span className='card__user__code'>2304RC</span>
+            </div>
           </div>
-          <div className='card__info-row-2'>
-            <p className='card__price'>${price}</p>
-            <p className='card__artist'>{artist}</p>
+          <div className='card__creator'>
+            <div className='card__avatar'></div>
+            <div className='card__user'>
+              <span className='card__user__title'>Created by</span>
+              <span className='card__user__code'>20AR02</span>
+            </div>
           </div>
-        </section>
+        </div>
+        <div className='card__image'>
+          <img src={image} alt='' />
+        </div>
       </div>
-    </div>
+      <div className='card__info'>
+        <p>
+          <b>Price:</b> NFTC {price}0
+        </p>
+        <p>($3,565.48)</p>
+      </div>
+      <div className='card__footer'>
+        <span className='card__btn card__btn--secondary'>View history</span>
+        <span className='card__btn card__btn--primary'>Buy Now</span>
+      </div>
+    </Link>
   );
 };
 

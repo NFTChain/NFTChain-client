@@ -60,3 +60,30 @@
     animation-fill-mode: backwards;
   }
 }
+
+.blue-button {
+  font-size: 1.2rem;
+  border-radius: 16px;
+  font-weight: 900;
+  background-color: $primary-blue;
+  color: $primary-white;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.white-button {
+  font-weight: 900;
+  font-size: 1.2rem;
+  border-radius: 16px;
+  background-color: $primary-white;
+  color: $primary-dark-1;
+  border: 1px solid $primary-dark-1;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}

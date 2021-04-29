@@ -8,6 +8,8 @@ import { utils } from 'ethers';
 import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
+import { v4 as uuidv4 } from 'uuid';
+import Button from '@material-ui/core/Button';
 
 const Holdings = ({
   BEP721Contract,
@@ -48,28 +50,28 @@ const Holdings = ({
       if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
         // if from booth category are some available => use Promise.all for performance reasons
 
-        // const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
-        //   amountOfCreatedNFTs,
-        // );
+        const unsoldUnmintedNFTsPromise = getUnsoldUnmintedNFTs(
+          amountOfCreatedNFTs,
+        );
         const boughtOrMintedNFTsPromise = getBoughtOrMintedNFTs(
           amountOfMintedNFTs,
         );
 
-        const [boughtOrMintedNFTS] = await Promise.all([
-          // unsoldUnmintedNFTsPromise,
+        const [boughtOrMintedNFTS, unsoldUnmintedNFTs] = await Promise.all([
           boughtOrMintedNFTsPromise,
+          unsoldUnmintedNFTsPromise,
         ]);
 
-        // setUnmintedHoldings(unsoldUnmintedNFTs);
+        setUnmintedHoldings(unsoldUnmintedNFTs);
         setMintedHoldings(boughtOrMintedNFTS);
-      } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs < 1) {
+      } else if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs === 0) {
         // if only from one category are some availble => try to get the holdings from that one category
         const unsoldUnmintedNFTs = await getUnsoldUnmintedNFTs(
           amountOfCreatedNFTs,
         );
 
         setUnmintedHoldings(unsoldUnmintedNFTs);
-      } else if (amountOfCreatedNFTs < 1 && amountOfMintedNFTs > 0) {
+      } else if (amountOfCreatedNFTs === 0 && amountOfMintedNFTs > 0) {
         // if only from one category are some availble => try to get the holdings from that one category
         const boughtOrMintedNFTS = await getBoughtOrMintedNFTs(
           amountOfMintedNFTs,
@@ -83,7 +85,7 @@ const Holdings = ({
         'error',
         'Something went wrong loading your NFTs, please reach out to support.',
         5000,
-      );
+      )();
     } finally {
       stopAction();
     }
@@ -112,8 +114,9 @@ const Holdings = ({
           NFTInfoArray.push({
             id: idOfcreatedNFT,
             image: `https://ipfs.io/ipfs/${NFTInfoObject.ipfs_hash}`,
-            currentPrice: NFTInfoObject.price,
+            currentPrice: utils.formatEther(NFTInfoObject.price),
             howManyOwned: NFTInfoObject.limit - NFTInfoObject.count,
+            key: uuidv4(),
           });
         }
       }),
@@ -155,11 +158,17 @@ const Holdings = ({
             limit: NFTInfoPromise[4].toString(),
           };
 
+          // because the NFT is already minted - we need to check the tokenPrice and can't use the price from the unminted NFT
+          const tokenPrice = (
+            await BEP721Contract.tokenPriceByTokenId(tokenId)
+          ).toString();
+
           NFTInfoArray.push({
             id: NFTInfoObject.id,
             image: NFTUrl,
-            currentPrice: NFTInfoObject.price,
+            currentPrice: tokenPrice,
             howManyOwned: 1,
+            key: uuidv4(),
           });
         } else {
           // else increase the count of key "howManyOwned"
@@ -175,6 +184,10 @@ const Holdings = ({
     }
   };
 
+  const setPriceOfUnmintedNFT = () => {};
+
+  const setPriceOfMintedNFT = () => {};
+
   if (!isConnected) {
     return <ConnectWallet />;
   } else if (loading) {
@@ -182,33 +195,62 @@ const Holdings = ({
   }
   // add logic when user has 0 nfts
   return (
-    <div>
-      <div>
-        <h1>Unminted NFT</h1>
-        {unmintedHoldings.length > 0 &&
-          unmintedHoldings.map((item) => {
-            return (
-              <NFTCard
-                key={item.id}
-                image={item.image}
-                price={item.currentPrice}
-              />
-            );
-          })}
-      </div>
-      <div>
-        <h1>Minted NFT</h1>
-        {mintedHoldings.length > 0 &&
-          mintedHoldings.map((item) => {
-            return (
-              <NFTCard
-                key={item.id}
-                image={item.image}
-                price={item.currentPrice}
-              />
-            );
-          })}
-      </div>
+    <div className='holdings'>
+      {unmintedHoldings.length > 0 && (
+        <div className='card-list'>
+          <div className='marketplace__title' style={{ margin: 0 }}>
+            <h1 className='marketplace__title' style={{ margin: 0 }}>
+              Unminted Holdings
+            </h1>
+          </div>
+          <div className='card__list' style={{ margin: 0 }}>
+            {unmintedHoldings.map((item) => {
+              return (
+                <div className='single__card' key={item.key}>
+                  <NFTCard
+                    key={item.key}
+                    image={item.image}
+                    price={item.currentPrice}
+                  />
+                  <Button
+                    onClick={setPriceOfUnmintedNFT}
+                    variant='contained'
+                    color='primary'
+                  >
+                    Change price
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {mintedHoldings.length > 0 && (
+        <div>
+          <div className='marketplace__title'>
+            <h1 className='marketplace__title'>Minted Holdings</h1>
+          </div>
+          <div className='card__list'>
+            {mintedHoldings.map((item) => {
+              return (
+                <div className='single__card' key={item.key}>
+                  <NFTCard image={item.image} price={item.currentPrice} />
+                  <Button
+                    onClick={setPriceOfMintedNFT}
+                    variant='contained'
+                    color='primary'
+                  >
+                    {Number(item.currentPrice) > 0
+                      ? 'Change Price'
+                      : 'Set Price'}
+                  </Button>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

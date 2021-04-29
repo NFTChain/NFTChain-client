@@ -1,22 +1,22 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 /* eslint  no-undef: 0 */ // --> OFF
 
-import React from 'react';
-import Avatar from '@material-ui/core/Avatar';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { connectToContract } from '../../../store/actions/contractActions';
-import {
-  BEP721ContractString,
-  BEP20ContractString,
-} from '../../../utils/getContract';
 import { utils } from 'ethers';
+import ConnectWallet from 'views/ConnectWallet';
+import { H1 } from 'components/Headings';
+import Text from 'components/Text';
+import Button from 'components/Button';
+import { marginTop, marginTopAndBottom } from 'utils/globalStyles';
 
 const NFTInfoPage = ({
   BEP20Contract,
   BEP721Contract,
   signerAddress,
-  connectToContract,
   currentNFT,
+  isConnected,
 }) => {
   const {
     image,
@@ -31,20 +31,16 @@ const NFTInfoPage = ({
     artistAddress,
   } = currentNFT;
 
+  const [pressedBuy, setPressedBuy] = useState(false);
+  const [currentInfoView, setCurrentInfoView] = useState(1);
+
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
       await tryBuyingNFT();
       debugger;
     } else {
-      connectToSmartContracts();
-      alert('You need to connect your wallet first');
+      setPressedBuy(true);
     }
-  };
-
-  const connectToSmartContracts = () => {
-    [BEP20ContractString, BEP721ContractString].forEach((contractString) =>
-      connectToContract(contractString),
-    );
   };
 
   const tryBuyingNFT = async () => {
@@ -64,40 +60,133 @@ const NFTInfoPage = ({
       console.log(error);
     }
   };
+
+  const handleInfoViewChange = (event) => {
+    // used for displaying different info and showing which info is open
+    switch (event.target.textContent) {
+      case 'Info':
+        setCurrentInfoView(1);
+
+        return;
+      case 'Chat':
+        setCurrentInfoView(2);
+
+        return;
+      case 'Owner':
+        setCurrentInfoView(3);
+
+        return;
+      case 'History':
+        setCurrentInfoView(4);
+        return;
+    }
+  };
+
+  if (pressedBuy && !isConnected) {
+    return <ConnectWallet />;
+  }
+
   return (
-    <section className='info'>
-      <div className='info__content container'>
-        <div className='info__box'>
-          <div className='info__row info__row-1'>
-            <h2 className='info__title'>{title}</h2>
-            <p className='info__description'>{description}</p>
-          </div>
-          <div className='info__purchase-box'>
-            <p className='info__price'>{price} NFTC</p>
-            <button className='btn btn--white'>Purchase</button>
-          </div>
+    <div className='info-page'>
+      <div className='info-page__image-container'>
+        <img src={image} alt='NFT art' />
+      </div>
+      <div className='info-page__info-container'>
+        <H1 text={title} />
+        <div className='info-page__price-limit' style={marginTopAndBottom}>
+          <Text
+            text={`${price}0 NFT`}
+            style={{
+              borderRadius: '3px',
+              color: '#00ab55',
+              border: '2px solid #00ab55',
+              fontWeight: 900,
+              padding: '0.3rem',
+              marginRight: '1rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '1rem',
+            }}
+          />
+          <Text
+            text={`$ ${price * 0.1}`}
+            style={{
+              borderRadius: '3px',
+              color: '#00ab55',
+              border: '2px solid #00ab55',
+              fontWeight: 900,
+              padding: '0.3rem',
+              marginRight: '1rem',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              fontSize: '1rem',
+            }}
+          />
+          <Text
+            text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
+            style={
+              {
+                // borderRadius: '3px',
+                // fontSize: '1rem',
+                // color: '#00ab55',
+                // border: '2px solid #00ab55',
+                // fontWeight: 900,
+                // padding: '0.3rem',
+                // display: 'flex',
+                // justifyContent: 'center',
+                // alignItems: 'center',
+              }
+            }
+          />
         </div>
-        <div className='info__image-box'>
-          <img src={image} alt='nft' className='info__image' />
+        <Text text={description} />
+        <div className='info-page__info-navigator'>
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Info'}
+            style={{
+              backgroundColor: currentInfoView === 1 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 1 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Chat'}
+            style={{
+              backgroundColor: currentInfoView === 2 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 2 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'Owner'}
+            style={{
+              backgroundColor: currentInfoView === 3 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 3 ? '#FFF' : '#959595',
+            }}
+          />
+          <Button
+            onClick={handleInfoViewChange}
+            text={'History'}
+            style={{
+              backgroundColor: currentInfoView === 4 ? '#959595' : '#FFFFFF',
+              color: currentInfoView === 4 ? '#FFF' : '#959595',
+            }}
+          />
         </div>
-        <div className='info__users-box'>
-          <div className='info__user-box'>
-            <Avatar />
-            <div className='info__user__details'>
-              <h3 className='info__user__details-name'>{artist}</h3>
-              <h4 className='info__user__details-role'>Artist</h4>
-            </div>
-          </div>
-          <div className='info__user-box'>
-            <Avatar />
-            <div className='info__user__details'>
-              <h3 className='info__user__details-name'>{owner}</h3>
-              <h4 className='info__user__details-role'>Owner</h4>
+        <div className='info-page__artist-owner'>
+          <div className='card__owner'>
+            <div className='card__avatar'></div>
+            <div className='card__user'>
+              <span className='card__user__title'>Owned by</span>
+              <span className='card__user__code'>2304RC</span>
             </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 const mapStateToProps = (state) => {
@@ -106,6 +195,7 @@ const mapStateToProps = (state) => {
     BEP20Contract: state.contracts.BEP20Contract,
     signerAddress: state.contracts.signerAddress,
     currentNFT: state.marketplace.currentNFT,
+    isConnected: state.ui.isConnected,
   };
 };
 

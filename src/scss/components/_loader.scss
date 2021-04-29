@@ -1,5 +1,6 @@
 .loader-container {
   @include bgGradient;
+  background-color: #eee;
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -1,66 +1,116 @@
-.info {
-  height: calc(100vh - 100px);
-  color: $primary-text-4;
-  @include bgGradient;
-  @include flexCenter;
+// .nft-container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: calc(100vh - 64px);
+//   padding: 0 2rem;
+// }
 
-  &__content {
-    display: flex;
-    justify-content: center;
+// .nft-spacing {
+//   display: flex;
+//   justify-content: space-around;
+//   margin: 0 auto;
+//   align-items: center;
+// }
+
+// .image-container {
+//   margin: 0 5rem;
+//   max-width: 35rem;
+
+//   img {
+//     width: 100%;
+//     box-shadow: rgba(0, 0, 0, 0.1) 0px 20px 25px -5px,
+//       rgba(0, 0, 0, 0.04) 0px 10px 10px -5px;
+//     border-radius: 2px;
+//   }
+// }
+
+// .nft-info {
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: flex-start;
+//   padding: 2rem 0;
+//   max-width: 15rem;
+// }
+
+// .nft-description {
+//   margin: 2rem 0;
+// }
+
+// .nft-info__title {
+//   font-size: 2rem;
+// }
+
+// .nft-users {
+//   padding: 2rem 0;
+// }
+
+// .nft-user {
+//   display: flex;
+//   align-items: center;
+// }
+
+// .nft-user:nth-child(1) {
+//   margin-bottom: 2rem;
+// }
+
+// .nft-user__info {
+//   margin-left: 1rem;
+//   font-size: 0.8rem;
+// }
+
+// .nft-user__role {
+//   color: $text-secondary;
+// }
+
+// .price {
+//   color: $text-secondary;
+// }
+
+// .price-amount {
+//   font-weight: bold;
+//   font-size: 2rem;
+//   margin-bottom: 1rem;
+// }
+
+.info-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  &__image-container {
+    height: 70%;
+    width: 40%;
+    border-radius: 16px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      border-radius: 16px;
+    }
   }
 
-  &__image-box {
-    display: block;
-    margin: 0 4rem;
-  }
-
-  &__image {
-  }
-
-  &__box {
+  &__info-container {
+    height: 70%;
+    width: 60%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    // align-items: center;
   }
 
-  &__title {
-    font-size: 2.8rem;
-  }
-
-  &__description {
-    font-size: 1.4rem;
-    display: inline-block;
-  }
-
-  &__user-box {
+  &__price-limit {
     display: flex;
-    justify-content: center;
+  }
+
+  &__info-navigator {
+    display: flex;
+    border-radius: 16px;
+    border: 2px solid $primary-text-1;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
-  }
-
-  &__user-box:nth-child(1) {
-    border-bottom: 1px solid $primary-text-3;
-    padding-bottom: 2rem;
-    margin-bottom: 2rem;
-  }
-
-  &__user__details {
-    margin-left: 1rem;
-
-    &-name {
-      font-size: 1.8rem;
-    }
-
-    &-role {
-      font-size: 1.2rem;
-      font-weight: 500;
-      color: $secondary-dark-4;
-    }
-  }
-
-  &__price {
-    font-size: 2rem;
-    font-weight: 300;
-    margin-bottom: 1.2rem;
+    width: 50%;
+    padding: 0.3rem;
   }
 }
