@@ -123,7 +123,7 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`$ ${price * 0.1}`}
+            text={`$${Math.ceil(price * 0.1)}.00`}
             style={{
               borderRadius: '3px',
               // color: '#00ab55',
