@@ -1,7 +1,6 @@
 .nav {
-  display: flex;
   width: 100%;
-  justify-content: space-between;
+  @include flex(row, space-between);
   background: $primary-dark-7;
   padding: 1rem 2rem;
   @include boxShadow;
@@ -9,15 +8,12 @@
 
   &__content {
     width: 100%;
-    display: flex;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between);
   }
 
   &__logo {
     width: 4rem;
-    display: flex;
+    @include flex(row, flex-start, stretch);
 
     &-img {
       width: 100%;
@@ -25,9 +21,7 @@
   }
 
   &__list {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between);
     list-style: none;
     font-size: 1.2rem;
   }

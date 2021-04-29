@@ -9,6 +9,7 @@ import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import { BEP721ContractString } from '../../utils/getContract';
 import { utils } from 'ethers';
 import Loader from 'views/Loader';
+import Filters from './Filters';
 import { createNotification } from 'utils/createNotification';
 
 const Marketplace = ({
@@ -108,10 +109,12 @@ const Marketplace = ({
   return (
     <section className='marketplace'>
       <div className='marketplace__content container'>
-        <div className='marketplace__title'>
+        <div className='marketplace__title-box'>
           <h1 className='marketplace__title'>Marketplace</h1>
         </div>
-        <div className='card__list'>
+        <Filters />
+
+        <div className='marketplace__card-list'>
           <NFTCardList NFTS={currentNFTS} />
         </div>
         <Pagination

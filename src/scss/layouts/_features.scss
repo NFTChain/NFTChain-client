@@ -1,16 +1,15 @@
 .features {
   @include bgGradient;
-  @include flexCenterCol;
+  @include flex(column);
   padding: 6rem 2rem;
 
   &__content {
-    margin: 0 auto;
-    @include flexCenter;
+    @include flex;
     flex-wrap: wrap;
   }
 
   &__box {
-    @include flexCenterCol;
+    @include flex(column);
     text-align: center;
     background-image: radial-gradient(
       rgba($primary-dark-1, 0.65),

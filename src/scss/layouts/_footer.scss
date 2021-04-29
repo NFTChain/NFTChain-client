@@ -4,14 +4,11 @@
   color: $primary-text-2;
 
   &__content {
-    margin: 0 auto;
     padding: 0 2rem;
   }
 
   &__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    @include flex(row, space-between);
     padding: 2.4rem 0;
 
     &:not(:last-child) {
@@ -43,7 +40,7 @@
   }
 
   &__nav-list {
-    @include flexCenter;
+    @include flex;
     list-style: none;
   }
 

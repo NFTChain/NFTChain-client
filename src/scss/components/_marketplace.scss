@@ -1,39 +1,27 @@
 .marketplace {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 2rem 0;
-  margin: 0;
-  padding: 0;
-  min-height: 100vh;
+  height: calc(100vh - 90px);
   background-repeat: no-repeat;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: 'DM Sans', system-ui, sans-serif;
   color: #263238;
-  height: 81vh;
-}
 
-.marketplace__content {
-  @include flexCenterCol;
-}
+  &__content {
+    @include flex(column, space-between);
+    width: 100%;
+  }
 
-.marketplace__title {
-  font-size: 3rem;
-  font-weight: 300;
-  margin-top: 2rem;
-}
+  &__title {
+    font-size: 3rem;
+    font-weight: 300;
+  }
 
-.card__list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  margin: 6rem 0;
+  &__card-list {
+    @include flex;
+    flex-wrap: wrap;
+    margin: 2rem 0;
 
-  @media (min-width: $desktop-breakpoint) {
-    justify-content: space-evenly;
+    @media (min-width: $desktop-breakpoint) {
+      justify-content: space-evenly;
+    }
   }
 }
