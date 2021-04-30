@@ -2,30 +2,38 @@
   max-width: 20rem;
   width: 100%;
   @include flex(row, center, stretch);
+  margin: 2rem 0;
 
   &__list {
     @include flex(row, space-evenly);
     list-style: none;
-    flex: 1;
   }
 
   &__link {
     padding: 0.4rem 1.2rem;
+    margin: 0 0.2rem;
     text-decoration: none;
     cursor: pointer;
     border-radius: 2px;
     font-size: 1.4rem;
-    box-shadow: 0px 3px 1px -2px rgb(0, 0, 0 / 20%),
-      0px 2px 2px 0px rgb(0, 0, 0 / 14%), 0px 1px 5px 0px rgb(0, 0, 0 / 12%);
-  }
 
-  &__arrow {
-    font-size: 1.8rem;
-    cursor: pointer;
+    &:hover {
+      background-color: #e7e3e3;
+    }
   }
 
   &__link--active {
-    background-color: $primary-dark-4;
-    color: white;
+    background-color: #d9d8d8;
+
+    &:hover {
+      background-color: #d5d5d5;
+    }
+  }
+
+  &__arrow {
+    font-size: 2rem;
+    cursor: pointer;
+    margin: 0 1rem;
+    color: $primary-text-3;
   }
 }

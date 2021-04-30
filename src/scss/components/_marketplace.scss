@@ -5,7 +5,6 @@
   font-family: 'DM Sans', system-ui, sans-serif;
   color: #263238;
   @include flex(column, space-between);
-  margin: 4rem 0;
 
   &__content {
     width: 100%;
@@ -18,7 +17,9 @@
 
   &__title {
     font-size: 3rem;
-    font-weight: 300;
+    font-weight: 500;
+    padding: 2rem 0;
+    color: $primary-text-3;
   }
 
   &__card-list {
@@ -26,9 +27,5 @@
     flex-wrap: wrap;
     margin: 2rem 0;
     width: 100%;
-
-    @media (min-width: $desktop-breakpoint) {
-      justify-content: space-between;
-    }
   }
 }

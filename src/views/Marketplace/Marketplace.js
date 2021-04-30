@@ -19,7 +19,7 @@ const Marketplace = ({
   setAllNFTs,
 }) => {
   const [NFTs, setNFTs] = useState([]);
-  const [NFTPerPage] = useState(15);
+  const [NFTPerPage] = useState(8);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
@@ -110,7 +110,7 @@ const Marketplace = ({
     <section className='marketplace'>
       <div className='marketplace__content container'>
         <div className='marketplace__title-box'>
-          <h1 className='marketplace__title'>Marketplace</h1>
+          <h1 className='marketplace__title'>Discover</h1>
         </div>
         <Filters />
 
@@ -118,14 +118,12 @@ const Marketplace = ({
           <NFTCardList NFTS={currentNFTS} />
         </div>
       </div>
-      <div className='marketplace__pagination'>
-        <Pagination
-          setCurrentPage={setCurrentPage}
-          totalNFTS={NFTs.length}
-          NFTPerPage={NFTPerPage}
-          currentPage={currentPage}
-        />
-      </div>
+      <Pagination
+        setCurrentPage={setCurrentPage}
+        totalNFTS={NFTs.length}
+        NFTPerPage={NFTPerPage}
+        currentPage={currentPage}
+      />
     </section>
   );
 };
