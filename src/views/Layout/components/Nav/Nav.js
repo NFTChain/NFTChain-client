@@ -62,11 +62,15 @@ const Nav = () => {
         <StyledBadge variant='dot'>
           <MailIcon style={{ fontSize: 25 }} />
         </StyledBadge>
-        <Button text={'Upload'} style={{ height: '3rem' }} />
+        <Button
+          className='button--blue'
+          text={'Upload'}
+          style={{ height: '3rem' }}
+        />
 
         <Button
           text={'Connect Wallet'}
-          className='white-button'
+          // className='white-button'
           style={{ height: '3rem' }}
         />
       </div>

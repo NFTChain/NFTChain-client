@@ -40,7 +40,7 @@
   }
 
   &__nav-list {
-    @include flex(column);
+    @include flex();
     list-style: none;
   }
 
