@@ -6,7 +6,7 @@ import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 import LandingPage from './views/LandingPage';
 import CreateNFT from './views/CreateNFT';
-import Litepaper from './views/Litepaper';
+// import Litepaper from './views/Litepaper';
 import PaintingFactory from './views/PaintingFactory';
 import Layout from './views/Layout';
 
@@ -34,10 +34,10 @@ const Routes = () => {
         path='/holdings'
         render={() => <Layout children={<Holdings />} />}
       />
-      <Route
+      {/* <Route
         path='/Litepaper'
         render={() => <Layout children={<Litepaper />} />}
-      />
+      /> */}
       <Route
         path='/marketplace/:id'
         render={() => <Layout children={<NFTInfoPage />} />}

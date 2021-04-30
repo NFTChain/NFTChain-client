@@ -12,3 +12,8 @@ export const setConnection = (isConnected) => ({
   type: uiActionTypes.SET_CONNECTION,
   payload: isConnected,
 });
+
+export const setError = (message) => ({
+  type: uiActionTypes.SET_ERROR,
+  payload: message,
+});

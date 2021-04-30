@@ -1,6 +1,4 @@
 .connect-wallet-container {
-  @include bgGradient;
-  background-color: $primary-dark-7;
   @include flex(column);
   margin: 0px;
   padding: 0px;
@@ -9,11 +7,11 @@
 }
 
 .metamask-logo-container {
-  width: 10rem;
-  height: 10rem;
+  width: 20rem;
+  height: 20rem;
 }
 
 .metamask-logo {
-  width: 10rem;
-  height: 10rem;
+  width: 20rem;
+  height: 20rem;
 }

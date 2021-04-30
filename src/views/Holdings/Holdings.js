@@ -9,7 +9,7 @@ import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
 import { v4 as uuidv4 } from 'uuid';
-import Button from '@material-ui/core/Button';
+import { H1, Button } from 'components';
 
 const Holdings = ({
   BEP721Contract,
@@ -197,28 +197,19 @@ const Holdings = ({
   return (
     <div className='holdings'>
       {unmintedHoldings.length > 0 && (
-        <div className='card-list'>
-          <div className='marketplace__title' style={{ margin: 0 }}>
-            <h1 className='marketplace__title' style={{ margin: 0 }}>
-              Unminted Holdings
-            </h1>
-          </div>
-          <div className='card__list' style={{ margin: 0 }}>
+        <div className='holdings__container'>
+          <H1 text='Unminted Holdings' />
+
+          <div className='holdings__card-list' style={{ margin: 0 }}>
             {unmintedHoldings.map((item) => {
               return (
-                <div className='single__card' key={item.key}>
+                <div className='holdings__single-card' key={item.key}>
                   <NFTCard
                     key={item.key}
                     image={item.image}
                     price={item.currentPrice}
                   />
-                  <Button
-                    onClick={setPriceOfUnmintedNFT}
-                    variant='contained'
-                    color='primary'
-                  >
-                    Change price
-                  </Button>
+                  <Button onClick={setPriceOfUnmintedNFT} text='Change price' />
                 </div>
               );
             })}
@@ -227,24 +218,22 @@ const Holdings = ({
       )}
 
       {mintedHoldings.length > 0 && (
-        <div>
-          <div className='marketplace__title'>
-            <h1 className='marketplace__title'>Minted Holdings</h1>
-          </div>
-          <div className='card__list'>
+        <div className='holdings__container'>
+          <H1 text='Minted Holdings' />
+
+          <div className='holdings__card-list'>
             {mintedHoldings.map((item) => {
               return (
-                <div className='single__card' key={item.key}>
+                <div className='holdings__single-card' key={item.key}>
                   <NFTCard image={item.image} price={item.currentPrice} />
                   <Button
                     onClick={setPriceOfMintedNFT}
-                    variant='contained'
-                    color='primary'
-                  >
-                    {Number(item.currentPrice) > 0
-                      ? 'Change Price'
-                      : 'Set Price'}
-                  </Button>
+                    text={
+                      Number(item.currentPrice) > 0
+                        ? 'Change Price'
+                        : 'Set Price'
+                    }
+                  />
                 </div>
               );
             })}

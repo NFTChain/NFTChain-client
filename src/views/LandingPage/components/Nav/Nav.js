@@ -10,7 +10,7 @@ const Nav = () => {
           <img className='nav__logo-img' src={logo} alt='nftchain logo' />
         </Link>
         <ul className='nav__list'>
-          <li className='nav__list-item'>
+          {/* <li className='nav__list-item'>
             <Link className='nav__link' to='/litepaper'>
               Litepaper
             </Link>
@@ -18,6 +18,11 @@ const Nav = () => {
           <li className='nav__list-item'>
             <a className='nav__link' href='#'>
               About
+            </a>
+          </li> */}
+          <li className='nav__list-item'>
+            <a className='nav__link' href='/marketplace'>
+              Marketplace
             </a>
           </li>
           <li className='nav__list-item'>
