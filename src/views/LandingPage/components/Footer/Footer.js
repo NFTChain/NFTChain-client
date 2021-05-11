@@ -34,9 +34,9 @@ const Footer = () => {
                 </Link>
               </li> */}
               <li className='footer__nav-item'>
-                <a href='/marketplace' className='footer__nav-link'>
+                <Link href='/' className='footer__nav-link'>
                   marketplace
-                </a>
+                </Link>
               </li>
               <li className='footer__nav-item'>
                 <a href='#features' className='footer__nav-link'>
@@ -49,7 +49,7 @@ const Footer = () => {
                 </a>
               </li>
               <li className='footer__nav-item'>
-                <Link to='/marketplace' className='footer__nav-link'>
+                <Link to='/' className='footer__nav-link'>
                   buy now
                 </Link>
               </li>
