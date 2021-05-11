@@ -1,7 +1,7 @@
 .features {
   @include bgGradient;
   @include flex(column);
-  padding: 6rem 2rem;
+  padding: 0 2rem 10rem 2rem;
 
   &__content {
     @include flex;
