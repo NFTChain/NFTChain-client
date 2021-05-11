@@ -21,7 +21,7 @@ const Nav = () => {
             </a>
           </li> */}
           <li className='nav__list-item'>
-            <a className='nav__link' href='/marketplace'>
+            <a className='nav__link' href='/'>
               Marketplace
             </a>
           </li>
@@ -36,7 +36,7 @@ const Nav = () => {
             </a>
           </li>
           <li className='nav__list-item'>
-            <Link className='nav__link' to='/marketplace'>
+            <Link className='nav__link' to='/'>
               Buy now
             </Link>
           </li>
