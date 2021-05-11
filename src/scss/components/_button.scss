@@ -1,87 +1,40 @@
-.btn {
-  &,
-  &:link,
-  &:visited {
-    text-transform: uppercase;
-    text-decoration: none;
-    padding: 1.5rem 4rem;
-    display: inline-block;
-    border-radius: 3px;
-    transition: all 0.2s;
-    position: relative;
-    font-size: 1.6rem;
-
-    // Change for the <button> element
-    border: none;
-    cursor: pointer;
-  }
-
-  &:hover {
-    transform: translateY(-0.3rem);
-    @include boxShadow;
-
-    &::after {
-      transform: scaleX(1.4) scaleY(1.6);
-      opacity: 0;
-    }
-  }
-
-  &:active,
-  &:focus {
-    outline: none;
-    transform: translateY(-0.1rem);
-    box-shadow: 0 0.5rem 1rem rgba(black, 0.2);
-  }
-
-  &--white {
-    background-color: $primary-text-1;
-    color: black;
-
-    &::after {
-      background-color: $primary-text-1;
-    }
-  }
-
-  &::after {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-    border-radius: 3px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: -1;
-    transition: all 0.4s;
-  }
-
-  &--animated {
-    animation: ease 0.4s moveInBottom 0.75s;
-    animation-fill-mode: backwards;
-  }
-}
-
-.blue-button {
+.button {
   font-size: 1.2rem;
-  border-radius: 16px;
+  border-radius: 1.6rem;
   font-weight: 300;
   letter-spacing: 0.05rem;
-  background-color: $primary-blue;
-  color: $primary-white;
-  padding: 1rem 2rem;
-  @include flex;
-  cursor: pointer;
-  border: none;
-}
-
-.white-button {
-  font-weight: 900;
-  font-size: 1.2rem;
-  border-radius: 16px;
   background-color: $primary-white;
   color: $primary-dark-1;
-  border: 1px solid $primary-dark-1;
-  padding: 1rem;
+  border: 1px solid $primary-text-2;
+  padding: 0.8rem 2rem;
   @include flex;
   cursor: pointer;
+  transition: all 0.2s;
+
+  &:active {
+    transform: translateY(0.1rem);
+  }
+
+  &--blue {
+    @extend .button;
+    border: none;
+    background-color: $primary-blue;
+    color: $primary-white;
+
+    &:hover {
+      background: lighten($primary-blue, 10%);
+    }
+  }
+
+  &--text {
+    @extend .button;
+    border: none;
+    color: $primary-text-2;
+
+    &:hover,
+    :visited {
+      background: $text-primary;
+      color: $primary-text-1;
+    }
+  }
 }

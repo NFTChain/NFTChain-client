@@ -63,14 +63,10 @@ const Nav = () => {
           <MailIcon style={{ fontSize: 25 }} />
         </StyledBadge>
         <Link to='/createNFT' style={{ textDecoration: 'none' }}>
-          <Button text={'Upload'} style={{ height: '3rem' }} />
+          <Button text={'Upload'} className='button--blue' />
         </Link>
 
-        <Button
-          text={'Connect Wallet'}
-          className='white-button'
-          style={{ height: '3rem' }}
-        />
+        <Button text={'Connect Wallet'} className='button' />
       </div>
     </nav>
   );

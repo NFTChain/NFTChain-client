@@ -12,8 +12,7 @@
   &:visited {
     @include flex;
     font-size: 2rem;
-    background: $primary-blue;
-
+    background: $marketplace-social-links-bg;
     border-radius: 50%;
     height: 3rem;
     width: 3rem;

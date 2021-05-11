@@ -1,27 +1,30 @@
 .marketplace {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 80px);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'DM Sans', system-ui, sans-serif;
   color: #263238;
+  @include flex(column, space-between);
 
   &__content {
-    @include flex(column, space-between);
     width: 100%;
+  }
+
+  &__title-box {
+    margin: 0 2.15rem;
   }
 
   &__title {
     font-size: 3rem;
-    font-weight: 300;
+    font-weight: 500;
+    padding: 2rem 0;
+    color: $primary-text-3;
   }
 
   &__card-list {
     @include flex;
     flex-wrap: wrap;
     margin: 2rem 0;
-
-    @media (min-width: $desktop-breakpoint) {
-      justify-content: space-evenly;
-    }
+    width: 100%;
   }
 }
