@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  FaTwitter,
-  FaTelegramPlane,
-  FaFacebookF,
-  FaRedditAlien,
-  FaInstagram,
-} from 'react-icons/fa';
+import { FaTwitter, FaTelegramPlane } from 'react-icons/fa';
 
 const Socials = () => {
   return (
@@ -26,15 +20,6 @@ const Socials = () => {
           rel='noreferrer'
         >
           <FaTelegramPlane className='socials__icon' />
-        </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaFacebookF className='socials__icon' />
-        </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaRedditAlien className='socials__icon' />
-        </a>
-        <a href='#' target='_blank' className='socials__link'>
-          <FaInstagram className='socials__icon' />
         </a>
       </div>
     </section>

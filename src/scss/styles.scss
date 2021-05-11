@@ -1,11 +1,9 @@
-// @import './base/base';
-// @import './base/settings';
 @import './abstracts/variables';
 @import './abstracts/mixins';
 
-@import './base-2/base';
-@import './base-2/typography';
-@import './base-2/animations';
+@import './base/base';
+@import './base/typography';
+@import './base/animations';
 
 @import './react-images.scss';
 @import './slick-slider.scss';

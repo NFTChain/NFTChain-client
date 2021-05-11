@@ -16,10 +16,10 @@ const Ecosystem = () => {
           <img src={polkadot} alt='binance logo' className='ecosystem__logo' />
         </div>
         <div className='ecosystem__box'>
-          <img src={uniswap} alt='binance logo' className='ecosystem__logo' />
+          <img src={pancake} alt='binance logo' className='ecosystem__logo' />
         </div>
         <div className='ecosystem__box'>
-          <img src={pancake} alt='binance logo' className='ecosystem__logo' />
+          <img src={uniswap} alt='binance logo' className='ecosystem__logo' />
         </div>
         <div className='ecosystem__box'>
           <img src={ethereum} alt='binance logo' className='ecosystem__logo' />
