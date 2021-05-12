@@ -36,6 +36,7 @@ const Marketplace = ({
   useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
     if (BEP721Contract) {
+      startAction();
       fetchOnSaleNFTs();
     } else {
       startAction();

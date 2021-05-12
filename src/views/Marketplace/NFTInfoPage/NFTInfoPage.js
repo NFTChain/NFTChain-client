@@ -9,6 +9,7 @@ import ConnectWallet from 'views/ConnectWallet';
 import { marginTopAndBottom } from 'utils/globalStyles';
 import { H1, ComingSoon, Text, Button } from 'components';
 import ArtistAndOwner from './components/ArtistAndOwner';
+import BuyContainer from './components/BuyContainer';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -190,6 +191,7 @@ const NFTInfoPage = ({
           />
         </div>
         {currentInfoComponent}
+        <BuyContainer buyNFT={buyNFT} />
       </div>
     </div>
   );
