@@ -19,3 +19,11 @@
     @include flex(column);
   }
 }
+
+.empty-holdings {
+  @include flex(column);
+  margin: 0px;
+  padding: 0px;
+  width: 100vw;
+  height: 65vh;
+}

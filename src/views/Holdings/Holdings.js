@@ -10,6 +10,8 @@ import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
 import { v4 as uuidv4 } from 'uuid';
 import { H1, Button } from 'components';
+import { Empty } from 'antd';
+import 'antd/lib/empty/style/index.css';
 
 const Holdings = ({
   BEP721Contract,
@@ -36,9 +38,7 @@ const Holdings = ({
       const amountOfCreatedNFTsPromise = BEP721Contract.inksCreatedBy(
         signerAddress,
       ); // from this promise we don't know if the NFT is mint or unminted
-
       const amountOfMintedNFTsPromise = BEP721Contract.balanceOf(signerAddress); // from this promise we know already that the NFT is minted
-
       let [amountOfCreatedNFTs, amountOfMintedNFTs] = await Promise.all([
         amountOfCreatedNFTsPromise,
         amountOfMintedNFTsPromise,
@@ -192,6 +192,12 @@ const Holdings = ({
     return <ConnectWallet />;
   } else if (loading) {
     return <Loader />;
+  } else if (unmintedHoldings.length === 0 && mintedHoldings.length === 0) {
+    return (
+      <div className='empty-holdings'>
+        <Empty />
+      </div>
+    );
   }
   // add logic when user has 0 nfts
   return (
