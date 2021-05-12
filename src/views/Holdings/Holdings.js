@@ -198,7 +198,7 @@ const Holdings = ({
     <div className='holdings'>
       {unmintedHoldings.length > 0 && (
         <div className='holdings__container'>
-          <H1 text='Unminted Holdings' />
+          <H1 text='Unsold Holdings' />
 
           <div className='holdings__card-list' style={{ margin: 0 }}>
             {unmintedHoldings.map((item) => {
