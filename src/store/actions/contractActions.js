@@ -5,7 +5,7 @@ import {
   BEP721ContractString,
 } from '../../utils/getContract';
 import { utils } from 'ethers';
-
+// readOnly indicates if we just want to read from the contracts instead of interaction with them
 export const connectToContract = (contractType, readOnly = false) => async (
   dispatch,
 ) => {
