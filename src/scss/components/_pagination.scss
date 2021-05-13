@@ -1,8 +1,8 @@
 .pagination {
-  max-width: 20rem;
   width: 100%;
   @include flex(row, center, stretch);
-  margin: 2rem 0;
+  height: 4rem;
+  margin: 1rem 0 3rem 0;
 
   &__list {
     @include flex(row, space-evenly);

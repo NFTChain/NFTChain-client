@@ -1,17 +1,18 @@
 .marketplace {
-  height: calc(100vh - 80px);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'DM Sans', system-ui, sans-serif;
   color: #263238;
-  @include flex(column, space-between);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
 
   &__content {
     width: 100%;
   }
 
   &__title-box {
-    margin: 0 2.15rem;
+    margin: 0 1.5rem;
   }
 
   &__title {
@@ -24,7 +25,6 @@
   &__card-list {
     @include flex;
     flex-wrap: wrap;
-    margin: 2rem 0;
     width: 100%;
   }
 }

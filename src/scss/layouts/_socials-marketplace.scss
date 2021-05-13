@@ -1,6 +1,5 @@
 .socials-marketplace {
   background-color: $primary-white;
-  padding: 0 2rem;
 
   &__content {
     @include flex(row, flex-end);
@@ -12,7 +11,7 @@
   &:visited {
     @include flex;
     font-size: 2rem;
-    background: $marketplace-social-links-bg;
+    // background: $marketplace-social-links-bg;
     border-radius: 50%;
     height: 3rem;
     width: 3rem;
@@ -27,7 +26,7 @@
 
   &__icon {
     font-size: 1.8rem;
-    color: $primary-white;
+    color: $marketplace-social-links-bg;
   }
 
   &__link:hover {
