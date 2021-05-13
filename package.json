@@ -7,7 +7,7 @@
     "url": "git+https://github.com/NFTChain/NFTChain-client.git"
   },
   "private": true,
-  "homepage": "https://www.nftchain.tech/app",
+  "homepage": "/app",
   "scripts": {
     "start": "react-scripts start",
     "test": "react-scripts test",
