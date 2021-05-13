@@ -4,8 +4,6 @@
 import React, { useRef, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import 'antd/dist/antd.css';
-import { connect } from 'react-redux';
-import { startAction, stopAction } from '../../store/actions/uiActions';
 import {
   SketchPicker,
   CirclePicker,
@@ -155,10 +153,6 @@ const PaintingFactory = () => {
     triggerOnChange(lines);
   };
 
-  const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
-  };
-
   function dataURItoBlob(dataURI) {
     // convert base64/URLEncoded data component to raw binary data held in a string
     var byteString;
@@ -196,9 +190,19 @@ const PaintingFactory = () => {
   let top, bottom;
   if (true) {
     top = (
-      <div style={{ width: '90vmin', margin: '0 auto', marginBottom: 16 }}>
+      <div
+        style={{
+          width: '90vmin',
+          margin: '0 auto',
+          marginBottom: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         <Button text='Create art' onClick={createInk} />
-        <div style={{ marginTop: 16 }}>
+        <div style={{ marginTop: 16, display: 'flex' }}>
           <Button
             onClick={() => undo()}
             children={
