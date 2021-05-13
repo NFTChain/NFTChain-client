@@ -44,7 +44,7 @@ const Routes = () => {
       />
       <Route
         exact
-        path='marketplace/hello'
+        path='/'
         render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
