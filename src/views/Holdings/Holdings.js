@@ -211,7 +211,8 @@ const Holdings = ({
               return (
                 <div className='holdings__single-card' key={item.key}>
                   <NFTCard
-                    key={item.key}
+                    artist={item.artist}
+                    owner={signerAddress}
                     image={item.image}
                     price={item.currentPrice}
                   />
@@ -231,7 +232,12 @@ const Holdings = ({
             {mintedHoldings.map((item) => {
               return (
                 <div className='holdings__single-card' key={item.key}>
-                  <NFTCard image={item.image} price={item.currentPrice} />
+                  <NFTCard
+                    image={item.image}
+                    price={item.currentPrice}
+                    artist={item.artist}
+                    owner={signerAddress}
+                  />
                   <Button
                     onClick={setPriceOfMintedNFT}
                     text={

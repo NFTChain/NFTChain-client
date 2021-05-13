@@ -14,7 +14,6 @@ const decideWhichContract = (contract) => {
   }
 };
 
-// we need to fix bugs when people are on the wrong network (not on the bsc testnet / mainnet network)
 const getContract = async (contractType, readOnly) => {
   const Token = decideWhichContract(contractType);
 
@@ -23,6 +22,15 @@ const getContract = async (contractType, readOnly) => {
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       console.log('Provider', provider);
 
+      const { chainId } = await provider._networkPromise;
+
+      if (chainId !== 80001) {
+        // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
+        return {
+          error:
+            'You are on the wrong network. Please connect to the Matic Mainnet network',
+        };
+      }
       const token = new Contract(Token.address, Token.abi, provider);
       console.log('Token', token);
 
@@ -32,6 +40,16 @@ const getContract = async (contractType, readOnly) => {
 
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       console.log('Provider', provider);
+
+      const { chainId } = await provider._networkPromise;
+
+      if (chainId !== 80001) {
+        // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
+        return {
+          error:
+            'You are on the wrong network. Please connect to the Matic Mainnet network',
+        };
+      }
 
       const signer = provider.getSigner();
       console.log('Signer', signer);

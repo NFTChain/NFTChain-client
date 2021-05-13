@@ -5,13 +5,23 @@ import {
   BEP721ContractString,
 } from '../../utils/getContract';
 import { utils } from 'ethers';
+import { setError } from './uiActions';
 // readOnly indicates if we just want to read from the contracts instead of interaction with them
 export const connectToContract = (contractType, readOnly = false) => async (
   dispatch,
 ) => {
   try {
     // get the smart contract to be able to communicate with the blockchain
-    const { signerAddress, token } = await getContract(contractType, readOnly);
+    const { signerAddress, token, error } = await getContract(
+      contractType,
+      readOnly,
+    );
+
+    if (error) {
+      debugger;
+      return dispatch(setError(error));
+    }
+
     dispatch({
       type: actionTypes.GET_CONTRACT,
       payload: {

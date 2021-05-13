@@ -62,6 +62,10 @@ const NFTInfoPage = ({
       const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
       await tryToBuy.wait();
     } catch (error) {
+      if (error.data?.message?.includes('transfer amount exceeds balance')) {
+        // why the ?: Javascripts optional chaining feature https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
+        // SET ERROR HERE THAT USER DOESNT HAVE ENOUGH IN THE WALLET
+      }
       debugger;
       console.log(error);
     }
