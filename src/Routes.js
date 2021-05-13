@@ -44,7 +44,7 @@ const Routes = () => {
       />
       <Route
         exact
-        path='/'
+        path='www.nftchain.tech/app/'
         render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
