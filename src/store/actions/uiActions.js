@@ -13,7 +13,11 @@ export const setConnection = (isConnected) => ({
   payload: isConnected,
 });
 
-export const setError = (message) => ({
-  type: uiActionTypes.SET_ERROR,
-  payload: message,
-});
+export const setError = (message) => (dispatch) => {
+  dispatch({
+    type: uiActionTypes.SET_ERROR,
+    payload: message,
+  });
+
+  return dispatch(stopAction());
+};

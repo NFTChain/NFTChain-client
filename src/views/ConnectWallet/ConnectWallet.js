@@ -22,6 +22,7 @@ const ConnectWallet = ({
   loading,
   connectToContract,
   setConnection,
+  error,
 }) => {
   useEffect(() => {
     if (BEP721Contract && BEP20Contract) {
@@ -44,7 +45,9 @@ const ConnectWallet = ({
 
   if (loading) {
     return <Loader />;
-  } // add error handling here // user can decline request
+  } else if (error) {
+    return <H1 text={error} />;
+  }
 
   return (
     <div className='connect-wallet-container'>
@@ -62,6 +65,7 @@ const mapStateToProps = (state) => {
     BEP721Contract: state.contracts.BEP721Contract,
     BEP20Contract: state.contracts.BEP20Contract,
     loading: state.ui.loading,
+    error: state.ui.error,
   };
 };
 

@@ -18,7 +18,6 @@ export const connectToContract = (contractType, readOnly = false) => async (
     );
 
     if (error) {
-      debugger;
       return dispatch(setError(error));
     }
 

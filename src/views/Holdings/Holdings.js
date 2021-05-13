@@ -20,6 +20,7 @@ const Holdings = ({
   startAction,
   stopAction,
   isConnected,
+  error,
 }) => {
   const [unmintedHoldings, setUnmintedHoldings] = useState([]);
   const [mintedHoldings, setMintedHoldings] = useState([]);
@@ -192,6 +193,8 @@ const Holdings = ({
     return <ConnectWallet />;
   } else if (loading) {
     return <Loader />;
+  } else if (error) {
+    return <H1 text={error} />;
   } else if (unmintedHoldings.length === 0 && mintedHoldings.length === 0) {
     return (
       <div className='empty-holdings'>
@@ -199,7 +202,6 @@ const Holdings = ({
       </div>
     );
   }
-  // add logic when user has 0 nfts
   return (
     <div className='holdings'>
       {unmintedHoldings.length > 0 && (
@@ -261,6 +263,7 @@ const mapStateToProps = (state) => {
     BEP721Contract: state.contracts.BEP721Contract,
     loading: state.ui.loading,
     isConnected: state.ui.isConnected,
+    error: state.ui.error,
   };
 };
 
