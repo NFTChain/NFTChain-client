@@ -37,7 +37,7 @@ const UploadNFTForm = ({
 
   const [file, setFile] = useState(artFile);
   const [preview, setPreview] = useState(artFile);
-  const [fileType, setFileType] = useState('');
+  const [fileType, setFileType] = useState(artFile ? 'image' : '');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [artist, setArtist] = useState('');

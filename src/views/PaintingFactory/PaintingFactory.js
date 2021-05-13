@@ -3,7 +3,6 @@
 /* eslint-disable react/no-children-prop */
 import React, { useRef, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
-import 'antd/dist/antd.css';
 import {
   SketchPicker,
   CirclePicker,
@@ -13,6 +12,9 @@ import {
 import LZ from 'lz-string';
 import useLocalStorage from 'utils/localStorage';
 import { Row, InputNumber, Col, Slider, Space } from 'antd';
+import 'antd/lib/input-number/style/index.css';
+import 'antd/lib/slider/style/index.css';
+import 'antd/lib/space/style/index.css';
 import {
   UndoOutlined,
   ClearOutlined,
@@ -192,6 +194,7 @@ const PaintingFactory = () => {
     top = (
       <div
         style={{
+          marginTop: '1rem',
           width: '90vmin',
           margin: '0 auto',
           marginBottom: 16,
@@ -270,7 +273,14 @@ const PaintingFactory = () => {
             alignItems: 'center',
           }}
         >
-          <Col span={12}>
+          <Col
+            span={12}
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
             <AlphaPicker onChangeComplete={updateColor} color={color} />
           </Col>
         </Row>
