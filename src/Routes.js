@@ -43,7 +43,8 @@ const Routes = () => {
         render={() => <Layout children={<NFTInfoPage />} />}
       />
       <Route
-        path='/paintingFactory'
+        exact
+        path='/'
         render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
