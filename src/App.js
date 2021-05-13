@@ -15,7 +15,7 @@ const store = configureStore();
 const App = () => {
   return (
     <Provider store={store}>
-      <Router basename={'/app'}>
+      <Router basename={process.env.PUBLIC_URL}>
         <Routes />
         <NotificationContainer />
       </Router>
