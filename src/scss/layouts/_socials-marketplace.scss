@@ -11,7 +11,6 @@
   &:visited {
     @include flex;
     font-size: 2rem;
-    // background: $marketplace-social-links-bg;
     border-radius: 50%;
     height: 3rem;
     width: 3rem;
@@ -26,11 +25,11 @@
 
   &__icon {
     font-size: 1.8rem;
-    color: $marketplace-social-links-bg;
+    color: $marketplace-social-links;
   }
 
   &__link:hover {
-    background: $primary-dark-1;
+    background: $primary-text-3;
   }
 
   &__link:hover &__icon {
