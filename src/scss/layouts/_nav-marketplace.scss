@@ -15,7 +15,7 @@
   }
 
   &__logo-container {
-    width: 50%;
+    width: 40%;
     @include flex;
     border-right: 2px solid $primary-text-1;
     padding-right: 1rem;
@@ -28,12 +28,12 @@
   }
 
   &__logo-img {
-    width: 20%;
+    width: 30%;
     height: 3.3rem;
   }
 
   &__discover-how {
-    width: 50%;
+    width: 60%;
     @include flex;
   }
 

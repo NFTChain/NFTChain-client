@@ -120,6 +120,7 @@ const UploadNFTForm = ({
           );
 
           if (gotFileAlreadyUploaded) {
+            stopAction();
             // if file is already on our Blockchain, let user know
             createNotification(
               'error',
@@ -136,6 +137,7 @@ const UploadNFTForm = ({
       } catch (error) {
         console.log(error);
         debugger;
+        stopAction();
         createNotification(
           'error',
           'Upload of file was unsuccesful, please try again',
