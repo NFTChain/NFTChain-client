@@ -22,16 +22,16 @@ const Routes = () => {
     <Switch>
       {/* <Route exact path='/' component={LandingPage} /> */}
       <Route
-        path='/createNFT'
+        path={`${process.env.PUBLIC_URL}/createNFT`}
         render={() => <Layout children={<CreateNFT />} />}
       />
       <Route
         exact
-        path='/marketplace'
+        path={`${process.env.PUBLIC_URL}/marketplace`}
         render={() => <Layout children={<Marketplace />} />}
       />
       <Route
-        path='/holdings'
+        path={`${process.env.PUBLIC_URL}/holdings`}
         render={() => <Layout children={<Holdings />} />}
       />
       {/* <Route
@@ -39,12 +39,12 @@ const Routes = () => {
         render={() => <Layout children={<Litepaper />} />}
       /> */}
       <Route
-        path='/marketplace/:id'
+        path={`${process.env.PUBLIC_URL}/marketplace/:id`}
         render={() => <Layout children={<NFTInfoPage />} />}
       />
       <Route
         exact
-        path='/'
+        path={`${process.env.PUBLIC_URL}/marketplace/:id`}
         render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
