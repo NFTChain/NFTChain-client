@@ -1,8 +1,11 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-constant-condition */
-import React, { useRef, useEffect, useState } from 'react';
+/* eslint-disable react/no-children-prop */
+import React, { useRef, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
 import 'antd/dist/antd.css';
+import { connect } from 'react-redux';
+import { startAction, stopAction } from '../../store/actions/uiActions';
 import {
   SketchPicker,
   CirclePicker,
@@ -11,18 +14,7 @@ import {
 } from 'react-color';
 import LZ from 'lz-string';
 import useLocalStorage from 'utils/localStorage';
-import {
-  Row,
-  Button,
-  Input,
-  InputNumber,
-  Form,
-  message,
-  Col,
-  Slider,
-  Space,
-  notification,
-} from 'antd';
+import { Row, InputNumber, Col, Slider, Space } from 'antd';
 import {
   UndoOutlined,
   ClearOutlined,
@@ -31,22 +23,26 @@ import {
   BgColorsOutlined,
   BorderOutlined,
 } from '@ant-design/icons';
+import CreateNFT from 'views/CreateNFT';
+import { Button } from 'components';
 
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
-const PaintingFactory = (props) => {
+const PaintingFactory = () => {
   const calculatedVmin = Math.min(window.innerWidth, window.innerHeight);
   const [size, setSize] = useState([
     0.6 * calculatedVmin,
     0.675 * calculatedVmin,
   ]);
+
   const [drawing, setDrawing] = useLocalStorage('drawing');
   const drawingCanvas = useRef(null);
   const [color, setColor] = useLocalStorage('color', '#666666');
   const [drawingSize, setDrawingSize] = useState(0);
   const [picker, setPicker] = useLocalStorage('picker', 0);
   const [brushRadius, setBrushRadius] = useState(8);
-  const [sending, setSending] = useState();
+  const [file, setFile] = useState();
+  const [wantToCreateArt, setWantToCreateArt] = useState(false);
 
   const updateBrushRadius = (value) => {
     setBrushRadius(value);
@@ -163,20 +159,37 @@ const PaintingFactory = (props) => {
     console.log('Failed:', errorInfo);
   };
 
-  const createInk = (values) => {
-    console.log('Success:', values);
-    let imageData = drawingCanvas.current.canvas.drawing.toDataURL('image/png');
+  function dataURItoBlob(dataURI) {
+    // convert base64/URLEncoded data component to raw binary data held in a string
+    var byteString;
+    if (dataURI.split(',')[0].indexOf('base64') >= 0)
+      byteString = atob(dataURI.split(',')[1]);
+    else byteString = unescape(dataURI.split(',')[1]);
 
-    let decompressed = LZ.decompress(props.drawing);
-    let compressedArray = LZ.compressToUint8Array(decompressed);
+    // separate out the mime component
+    var mimeString = dataURI
+      .split(',')[0]
+      .split(':')[1]
+      .split(';')[0];
 
-    let drawingBuffer = Buffer.from(compressedArray);
-    let imageBuffer = Buffer.from(imageData.split(',')[1], 'base64');
+    // write the bytes of the string to a typed array
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+
+    return new Blob([ia], { type: mimeString });
+  }
+
+  const createInk = async () => {
+    const imageData = drawingCanvas.current.canvas.drawing.toDataURL(
+      'image/png',
+    );
+    const blob = dataURItoBlob(imageData);
+
+    setFile(blob);
+    setWantToCreateArt(true);
   };
-
-  // const sending = (errorInfo) => {
-  //   console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
-  // };
 
   const PickerDisplay = pickers[picker % pickers.length];
 
@@ -184,69 +197,40 @@ const PaintingFactory = (props) => {
   if (true) {
     top = (
       <div style={{ width: '90vmin', margin: '0 auto', marginBottom: 16 }}>
-        <Form
-          layout={'inline'}
-          name='createInk'
-          //initialValues={{ limit: 0 }}
-          onFinish={createInk}
-          onFinishFailed={onFinishFailed}
-          labelAlign={'middle'}
-          style={{ justifyContent: 'center' }}
-        >
-          <Form.Item></Form.Item>
-
-          <Form.Item
-            name='title'
-            rules={[
-              { required: true, message: 'What is this work of art called?' },
-            ]}
-          >
-            <Input placeholder={'name'} style={{ fontSize: 16 }} />
-          </Form.Item>
-
-          <Form.Item
-            name='limit'
-            rules={[
-              { required: true, message: 'How many inks can be minted?' },
-            ]}
-          >
-            <InputNumber
-              placeholder={'limit'}
-              style={{ fontSize: 16 }}
-              min={0}
-              precision={0}
-            />
-          </Form.Item>
-
-          <Form.Item>
-            <Button loading={sending} type='primary' htmlType='submit'>
-              Ink!
-            </Button>
-          </Form.Item>
-        </Form>
-
+        <Button text='Create art' onClick={createInk} />
         <div style={{ marginTop: 16 }}>
-          <Button onClick={() => undo()}>
-            <UndoOutlined /> UNDO
-          </Button>
+          <Button
+            onClick={() => undo()}
+            children={
+              <div>
+                <UndoOutlined /> UNDO
+              </div>
+            }
+          />
+
           <Button
             onClick={() => {
               drawingCanvas.current.clear();
               setDrawing();
             }}
-          >
-            <ClearOutlined /> CLEAR
-          </Button>
+            children={
+              <div>
+                <ClearOutlined /> CLEAR
+              </div>
+            }
+          />
+
           <Button
             onClick={() => {
-              drawingCanvas.current.loadSaveData(
-                LZ.decompress(props.drawing),
-                false,
-              );
+              drawingCanvas.current.loadSaveData(LZ.decompress(drawing), false);
             }}
-          >
-            <PlaySquareOutlined /> PLAY
-          </Button>
+            children={
+              <div>
+                {' '}
+                <PlaySquareOutlined /> PLAY
+              </div>
+            }
+          />
         </div>
       </div>
     );
@@ -269,9 +253,8 @@ const PaintingFactory = (props) => {
               onClick={() => {
                 setPicker(picker + 1);
               }}
-            >
-              <HighlightOutlined />
-            </Button>
+              children={<HighlightOutlined />}
+            />
           </Space>
         </Row>
         <Row
@@ -323,21 +306,36 @@ const PaintingFactory = (props) => {
         >
           <Space>
             <Col span={4}>
-              <Button onClick={() => fillBackground(color)}>
-                <BgColorsOutlined />
-                Background
-              </Button>
+              <Button
+                onClick={() => fillBackground(color)}
+                children={
+                  <div>
+                    <BgColorsOutlined />
+                    Background
+                  </div>
+                }
+              />
             </Col>
             <Col span={4}>
-              <Button onClick={() => drawFrame(color, brushRadius)}>
-                <BorderOutlined />
-                Frame
-              </Button>
+              <Button
+                onClick={() => drawFrame(color, brushRadius)}
+                children={
+                  <div>
+                    {' '}
+                    <BorderOutlined />
+                    Frame
+                  </div>
+                }
+              />
             </Col>
           </Space>
         </Row>
       </div>
     );
+  }
+
+  if (wantToCreateArt) {
+    return <CreateNFT artFile={file} />;
   }
 
   return (
@@ -353,7 +351,7 @@ const PaintingFactory = (props) => {
         }}
       >
         <CanvasDraw
-          key={props.mode + '' + props.canvasKey}
+          // key={props.mode + '' canvasKey}
           ref={drawingCanvas}
           canvasWidth={size[0]}
           canvasHeight={size[1]}

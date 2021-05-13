@@ -1,5 +1,5 @@
 /* eslint-disable quotes */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { utils } from 'ethers';
@@ -19,13 +19,24 @@ import {
 } from 'utils/globalStyles';
 
 const UploadNFTForm = ({
+  artFile,
   BEP721Contract,
   startAction,
   stopAction,
   loading,
 }) => {
-  const [file, setFile] = useState(undefined);
-  const [preview, setPreview] = useState(undefined);
+  useEffect(() => {
+    if (artFile) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPreview(e.target.result);
+      };
+      reader.readAsDataURL(artFile);
+    }
+  }, []);
+
+  const [file, setFile] = useState(artFile);
+  const [preview, setPreview] = useState(artFile);
   const [fileType, setFileType] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');

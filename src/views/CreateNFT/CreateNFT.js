@@ -3,12 +3,12 @@ import { connect } from 'react-redux';
 import UploadNFTForm from './components';
 import ConnectWallet from '../ConnectWallet';
 
-const CreateNFT = ({ isConnected }) => {
+const CreateNFT = ({ isConnected, artFile = undefined }) => {
   if (!isConnected) {
     return <ConnectWallet />;
   }
 
-  return <UploadNFTForm />;
+  return <UploadNFTForm artFile={artFile} />;
 };
 const mapStateToProps = (state) => {
   return {
