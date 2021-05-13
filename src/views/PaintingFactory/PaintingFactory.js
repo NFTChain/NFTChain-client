@@ -2,6 +2,7 @@
 /* eslint-disable no-constant-condition */
 import React, { useRef, useEffect, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
+import 'antd/dist/antd.css';
 import {
   SketchPicker,
   CirclePicker,
@@ -45,6 +46,16 @@ const PaintingFactory = (props) => {
   const [drawingSize, setDrawingSize] = useState(0);
   const [picker, setPicker] = useLocalStorage('picker', 0);
   const [brushRadius, setBrushRadius] = useState(8);
+  const [sending, setSending] = useState();
+
+  const updateBrushRadius = (value) => {
+    setBrushRadius(value);
+  };
+
+  const saveDrawing = (newDrawing) => {
+    let savedData = LZ.compress(newDrawing.getSaveData());
+    setDrawing(savedData);
+  };
 
   const updateColor = (value) => {
     console.log(value);
@@ -54,15 +65,6 @@ const PaintingFactory = (props) => {
     console.log(
       `rgba(${value.rgb.r},${value.rgb.g},${value.rgb.b},${value.rgb.a})`,
     );
-  };
-
-  const updateBrushRadius = (value) => {
-    setBrushRadius(value);
-  };
-
-  const saveDrawing = (newDrawing) => {
-    let savedData = LZ.compress(newDrawing.getSaveData());
-    setDrawing(savedData);
   };
 
   const triggerOnChange = (lines) => {
@@ -161,13 +163,20 @@ const PaintingFactory = (props) => {
     console.log('Failed:', errorInfo);
   };
 
-  const createInk = (errorInfo) => {
-    console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
+  const createInk = (values) => {
+    console.log('Success:', values);
+    let imageData = drawingCanvas.current.canvas.drawing.toDataURL('image/png');
+
+    let decompressed = LZ.decompress(props.drawing);
+    let compressedArray = LZ.compressToUint8Array(decompressed);
+
+    let drawingBuffer = Buffer.from(compressedArray);
+    let imageBuffer = Buffer.from(imageData.split(',')[1], 'base64');
   };
 
-  const sending = (errorInfo) => {
-    console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
-  };
+  // const sending = (errorInfo) => {
+  //   console.log('YOU NEED TO ADD THIS FUNCTIONALITY MATE!!!!!');
+  // };
 
   const PickerDisplay = pickers[picker % pickers.length];
 
