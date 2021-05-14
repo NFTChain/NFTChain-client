@@ -21,6 +21,7 @@ const NFTCard = ({
   setCurrentNFT,
   howManyOwned,
 }) => {
+  debugger;
   const setNFT = () => {
     const NFT = {
       image,
@@ -74,7 +75,7 @@ const NFTCard = ({
         <span className='card__btn card__btn--secondary'>
           {howManyOwned // holdings page shows how many nfts you own
             ? `You own ${howManyOwned}`
-            : limit && count // marketplace show how nfts are available
+            : limit && (count || count === 0) // marketplace show how nfts are available
             ? `${limit - count} of ${limit}`
             : null}
         </span>
