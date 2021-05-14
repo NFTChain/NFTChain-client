@@ -1,8 +1,8 @@
 .pagination {
-  max-width: 20rem;
   width: 100%;
   @include flex(row, center, stretch);
-  margin: 2rem 0;
+  height: 4rem;
+  margin: 1rem 0 3rem 0;
 
   &__list {
     @include flex(row, space-evenly);
@@ -18,15 +18,15 @@
     font-size: 1.4rem;
 
     &:hover {
-      background-color: #e7e3e3;
+      background-color: #ececec;
     }
   }
 
   &__link--active {
-    background-color: #d9d8d8;
+    background-color: #e5e5e5;
 
     &:hover {
-      background-color: #d5d5d5;
+      background-color: #dedede;
     }
   }
 

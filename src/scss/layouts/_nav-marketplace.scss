@@ -15,14 +15,14 @@
   }
 
   &__logo-container {
-    width: 40%;
+    max-width: 15rem;
     @include flex;
     border-right: 2px solid $primary-text-1;
     padding-right: 1rem;
   }
 
   &__logo-link {
-    width: 100%;
+    height: 100%;
     @include flex;
     text-decoration: none;
   }
