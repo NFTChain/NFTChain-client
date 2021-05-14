@@ -194,7 +194,6 @@ const PaintingFactory = () => {
     top = (
       <div
         style={{
-          marginTop: '1rem',
           width: '90vmin',
           margin: '0 auto',
           marginBottom: 16,
@@ -353,7 +352,7 @@ const PaintingFactory = () => {
   }
 
   return (
-    <div style={{ textAlign: 'center' }}>
+    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
       {top}
       <div
         style={{

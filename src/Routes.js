@@ -22,7 +22,7 @@ const Routes = () => {
     <Switch>
       {/* <Route exact path='/' component={LandingPage} /> */}
       <Route
-        path='/createNFT'
+        path={'/createNFT'}
         render={() => <Layout children={<CreateNFT />} />}
       />
       <Route
@@ -43,7 +43,8 @@ const Routes = () => {
         render={() => <Layout children={<NFTInfoPage />} />}
       />
       <Route
-        path='/paintingFactory'
+        exact
+        path='/'
         render={() => <Layout children={<PaintingFactory />} />}
       />
       {/* <Route
