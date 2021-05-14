@@ -1,6 +1,6 @@
 .connect-wallet {
   @include flex(column, center, center);
-  height: calc(100vh - 7vh);
+  height: calc(93vh);
 
   &__info-box {
     @include flex(column, center, center);
