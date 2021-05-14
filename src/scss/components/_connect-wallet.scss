@@ -1,17 +1,18 @@
-.connect-wallet-container {
-  @include flex(column);
-  margin: 0px;
-  padding: 0px;
-  width: 100vw;
-  height: 65vh;
-}
+.connect-wallet {
+  @include flex(column, center, center);
+  height: calc(100vh - 7vh);
 
-.metamask-logo-container {
-  width: 20rem;
-  height: 20rem;
-}
+  &__info-box {
+    @include flex(column, center, center);
+  }
 
-.metamask-logo {
-  width: 20rem;
-  height: 20rem;
+  &__metamask-box {
+    width: 20rem;
+    height: 20rem;
+  }
+
+  &__metamask-logo {
+    width: 20rem;
+    height: 20rem;
+  }
 }
