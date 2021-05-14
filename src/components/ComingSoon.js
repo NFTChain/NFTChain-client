@@ -9,7 +9,7 @@ const ComingSoon = () => {
         className='coming-soon__icon'
         style={{ fontSize: '4rem' }}
       />
-      <H1 text='Coming Soon' />
+      <H1 text='Coming Soon' style={{ color: '#565656' }} />
     </div>
   );
 };

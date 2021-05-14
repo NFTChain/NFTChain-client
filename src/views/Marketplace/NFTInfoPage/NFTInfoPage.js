@@ -105,12 +105,12 @@ const NFTInfoPage = ({
   }
 
   return (
-    <div className='info-page'>
+    <div className='info-page container'>
       <div className='info-page__image-container'>
         <img src={image} alt='NFT art' />
       </div>
       <div className='info-page__info-container'>
-        <H1 text={title} />
+        <H1 text={title} style={{ color: '#434343', fontSize: '4rem' }} />
         <div className='info-page__price-limit' style={marginTopAndBottom}>
           <Text
             text={`${price}0 NFTC`}
@@ -144,24 +144,12 @@ const NFTInfoPage = ({
           />
           <Text
             text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
-            style={
-              {
-                // borderRadius: '3px',
-                // fontSize: '1rem',
-                // color: '#00ab55',
-                // border: '2px solid #00ab55',
-                // fontWeight: 900,
-                // padding: '0.3rem',
-                // display: 'flex',
-                // justifyContent: 'center',
-                // alignItems: 'center',
-              }
-            }
           />
         </div>
         <Text text={description} />
         <div className='info-page__info-navigator'>
           <Button
+            className='info-page__button button'
             onClick={handleInfoViewChange}
             text={'Info'}
             style={{
@@ -170,6 +158,7 @@ const NFTInfoPage = ({
             }}
           />
           <Button
+            className='info-page__button button'
             onClick={handleInfoViewChange}
             text={'Chat'}
             style={{
@@ -178,6 +167,7 @@ const NFTInfoPage = ({
             }}
           />
           <Button
+            className='info-page__button button'
             onClick={handleInfoViewChange}
             text={'Owner'}
             style={{
@@ -186,6 +176,7 @@ const NFTInfoPage = ({
             }}
           />
           <Button
+            className='info-page__button button'
             onClick={handleInfoViewChange}
             text={'History'}
             style={{
