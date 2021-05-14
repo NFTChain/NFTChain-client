@@ -127,7 +127,7 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`$${Math.ceil(price * 0.1)}.00`}
+            text={`$${Math.ceil(price * 0.1)}.00`} // later we need to make an api call to get the current price of our token and make the calculation
             style={{
               borderRadius: '3px',
               // color: '#00ab55',

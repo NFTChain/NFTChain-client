@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/no-unescaped-entities */
 
@@ -19,6 +19,7 @@ const NFTCard = ({
   limit,
   count,
   setCurrentNFT,
+  howManyOwned,
 }) => {
   const setNFT = () => {
     const NFT = {
@@ -64,12 +65,19 @@ const NFTCard = ({
       </div>
       <div className='card__info'>
         <p>
-          <b>Price:</b> NFTC {price}0
+          <b>Price:</b> NFTC{' '}
+          {price.toString().includes('.') ? `${price}0` : price}
         </p>
         <p>(${Math.ceil(price * 0.1)})</p>
       </div>
       <div className='card__footer'>
-        <span className='card__btn card__btn--secondary'>View history</span>
+        <span className='card__btn card__btn--secondary'>
+          {howManyOwned // holdings page shows how many nfts you own
+            ? `You own ${howManyOwned}`
+            : limit && count // marketplace show how nfts are available
+            ? `${limit - count} of ${limit}`
+            : null}
+        </span>
         <span className='card__btn card__btn--primary'>Buy Now</span>
       </div>
     </Link>

@@ -121,6 +121,8 @@ const Holdings = ({
             currentPrice: utils.formatEther(NFTInfoObject.price),
             howManyOwned: NFTInfoObject.limit - NFTInfoObject.count,
             key: uuidv4(),
+            count: Number(NFTInfoObject.count),
+            limit: Number(NFTInfoObject.limit),
           });
         }
       }),
@@ -175,6 +177,7 @@ const Holdings = ({
             key: uuidv4(),
             artist: NFTInfoObject.artist,
             owner: signerAddress,
+            limit: NFTInfoObject.limit,
           });
         } else {
           // else increase the count of key "howManyOwned"
@@ -262,6 +265,8 @@ const Holdings = ({
                     owner={signerAddress}
                     image={item.image}
                     price={item.currentPrice}
+                    limit={item.limit}
+                    count={item.count}
                   />
                   <ChangePriceModal
                     onClick={setPriceOfUnmintedNFT}
@@ -288,6 +293,7 @@ const Holdings = ({
                     price={item.currentPrice}
                     artist={item.artist}
                     owner={signerAddress}
+                    howManyOwned={item.howManyOwned}
                   />
                   <ChangePriceModal
                     onClick={setPriceOfMintedNFT}
