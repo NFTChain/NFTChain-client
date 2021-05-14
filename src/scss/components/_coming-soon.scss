@@ -1,9 +1,6 @@
 .coming-soon {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  @include flex(column, center, center);
+  margin-bottom: 1rem;
 
   &__icon {
     color: $primary-text-2;

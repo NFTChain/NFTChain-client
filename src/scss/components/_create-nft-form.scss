@@ -1,6 +1,8 @@
 .create-nft {
   @include flex(row, space-around, center);
   width: 100%;
+  min-height: 93vh;
+  padding: 4rem 0;
 
   &__left-side {
     width: 70%;

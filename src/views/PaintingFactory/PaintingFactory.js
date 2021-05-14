@@ -204,7 +204,7 @@ const PaintingFactory = () => {
         }}
       >
         <Button text='Create art' onClick={createInk} />
-        <div style={{ marginTop: 16, display: 'flex' }}>
+        <div className='container' style={{ marginTop: 16, display: 'flex' }}>
           <Button
             onClick={() => undo()}
             children={
@@ -215,6 +215,7 @@ const PaintingFactory = () => {
           />
 
           <Button
+            style={{ marginLeft: '1rem' }}
             onClick={() => {
               drawingCanvas.current.clear();
               setDrawing();
@@ -227,6 +228,7 @@ const PaintingFactory = () => {
           />
 
           <Button
+            style={{ marginLeft: '1rem' }}
             onClick={() => {
               drawingCanvas.current.loadSaveData(LZ.decompress(drawing), false);
             }}
@@ -352,7 +354,7 @@ const PaintingFactory = () => {
   }
 
   return (
-    <div style={{ textAlign: 'center', marginTop: '1rem' }}>
+    <div style={{ textAlign: 'center', margin: '4rem 0' }}>
       {top}
       <div
         style={{

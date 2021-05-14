@@ -4,7 +4,7 @@ import { Button } from 'components';
 const BuyContainer = ({ buyNFT }) => {
   return (
     <div className='buy-container'>
-      <Button text='Buy' onClick={buyNFT} />
+      <Button className='button--blue' text='Buy' onClick={buyNFT} />
     </div>
   );
 };
