@@ -18,7 +18,6 @@ const NFTCard = ({
   owner,
   limit,
   count,
-  artistAddress,
   setCurrentNFT,
 }) => {
   const setNFT = () => {
@@ -32,7 +31,6 @@ const NFTCard = ({
       owner,
       limit,
       count,
-      artistAddress,
     };
     setCurrentNFT(NFT);
   };
@@ -48,8 +46,7 @@ const NFTCard = ({
               <span className='card__user__code'>
                 {owner &&
                   artist &&
-                  artistAddress &&
-                  (owner === artist ? artistAddress : owner).slice(0, 5)}
+                  (owner === artist ? artist : owner).slice(0, 5)}
               </span>
             </div>
           </div>
@@ -57,9 +54,7 @@ const NFTCard = ({
             <div className='card__avatar'></div>
             <div className='card__user'>
               <span className='card__user__title'>Created by</span>
-              <span className='card__user__code'>
-                {artistAddress && artistAddress.slice(0, 5)}
-              </span>
+              <span className='card__user__code'>{artist.slice(0, 5)}</span>
             </div>
           </div>
         </div>

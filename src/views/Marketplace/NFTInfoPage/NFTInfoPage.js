@@ -28,15 +28,14 @@ const NFTInfoPage = ({
     owner,
     limit,
     count,
-    artistAddress,
   } = currentNFT;
 
   const [pressedBuy, setPressedBuy] = useState(false);
   const [currentInfoView, setCurrentInfoView] = useState(1);
   const [currentInfoComponent, setCurrentInfoComponent] = useState(
     <ArtistAndOwner
-      artist={artistAddress}
-      owner={owner === artist ? artistAddress : owner}
+      artist={artist}
+      owner={owner === artist ? artist : owner}
     />,
   );
 
@@ -78,8 +77,8 @@ const NFTInfoPage = ({
         setCurrentInfoView(1);
         setCurrentInfoComponent(
           <ArtistAndOwner
-            artist={artistAddress}
-            owner={owner === artist ? artistAddress : owner}
+            artist={artist}
+            owner={owner === artist ? artist : owner}
           />,
         );
 

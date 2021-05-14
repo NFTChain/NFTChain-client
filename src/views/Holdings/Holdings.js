@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { H1, Button } from 'components';
 import { Empty } from 'antd';
 import 'antd/lib/empty/style/index.css';
+import { marginBottom } from 'utils/globalStyles';
 
 const Holdings = ({
   BEP721Contract,
@@ -47,6 +48,7 @@ const Holdings = ({
 
       amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
       amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
+      debugger;
 
       if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
         // if from booth category are some available => use Promise.all for performance reasons
@@ -165,11 +167,13 @@ const Holdings = ({
           ).toString();
 
           NFTInfoArray.push({
-            id: NFTInfoObject.id,
+            id: tokenId,
             image: NFTUrl,
             currentPrice: tokenPrice,
             howManyOwned: 1,
             key: uuidv4(),
+            artist: NFTInfoObject.artist,
+            owner: signerAddress,
           });
         } else {
           // else increase the count of key "howManyOwned"
@@ -185,9 +189,49 @@ const Holdings = ({
     }
   };
 
-  const setPriceOfUnmintedNFT = () => {};
+  const setPriceOfUnmintedNFT = async (ipfsHash, price) => {
+    try {
+      startAction();
+      price = utils.parseEther(price);
+      const changeUnmintedNFTPrice = await BEP721Contract.setPrice(
+        ipfsHash,
+        price,
+      );
+      await changeUnmintedNFTPrice.wait();
+    } catch (error) {
+      console.log(error);
+      debugger;
+      createNotification(
+        'error',
+        'Something went wrong setting the price of your NFT',
+        5000,
+      );
+    } finally {
+      stopAction();
+    }
+  };
 
-  const setPriceOfMintedNFT = () => {};
+  const setPriceOfMintedNFT = async (NFTId, price) => {
+    try {
+      startAction();
+      price = utils.parseEther(price);
+      const changeMintedNFTPrice = await BEP721Contract.setTokenPrice(
+        NFTId,
+        price,
+      );
+      await changeMintedNFTPrice.wait();
+    } catch (error) {
+      console.log(error);
+      debugger;
+      createNotification(
+        'error',
+        'Something went wrong setting the price of your NFT',
+        5000,
+      );
+    } finally {
+      stopAction();
+    }
+  };
 
   if (!isConnected) {
     return <ConnectWallet />;
@@ -218,7 +262,11 @@ const Holdings = ({
                     image={item.image}
                     price={item.currentPrice}
                   />
-                  <Button onClick={setPriceOfUnmintedNFT} text='Change price' />
+                  <ChangePriceModal
+                    onClick={setPriceOfUnmintedNFT}
+                    title='Change price'
+                    ipfsHash={item.image.split('https://ipfs.io/ipfs/')[1]}
+                  />
                 </div>
               );
             })}
@@ -240,13 +288,14 @@ const Holdings = ({
                     artist={item.artist}
                     owner={signerAddress}
                   />
-                  <Button
+                  <ChangePriceModal
                     onClick={setPriceOfMintedNFT}
-                    text={
+                    title={
                       Number(item.currentPrice) > 0
                         ? 'Change Price'
                         : 'Set Price'
                     }
+                    NFTId={item.id}
                   />
                 </div>
               );
@@ -272,3 +321,59 @@ export default connect(mapStateToProps, {
   startAction,
   stopAction,
 })(Holdings);
+
+// import React from 'react';
+import Modal from 'antd/lib/modal';
+import 'antd/lib/modal/style/index.css';
+import FormInput from 'components/FormInput';
+
+function ChangePriceModal({ title, NFTId, ipfsHash, onClick }) {
+  const [visible, setVisible] = useState(false);
+  const [price, setPrice] = useState(false);
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+  };
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleCancel = (e) => {
+    setVisible(false);
+  };
+
+  return (
+    <div>
+      <Button text={title} onClick={showModal} />
+
+      <Modal
+        zIndex={10000}
+        title={title}
+        visible={visible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <div>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <p style={{ width: '75%' }}>
+              Please type into the input the price you want to change to and
+              press the button
+            </p>
+            <FormInput
+              type='number'
+              placeholder='The price in NFTC'
+              value={price}
+              onChange={handlePriceChange}
+              style={marginBottom}
+            />
+            <Button
+              onClick={() => onClick(NFTId ? NFTId : ipfsHash, price)}
+              text={title}
+            />
+          </div>
+        </div>
+      </Modal>
+    </div>
+  );
+}

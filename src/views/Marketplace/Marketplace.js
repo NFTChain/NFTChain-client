@@ -90,9 +90,10 @@ const Marketplace = ({
               fileType: NFT.metadata.keyvalues.fileType,
               price: NFTInfoObject.price,
               owner: owner,
-              artistAddress: NFTInfoObject.artist,
+              // artistAddress: NFTInfoObject.artist,
               // NFTisMinted: owner === NFT.metadata.keyvalues.artist, // owner is artist (catch block logic) when there is no owner of the the NFTs id
-              artist: NFT.metadata.keyvalues.artist,
+              artist: NFTInfoObject.artist,
+              // artist: NFT.metadata.keyvalues.artist,
               limit: NFTInfoObject.limit,
               count: NFTInfoObject.count,
             });
