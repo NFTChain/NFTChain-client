@@ -9,10 +9,10 @@ import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
 import { v4 as uuidv4 } from 'uuid';
-import { H1, Button } from 'components';
+import { H1 } from 'components';
 import { Empty } from 'antd';
 import 'antd/lib/empty/style/index.css';
-import { marginBottom } from 'utils/globalStyles';
+import ChangePriceModal from './components';
 
 const Holdings = ({
   BEP721Contract,
@@ -48,7 +48,6 @@ const Holdings = ({
 
       amountOfCreatedNFTs = Number(amountOfCreatedNFTs.toString());
       amountOfMintedNFTs = Number(amountOfMintedNFTs.toString());
-      debugger;
 
       if (amountOfCreatedNFTs > 0 && amountOfMintedNFTs > 0) {
         // if from booth category are some available => use Promise.all for performance reasons
@@ -270,7 +269,7 @@ const Holdings = ({
                   />
                   <ChangePriceModal
                     onClick={setPriceOfUnmintedNFT}
-                    title='Change price'
+                    title={'Set price'}
                     ipfsHash={item.image.split('https://ipfs.io/ipfs/')[1]}
                   />
                 </div>
@@ -328,59 +327,3 @@ export default connect(mapStateToProps, {
   startAction,
   stopAction,
 })(Holdings);
-
-// import React from 'react';
-import Modal from 'antd/lib/modal';
-import 'antd/lib/modal/style/index.css';
-import FormInput from 'components/FormInput';
-
-function ChangePriceModal({ title, NFTId, ipfsHash, onClick }) {
-  const [visible, setVisible] = useState(false);
-  const [price, setPrice] = useState(false);
-
-  const handlePriceChange = (event) => {
-    setPrice(event.target.value);
-  };
-
-  const showModal = () => {
-    setVisible(true);
-  };
-
-  const handleCancel = (e) => {
-    setVisible(false);
-  };
-
-  return (
-    <div>
-      <Button text={title} onClick={showModal} />
-
-      <Modal
-        zIndex={10000}
-        title={title}
-        visible={visible}
-        onCancel={handleCancel}
-        footer={null}
-      >
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p style={{ width: '75%' }}>
-              Please type into the input the price you want to change to and
-              press the button
-            </p>
-            <FormInput
-              type='number'
-              placeholder='The price in NFTC'
-              value={price}
-              onChange={handlePriceChange}
-              style={marginBottom}
-            />
-            <Button
-              onClick={() => onClick(NFTId ? NFTId : ipfsHash, price)}
-              text={title}
-            />
-          </div>
-        </div>
-      </Modal>
-    </div>
-  );
-}

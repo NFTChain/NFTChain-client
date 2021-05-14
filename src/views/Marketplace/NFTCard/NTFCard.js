@@ -21,7 +21,6 @@ const NFTCard = ({
   setCurrentNFT,
   howManyOwned,
 }) => {
-  debugger;
   const setNFT = () => {
     const NFT = {
       image,
