@@ -116,6 +116,7 @@ const Holdings = ({
           // if not all created unminted NFTs sold => display it as holding
           NFTInfoArray.push({
             id: idOfcreatedNFT,
+            artist: NFTInfoObject.artist,
             image: `https://ipfs.io/ipfs/${NFTInfoObject.ipfs_hash}`,
             currentPrice: utils.formatEther(NFTInfoObject.price),
             howManyOwned: NFTInfoObject.limit - NFTInfoObject.count,
