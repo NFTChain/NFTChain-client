@@ -2,9 +2,9 @@ import React from 'react';
 import {
   FaTwitter,
   FaTelegramPlane,
-  FaFacebookF,
-  FaRedditAlien,
-  FaInstagram,
+  // FaFacebookF,
+  // FaRedditAlien,
+  // FaInstagram,
 } from 'react-icons/fa';
 
 const Socials = () => {
@@ -27,7 +27,7 @@ const Socials = () => {
         >
           <FaTelegramPlane className='socials-marketplace__icon' />
         </a>
-        <a href='#' target='_blank' className='socials-marketplace__link'>
+        {/* <a href='#' target='_blank' className='socials-marketplace__link'>
           <FaFacebookF className='socials-marketplace__icon' />
         </a>
         <a href='#' target='_blank' className='socials-marketplace__link'>
@@ -35,7 +35,7 @@ const Socials = () => {
         </a>
         <a href='#' target='_blank' className='socials-marketplace__link'>
           <FaInstagram className='socials-marketplace__icon' />
-        </a>
+        </a> */}
       </div>
     </section>
   );

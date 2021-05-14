@@ -192,7 +192,7 @@ const UploadNFTForm = ({
   }
 
   return (
-    <div className='create-nft'>
+    <div className='create-nft container'>
       <div className='create-nft__left-side'>
         <H3 text='Upload file' />
         <Text text='Choose your file to upload' style={marginTopAndBottom} />
@@ -208,7 +208,7 @@ const UploadNFTForm = ({
           </div>
         </div>
         {/* Start of form  */}
-        <H3 text='Item Deails' style={marginTop} />
+        <H3 text='Item Details' style={marginTop} />
 
         <Text
           text='Item name'
@@ -218,7 +218,7 @@ const UploadNFTForm = ({
 
         <FormInput
           type='text'
-          placeholder={`e. g. 'Cryptopunk'`}
+          placeholder={`e.g 'Cryptopunk'`}
           value={title}
           onChange={handleTitleChange}
         />

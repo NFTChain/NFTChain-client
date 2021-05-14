@@ -205,7 +205,7 @@ const Holdings = ({
   return (
     <div className='holdings'>
       {unmintedHoldings.length > 0 && (
-        <div className='holdings__container'>
+        <div className='holdings__container container'>
           <H1 text='Unsold Holdings' />
 
           <div className='holdings__card-list' style={{ margin: 0 }}>

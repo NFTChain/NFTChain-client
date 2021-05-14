@@ -50,12 +50,18 @@ const ConnectWallet = ({
   }
 
   return (
-    <div className='connect-wallet-container'>
-      <H1 text='Connect your wallet' />
-      <div className='metamask-logo-container' style={marginTopAndBottom}>
-        <img className='metamask-logo' src={metamaskLogo} alt='metamask' />
+    <div className='connect-wallet container'>
+      <div className='connect-wallet__info-box'>
+        <H1 text='Connect your wallet' />
+        <div className='connect-wallet__metmask-box' style={marginTopAndBottom}>
+          <img
+            className='connect-wallet__metamask-logo'
+            src={metamaskLogo}
+            alt='metamask'
+          />
+        </div>
+        <Button text='Connect wallet' onClick={connectToContracts} />
       </div>
-      <Button text='Connect wallet' onClick={connectToContracts} />
     </div>
   );
 };
