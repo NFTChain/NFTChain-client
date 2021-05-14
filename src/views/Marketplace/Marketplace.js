@@ -30,7 +30,7 @@ const Marketplace = ({
   error,
 }) => {
   const [NFTs, setNFTs] = useState([]);
-  const [NFTPerPage] = useState(8);
+  const [NFTPerPage] = useState(10);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {

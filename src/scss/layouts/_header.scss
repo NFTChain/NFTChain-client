@@ -1,9 +1,0 @@
-.header {
-  @include bgGradient;
-  padding: 10rem 2rem;
-
-  &__text-box {
-    @include flex(column);
-    text-align: center;
-  }
-}
