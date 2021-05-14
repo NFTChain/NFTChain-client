@@ -17,7 +17,10 @@ const ArtistAndOwner = ({ artist, owner }) => {
         <div className='artist-and-owner__avatar' />
         <div className='artist-and-owner__info'>
           <Text text='Artist' />
-          <H6 text={artist && artist.slice(0, 6)} />
+          <H6
+            style={{ color: '#434343' }}
+            text={artist && artist.slice(0, 6)}
+          />
         </div>
       </div>
     </div>

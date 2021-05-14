@@ -110,7 +110,15 @@ const NFTInfoPage = ({
         <img src={image} alt='NFT art' />
       </div>
       <div className='info-page__info-container'>
-        <H1 text={title} style={{ color: '#434343', fontSize: '4rem' }} />
+        <H1
+          text={title}
+          style={{
+            color: '#434343',
+            fontSize: '4rem',
+            textAlign: 'center',
+            marginBottom: '1rem',
+          }}
+        />
         <div className='info-page__price-limit' style={marginTopAndBottom}>
           <Text
             text={`${price}0 NFTC`}
@@ -146,7 +154,10 @@ const NFTInfoPage = ({
             text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
           />
         </div>
-        <Text text={description} />
+        <Text
+          style={{ textAlign: 'center', margin: '1rem 0' }}
+          text={description}
+        />
         <div className='info-page__info-navigator'>
           <Button
             className='info-page__button button'

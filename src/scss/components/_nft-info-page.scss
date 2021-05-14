@@ -21,6 +21,7 @@
     height: 100%;
     flex: 1;
     @include flex(column);
+    margin-left: 4rem;
   }
 
   &__price-limit {
