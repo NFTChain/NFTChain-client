@@ -16,6 +16,7 @@
     cursor: pointer;
     border-radius: 2px;
     font-size: 1.4rem;
+    color: $base-text-color;
 
     &:hover {
       background-color: #ececec;
@@ -34,6 +35,6 @@
     font-size: 2rem;
     cursor: pointer;
     margin: 0 1rem;
-    color: $base-text-color;
+    color: $text-light;
   }
 }

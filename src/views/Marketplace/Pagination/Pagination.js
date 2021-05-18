@@ -1,5 +1,5 @@
 import React from 'react';
-import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
+import { IoIosArrowBack, IoIosArrowForward } from 'react-icons/io';
 
 const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
   const pageNumbers = [];
@@ -23,7 +23,7 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
   return (
     <nav className='pagination'>
       <ul className='pagination__list'>
-        <AiOutlineArrowLeft
+        <IoIosArrowBack
           className='pagination__arrow'
           onClick={handlePreviousPageClick}
         />
@@ -40,7 +40,7 @@ const Pagination = ({ NFTPerPage, totalNFTS, setCurrentPage, currentPage }) => {
             {num}
           </li>
         ))}
-        <AiOutlineArrowRight
+        <IoIosArrowForward
           className='pagination__arrow'
           onClick={handleNextPageClick}
         />
