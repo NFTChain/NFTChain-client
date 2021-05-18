@@ -25,13 +25,13 @@
   &:link,
   &:visited {
     text-decoration: none;
-    color: $footer-brand;
+    color: $primary-blue;
     padding: 0 0.2rem;
     transition: all 0.2s ease;
   }
 
   &__copyright-link:hover {
-    color: $footer-brand-hover;
+    color: lighten($primary-blue, 15%);
   }
 
   &__nav-list {
