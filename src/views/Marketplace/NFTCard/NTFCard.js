@@ -20,6 +20,7 @@ const NFTCard = ({
   count,
   setCurrentNFT,
   howManyOwned,
+  isToken,
 }) => {
   const setNFT = () => {
     const NFT = {
@@ -32,6 +33,7 @@ const NFTCard = ({
       owner,
       limit,
       count,
+      isToken,
     };
     setCurrentNFT(NFT);
   };

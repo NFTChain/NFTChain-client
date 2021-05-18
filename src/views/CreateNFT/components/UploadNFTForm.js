@@ -11,7 +11,7 @@ import { H3 } from 'components/Headings';
 import Text from 'components/Text';
 import BackupIcon from '@material-ui/icons/Backup';
 import FormInput from 'components/FormInput';
-
+import { withRouter } from 'react-router-dom';
 import Button from 'components/Button';
 import {
   marginTopAndBottom,
@@ -312,4 +312,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   startAction,
   stopAction,
-})(UploadNFTForm);
+})(withRouter(UploadNFTForm));

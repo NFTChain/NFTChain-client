@@ -284,7 +284,7 @@ const Holdings = ({
                   <ChangePriceModal
                     uniqueId={item.key}
                     onClick={setPriceOfUnmintedNFT}
-                    title={'Set price'}
+                    title={'Change price'}
                     ipfsHash={item.image.split('https://ipfs.io/ipfs/')[1]}
                     currentPrice={item.currentPrice.split('.')[0]}
                   />

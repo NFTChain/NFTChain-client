@@ -17,6 +17,7 @@ import Loader from 'views/Loader';
 import Filters from './Filters';
 import { createNotification } from 'utils/createNotification';
 import { H1 } from 'components';
+import { v4 as uuidv4 } from 'uuid';
 
 const Marketplace = ({
   BEP721Contract,
@@ -99,7 +100,8 @@ const Marketplace = ({
                   // if price of token is higher than 0 we want to display it in the marketplace
                   if (Number(tokenPrice) > 0) {
                     NFTInfoArray.push({
-                      id: NFTInfoObject.id,
+                      id: tokenId,
+                      key: uuidv4(),
                       title: NFT.metadata.name,
                       image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
                       description: NFT.metadata.keyvalues.description,
@@ -109,6 +111,7 @@ const Marketplace = ({
                       artist: NFTInfoObject.artist,
                       limit: 1,
                       count: 0,
+                      isToken: true, // indicates this is a minted NFT
                     });
                   }
                 },
@@ -126,6 +129,7 @@ const Marketplace = ({
             // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
             NFTInfoArray.push({
               id: NFTInfoObject.id,
+              key: uuidv4(),
               title: NFT.metadata.name,
               image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
               description: NFT.metadata.keyvalues.description,
@@ -138,6 +142,7 @@ const Marketplace = ({
               // artist: NFT.metadata.keyvalues.artist,
               limit: NFTInfoObject.limit,
               count: NFTInfoObject.count,
+              isToken: false, // indicates this is a unminted NFT
             });
           }
         }),
