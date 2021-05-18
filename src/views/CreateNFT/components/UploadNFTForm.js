@@ -26,6 +26,7 @@ const UploadNFTForm = ({
   stopAction,
   loading,
   signerAddress,
+  history,
 }) => {
   useEffect(() => {
     if (artFile) {
@@ -147,7 +148,6 @@ const UploadNFTForm = ({
         )();
       }
     } else {
-      debugger;
       createNotification('error', 'Please fill out every input', 4000)();
     }
   };
@@ -168,6 +168,7 @@ const UploadNFTForm = ({
       ); // create unminted NFT
       await createUnmintedNFT.wait(); // wait for successful transaction
       createNotification('success', 'Congrats! Your NFT got created.', 3000)();
+      history.push('/holdings');
     } catch (error) {
       debugger;
       console.log(error);
