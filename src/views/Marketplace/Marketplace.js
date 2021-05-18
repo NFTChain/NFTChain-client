@@ -104,7 +104,7 @@ const Marketplace = ({
                       image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
                       description: NFT.metadata.keyvalues.description,
                       fileType: NFT.metadata.keyvalues.fileType,
-                      price: tokenPrice,
+                      price: utils.formatEther(tokenPrice),
                       owner: owner,
                       artist: NFTInfoObject.artist,
                       limit: 1,

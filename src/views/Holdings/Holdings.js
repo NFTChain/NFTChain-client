@@ -171,7 +171,7 @@ const Holdings = ({
           NFTInfoArray.push({
             id: tokenId,
             image: NFTUrl,
-            currentPrice: tokenPrice,
+            currentPrice: utils.formatEther(tokenPrice),
             howManyOwned: 1,
             key: uuidv4(),
             artist: NFTInfoObject.artist,
@@ -192,7 +192,7 @@ const Holdings = ({
     }
   };
 
-  const setPriceOfUnmintedNFT = async (ipfsHash, price) => {
+  const setPriceOfUnmintedNFT = async (ipfsHash, price, uniqueId) => {
     try {
       startAction();
       price = utils.parseEther(price);
@@ -201,6 +201,13 @@ const Holdings = ({
         price,
       );
       await changeUnmintedNFTPrice.wait();
+      const changeUnmintedHoldingsArray = unmintedHoldings.map((NFT) => {
+        if (NFT.key === uniqueId) {
+          NFT.currentPrice = `${utils.formatEther(price)}`;
+        }
+        return NFT;
+      });
+      setUnmintedHoldings(changeUnmintedHoldingsArray);
     } catch (error) {
       console.log(error);
       debugger;
@@ -214,7 +221,7 @@ const Holdings = ({
     }
   };
 
-  const setPriceOfMintedNFT = async (NFTId, price) => {
+  const setPriceOfMintedNFT = async (NFTId, price, uniqueId) => {
     try {
       startAction();
       price = utils.parseEther(price);
@@ -223,6 +230,13 @@ const Holdings = ({
         price,
       );
       await changeMintedNFTPrice.wait();
+      const changeMintedHoldingsArray = mintedHoldings.map((NFT) => {
+        if (NFT.key === uniqueId) {
+          NFT.currentPrice = `${utils.formatEther(price)}`;
+        }
+        return NFT;
+      });
+      setMintedHoldings(changeMintedHoldingsArray);
     } catch (error) {
       console.log(error);
       debugger;
@@ -268,9 +282,11 @@ const Holdings = ({
                     count={item.count}
                   />
                   <ChangePriceModal
+                    uniqueId={item.key}
                     onClick={setPriceOfUnmintedNFT}
                     title={'Set price'}
                     ipfsHash={item.image.split('https://ipfs.io/ipfs/')[1]}
+                    currentPrice={item.currentPrice.split('.')[0]}
                   />
                 </div>
               );
@@ -295,6 +311,8 @@ const Holdings = ({
                     howManyOwned={item.howManyOwned}
                   />
                   <ChangePriceModal
+                    uniqueId={item.key}
+                    currentPrice={item.currentPrice.split('.')[0]}
                     onClick={setPriceOfMintedNFT}
                     title={
                       Number(item.currentPrice) > 0
