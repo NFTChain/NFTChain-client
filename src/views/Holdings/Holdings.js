@@ -9,9 +9,10 @@ import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
 import { v4 as uuidv4 } from 'uuid';
-import { H1, Button } from 'components';
+import { H1 } from 'components';
 import { Empty } from 'antd';
 import 'antd/lib/empty/style/index.css';
+import ChangePriceModal from './components';
 
 const Holdings = ({
   BEP721Contract,
@@ -114,10 +115,13 @@ const Holdings = ({
           // if not all created unminted NFTs sold => display it as holding
           NFTInfoArray.push({
             id: idOfcreatedNFT,
+            artist: NFTInfoObject.artist,
             image: `https://ipfs.io/ipfs/${NFTInfoObject.ipfs_hash}`,
             currentPrice: utils.formatEther(NFTInfoObject.price),
             howManyOwned: NFTInfoObject.limit - NFTInfoObject.count,
             key: uuidv4(),
+            count: Number(NFTInfoObject.count),
+            limit: Number(NFTInfoObject.limit),
           });
         }
       }),
@@ -165,11 +169,14 @@ const Holdings = ({
           ).toString();
 
           NFTInfoArray.push({
-            id: NFTInfoObject.id,
+            id: tokenId,
             image: NFTUrl,
-            currentPrice: tokenPrice,
+            currentPrice: utils.formatEther(tokenPrice),
             howManyOwned: 1,
             key: uuidv4(),
+            artist: NFTInfoObject.artist,
+            owner: signerAddress,
+            limit: NFTInfoObject.limit,
           });
         } else {
           // else increase the count of key "howManyOwned"
@@ -185,9 +192,63 @@ const Holdings = ({
     }
   };
 
-  const setPriceOfUnmintedNFT = () => {};
+  const setPriceOfUnmintedNFT = async (ipfsHash, price, uniqueId) => {
+    try {
+      startAction();
+      price = utils.parseEther(price);
+      const changeUnmintedNFTPrice = await BEP721Contract.setPrice(
+        ipfsHash,
+        price,
+      );
+      await changeUnmintedNFTPrice.wait();
+      const changeUnmintedHoldingsArray = unmintedHoldings.map((NFT) => {
+        if (NFT.key === uniqueId) {
+          NFT.currentPrice = `${utils.formatEther(price)}`;
+        }
+        return NFT;
+      });
+      setUnmintedHoldings(changeUnmintedHoldingsArray);
+    } catch (error) {
+      console.log(error);
+      debugger;
+      createNotification(
+        'error',
+        'Something went wrong setting the price of your NFT',
+        5000,
+      );
+    } finally {
+      stopAction();
+    }
+  };
 
-  const setPriceOfMintedNFT = () => {};
+  const setPriceOfMintedNFT = async (NFTId, price, uniqueId) => {
+    try {
+      startAction();
+      price = utils.parseEther(price);
+      const changeMintedNFTPrice = await BEP721Contract.setTokenPrice(
+        NFTId,
+        price,
+      );
+      await changeMintedNFTPrice.wait();
+      const changeMintedHoldingsArray = mintedHoldings.map((NFT) => {
+        if (NFT.key === uniqueId) {
+          NFT.currentPrice = `${utils.formatEther(price)}`;
+        }
+        return NFT;
+      });
+      setMintedHoldings(changeMintedHoldingsArray);
+    } catch (error) {
+      console.log(error);
+      debugger;
+      createNotification(
+        'error',
+        'Something went wrong setting the price of your NFT',
+        5000,
+      );
+    } finally {
+      stopAction();
+    }
+  };
 
   if (!isConnected) {
     return <ConnectWallet />;
@@ -217,8 +278,16 @@ const Holdings = ({
                     owner={signerAddress}
                     image={item.image}
                     price={item.currentPrice}
+                    limit={item.limit}
+                    count={item.count}
                   />
-                  <Button onClick={setPriceOfUnmintedNFT} text='Change price' />
+                  <ChangePriceModal
+                    uniqueId={item.key}
+                    onClick={setPriceOfUnmintedNFT}
+                    title={'Change price'}
+                    ipfsHash={item.image.split('https://ipfs.io/ipfs/')[1]}
+                    currentPrice={item.currentPrice.split('.')[0]}
+                  />
                 </div>
               );
             })}
@@ -239,14 +308,18 @@ const Holdings = ({
                     price={item.currentPrice}
                     artist={item.artist}
                     owner={signerAddress}
+                    howManyOwned={item.howManyOwned}
                   />
-                  <Button
+                  <ChangePriceModal
+                    uniqueId={item.key}
+                    currentPrice={item.currentPrice.split('.')[0]}
                     onClick={setPriceOfMintedNFT}
-                    text={
+                    title={
                       Number(item.currentPrice) > 0
                         ? 'Change Price'
                         : 'Set Price'
                     }
+                    NFTId={item.id}
                   />
                 </div>
               );

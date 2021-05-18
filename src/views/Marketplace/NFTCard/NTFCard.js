@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 /* eslint-disable react/no-unknown-property */
 /* eslint-disable react/no-unescaped-entities */
 
@@ -18,8 +18,9 @@ const NFTCard = ({
   owner,
   limit,
   count,
-  artistAddress,
   setCurrentNFT,
+  howManyOwned,
+  isToken,
 }) => {
   const setNFT = () => {
     const NFT = {
@@ -32,7 +33,7 @@ const NFTCard = ({
       owner,
       limit,
       count,
-      artistAddress,
+      isToken,
     };
     setCurrentNFT(NFT);
   };
@@ -48,8 +49,7 @@ const NFTCard = ({
               <span className='card__user__code'>
                 {owner &&
                   artist &&
-                  artistAddress &&
-                  (owner === artist ? artistAddress : owner).slice(0, 5)}
+                  (owner === artist ? artist : owner).slice(0, 5)}
               </span>
             </div>
           </div>
@@ -57,9 +57,7 @@ const NFTCard = ({
             <div className='card__avatar'></div>
             <div className='card__user'>
               <span className='card__user__title'>Created by</span>
-              <span className='card__user__code'>
-                {artistAddress && artistAddress.slice(0, 5)}
-              </span>
+              <span className='card__user__code'>{artist.slice(0, 5)}</span>
             </div>
           </div>
         </div>
@@ -69,12 +67,19 @@ const NFTCard = ({
       </div>
       <div className='card__info'>
         <p>
-          <b>Price:</b> NFTC {price}0
+          <b>Price:</b> NFTC{' '}
+          {price.toString().includes('.') ? `${price}0` : price}
         </p>
         <p>(${Math.ceil(price * 0.1)})</p>
       </div>
       <div className='card__footer'>
-        <span className='card__btn card__btn--secondary'>View history</span>
+        <span className='card__btn card__btn--secondary'>
+          {howManyOwned // holdings page shows how many nfts you own
+            ? `You own ${howManyOwned}`
+            : limit && (count || count === 0) // marketplace show how nfts are available
+            ? `${limit - count} of ${limit}`
+            : null}
+        </span>
         <span className='card__btn card__btn--primary'>Buy Now</span>
       </div>
     </Link>

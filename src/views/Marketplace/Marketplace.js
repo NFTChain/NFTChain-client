@@ -16,6 +16,7 @@ import { utils } from 'ethers';
 import Loader from 'views/Loader';
 import { createNotification } from 'utils/createNotification';
 import { H1 } from 'components';
+import { v4 as uuidv4 } from 'uuid';
 
 const Marketplace = ({
   BEP721Contract,
@@ -43,6 +44,9 @@ const Marketplace = ({
     }
   }, [BEP721Contract]);
 
+  // THIS WHOLE FUNCTION NEEDS A COMPLETE REFACTOR
+  // WE NEED TO SPLIT THE DIFFERENT TASKS INTO SUB FUNCTIONS
+  // TO AVOID HAVING REPITITION AND AS WELL FOR READABILITY
   const fetchOnSaleNFTs = async () => {
     try {
       // fetch NFTs from IPFS to be able to modify the data how we need it
@@ -57,6 +61,7 @@ const Marketplace = ({
           let NFTInfoPromise, NFTInfoObject, owner;
 
           try {
+            // get info of ink
             NFTInfoPromise = await BEP721Contract.inkInfoByInkUrl(
               NFT.ipfs_pin_hash,
             );
@@ -69,31 +74,74 @@ const Marketplace = ({
               limit: NFTInfoPromise[4].toString(),
             };
 
-            owner = await BEP721Contract.ownerOf(NFTInfoObject.id); // if promise resolves, we know token is minted and get the address of the holder
-          } catch (error) {
-            if (error.reason === 'ERC721: owner query for nonexistent token') {
-              owner = NFT.metadata.keyvalues.artist; // if ownerOf promise rejects we know the NFT is unminted and the artist must be the owner
+            // if the count is higher than 0 we know a user already bought a token
+            // we need to check who bought the token and if the user already put it on sale
+            // if its on sale we need to display it on the marketplace
+            if (NFTInfoObject.count > 0) {
+              await [...Array(NFTInfoObject.count).keys()].map(
+                async (currentIndex) => {
+                  // Get the token id
+                  const tokenId = (
+                    await BEP721Contract.inkTokenByIndex(
+                      NFT.ipfs_pin_hash,
+                      currentIndex,
+                    )
+                  ).toString();
+
+                  // get the owner of the token (NFT)
+                  owner = await BEP721Contract.ownerOf(tokenId);
+
+                  // because the NFT is already minted - we need to check the tokenPrice and can't use the price from the unminted NFT
+                  const tokenPrice = (
+                    await BEP721Contract.tokenPriceByTokenId(tokenId)
+                  ).toString();
+
+                  // if price of token is higher than 0 we want to display it in the marketplace
+                  if (Number(tokenPrice) > 0) {
+                    NFTInfoArray.push({
+                      id: tokenId,
+                      key: uuidv4(),
+                      title: NFT.metadata.name,
+                      image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
+                      description: NFT.metadata.keyvalues.description,
+                      fileType: NFT.metadata.keyvalues.fileType,
+                      price: utils.formatEther(tokenPrice),
+                      owner: owner,
+                      artist: NFTInfoObject.artist,
+                      limit: 1,
+                      count: 0,
+                      isToken: true, // indicates this is a minted NFT
+                    });
+                  }
+                },
+              );
             }
+          } catch (error) {
+            debugger;
           }
           if (
             NFTInfoPromise &&
             NFTInfoObject &&
-            Number(NFTInfoObject.price) > 0
+            Number(NFTInfoObject.price) > 0 &&
+            NFTInfoObject.count !== NFTInfoObject.limit
           ) {
             // if NFTInfo is defined, the NFT (minted or unminted) exists, if price is set (higher than 0) we want to display the NFT on the marketplace
             NFTInfoArray.push({
               id: NFTInfoObject.id,
+              key: uuidv4(),
               title: NFT.metadata.name,
               image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
               description: NFT.metadata.keyvalues.description,
               fileType: NFT.metadata.keyvalues.fileType,
               price: NFTInfoObject.price,
-              owner: owner,
-              artistAddress: NFTInfoObject.artist,
+              owner: NFTInfoObject.artist,
+              // artistAddress: NFTInfoObject.artist,
               // NFTisMinted: owner === NFT.metadata.keyvalues.artist, // owner is artist (catch block logic) when there is no owner of the the NFTs id
-              artist: NFT.metadata.keyvalues.artist,
+              artist: NFTInfoObject.artist,
+              // artist: NFT.metadata.keyvalues.artist,
               limit: NFTInfoObject.limit,
               count: NFTInfoObject.count,
+              isToken: false, // indicates this is a unminted NFT
             });
           }
         }),

@@ -1,5 +1,6 @@
-/* eslint  no-unused-vars: 0 */ // --> OFF
-/* eslint  no-undef: 0 */ // --> OFF
+/* eslint  no-unused-vars: 0 */
+/* eslint  no-undef: 0 */
+/* eslint-disable quotes */
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
@@ -10,6 +11,10 @@ import { marginTopAndBottom } from 'utils/globalStyles';
 import { H1, ComingSoon, Text, Button } from 'components';
 import ArtistAndOwner from './components/ArtistAndOwner';
 import BuyContainer from './components/BuyContainer';
+import { createNotification } from 'utils/createNotification';
+import { startAction, stopAction } from 'store/actions/uiActions';
+import Loader from 'views/Loader';
+import { withRouter } from 'react-router-dom';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -17,6 +22,10 @@ const NFTInfoPage = ({
   signerAddress,
   currentNFT,
   isConnected,
+  loading,
+  startAction,
+  stopAction,
+  history,
 }) => {
   const {
     image,
@@ -28,46 +37,73 @@ const NFTInfoPage = ({
     owner,
     limit,
     count,
-    artistAddress,
+    isToken,
   } = currentNFT;
 
   const [pressedBuy, setPressedBuy] = useState(false);
   const [currentInfoView, setCurrentInfoView] = useState(1);
   const [currentInfoComponent, setCurrentInfoComponent] = useState(
     <ArtistAndOwner
-      artist={artistAddress}
-      owner={owner === artist ? artistAddress : owner}
+      artist={artist}
+      owner={owner === artist ? artist : owner}
     />,
   );
 
   const buyNFT = async () => {
     if (BEP20Contract && BEP721Contract && signerAddress) {
       await tryBuyingNFT();
-      debugger;
     } else {
+      createNotification(
+        'error',
+        'You need first to connect your wallet. After connecting, please press buy again.',
+        6000,
+      )();
       setPressedBuy(true);
     }
   };
 
   const tryBuyingNFT = async () => {
+    startAction();
     try {
-      // only for unminted NFT's
       const parsedEtherPrice = utils.parseEther(price);
       const approveBuy = await BEP20Contract.approve(
         BEP721Contract.address,
         parsedEtherPrice,
       );
       await approveBuy.wait();
-      const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
-      const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
-      await tryToBuy.wait();
+
+      // if its a minted NFT
+      if (isToken) {
+        const tryToBuy = await BEP721Contract.buyToken(id);
+        await tryToBuy.wait();
+
+        // if its unminted NFT
+      } else {
+        const ipfs_hash = image.split('https://ipfs.io/ipfs/')[1];
+        const tryToBuy = await BEP721Contract.buyInk(ipfs_hash);
+        await tryToBuy.wait();
+        createNotification(
+          'success',
+          'Congrats, you bought successful your NFT!',
+          4000,
+        )();
+        history.push('/holdings');
+      }
     } catch (error) {
       if (error.data?.message?.includes('transfer amount exceeds balance')) {
         // why the ?: Javascripts optional chaining feature https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Optional_chaining
-        // SET ERROR HERE THAT USER DOESNT HAVE ENOUGH IN THE WALLET
+        createNotification(
+          'error',
+          `Your don't have enough funds in your wallet to cover the costs for this transaction.`,
+        )();
+      } else if (error.message?.includes('User denied')) {
+        // when user denies transaction
+        createNotification('error', 'You denied the transaction.')();
       }
       debugger;
       console.log(error);
+    } finally {
+      stopAction();
     }
   };
 
@@ -78,8 +114,8 @@ const NFTInfoPage = ({
         setCurrentInfoView(1);
         setCurrentInfoComponent(
           <ArtistAndOwner
-            artist={artistAddress}
-            owner={owner === artist ? artistAddress : owner}
+            artist={artist}
+            owner={owner === artist ? artist : owner}
           />,
         );
 
@@ -102,6 +138,8 @@ const NFTInfoPage = ({
 
   if (pressedBuy && !isConnected) {
     return <ConnectWallet />;
+  } else if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -136,7 +174,7 @@ const NFTInfoPage = ({
             }}
           />
           <Text
-            text={`$${Math.ceil(price * 0.1)}.00`}
+            text={`$${Math.ceil(price * 0.1)}.00`} // later we need to make an api call to get the current price of our token and make the calculation
             style={{
               borderRadius: '3px',
               // color: '#00ab55',
@@ -209,7 +247,12 @@ const mapStateToProps = (state) => {
     signerAddress: state.contracts.signerAddress,
     currentNFT: state.marketplace.currentNFT,
     isConnected: state.ui.isConnected,
+    loading: state.ui.loading,
   };
 };
 
-export default connect(mapStateToProps, { connectToContract })(NFTInfoPage);
+export default connect(mapStateToProps, {
+  connectToContract,
+  startAction,
+  stopAction,
+})(withRouter(NFTInfoPage));

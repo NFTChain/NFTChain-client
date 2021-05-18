@@ -5,7 +5,7 @@ const NFTCardList = (props) => {
   return (
     <>
       {props.NFTS.map((item) => (
-        <NFTCard key={item.id} {...item} />
+        <NFTCard key={item.key} {...item} />
       ))}
     </>
   );

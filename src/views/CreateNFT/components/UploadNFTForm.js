@@ -11,6 +11,7 @@ import { H3 } from 'components/Headings';
 import Text from 'components/Text';
 import BackupIcon from '@material-ui/icons/Backup';
 import FormInput from 'components/FormInput';
+import { withRouter } from 'react-router-dom';
 import Button from 'components/Button';
 import {
   marginTopAndBottom,
@@ -24,6 +25,7 @@ const UploadNFTForm = ({
   startAction,
   stopAction,
   loading,
+  signerAddress,
 }) => {
   useEffect(() => {
     if (artFile) {
@@ -83,7 +85,7 @@ const UploadNFTForm = ({
       title &&
       description &&
       fileType &&
-      artist &&
+      // artist && // dont make giving name mandatory
       limit &&
       price
     ) {
@@ -96,7 +98,7 @@ const UploadNFTForm = ({
           keyvalues: {
             description,
             fileType,
-            artist,
+            artist: artist ? artist : signerAddress,
           },
         };
 
@@ -244,7 +246,7 @@ const UploadNFTForm = ({
 
         <FormInput
           type='text'
-          placeholder='How is the name of the artist?'
+          placeholder='You can choose to publish your artist name'
           value={artist}
           onChange={handleArtistChange}
         />
@@ -288,9 +290,11 @@ const UploadNFTForm = ({
           image={preview && preview}
           title={title && title}
           price={price && price}
-          owner={artist && artist}
-          artist={artist && artist}
+          owner={signerAddress && signerAddress}
+          artist={signerAddress && signerAddress}
           description={description && description}
+          count={'0'}
+          limit={limit}
         />
       </div>
     </div>
@@ -300,6 +304,7 @@ const UploadNFTForm = ({
 const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
+    signerAddress: state.contracts.signerAddress,
     loading: state.ui.loading,
   };
 };
@@ -307,4 +312,4 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps, {
   startAction,
   stopAction,
-})(UploadNFTForm);
+})(withRouter(UploadNFTForm));
