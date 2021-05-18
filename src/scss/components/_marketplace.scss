@@ -6,6 +6,7 @@
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  margin-top: 8rem;
 
   &__content {
     width: 100%;
@@ -19,7 +20,7 @@
     font-size: 3rem;
     font-weight: 500;
     padding: 2rem 0;
-    color: $primary-text-3;
+    color: $base-text-color;
   }
 
   &__card-list {

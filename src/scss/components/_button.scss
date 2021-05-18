@@ -4,8 +4,8 @@
   font-weight: 300;
   letter-spacing: 0.05rem;
   background-color: $primary-white;
-  color: $primary-dark-1;
-  border: 1px solid $primary-text-2;
+  color: $base-text-color;
+  border: 1px solid $button-border;
   padding: 0.8rem 2rem;
   @include flex;
   cursor: pointer;
@@ -29,12 +29,12 @@
   &--text {
     @extend .button;
     border: none;
-    color: $primary-text-2;
+    color: $text-light;
 
     &:hover,
     :visited {
-      background: $text-primary;
-      color: $primary-text-1;
+      background: $button-text-bg-hover;
+      color: $text-light-grey;
     }
   }
 }

@@ -2,7 +2,7 @@
 @import './abstracts/mixins';
 
 @import './base/base';
-@import './base/typography';
+// @import './base/typography';
 @import './base/animations';
 
 @import './react-images.scss';
@@ -28,6 +28,5 @@
 @import './layouts/socials-marketplace';
 
 @import './components/headings';
-@import './components/text';
 @import './components/form-input';
 @import './components/coming-soon';

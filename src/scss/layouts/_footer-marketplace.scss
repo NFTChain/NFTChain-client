@@ -1,6 +1,4 @@
 .footer-marketplace {
-  background-color: $primary-white;
-  color: $primary-text-2;
   width: 100%;
 
   &__content {
@@ -10,7 +8,7 @@
   &__row {
     @include flex(row, space-between);
     padding: 1.6rem 0;
-    border-top: 1px solid $primary-text-4;
+    border-top: 1px solid $base-border;
   }
 
   &__title {
@@ -26,13 +24,13 @@
   &:link,
   &:visited {
     text-decoration: none;
-    color: $tertiary-dark-4;
+    color: $footer-brand;
     padding: 0 0.2rem;
     transition: all 0.2s;
   }
 
   &__copyright-link:hover {
-    color: $tertiary-dark-3;
+    color: $footer-brand-hover;
   }
 
   &__nav-list {
@@ -51,11 +49,10 @@
   &:visited {
     text-decoration: none;
     text-transform: uppercase;
-    color: $primary-text-2;
     transition: all 0.2s;
   }
 
   &__nav-link:hover {
-    color: $primary-text-3;
+    color: $base-text-color;
   }
 }

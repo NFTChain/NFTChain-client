@@ -24,8 +24,66 @@ const Nav = () => {
   };
 
   return (
-    <nav className='nav-marketplace'>
-      <div className='nav-marketplace__left-side'>
+    <nav className='nav'>
+      <div className='nav__logo-box'>
+        <img className='nav__logo-img' src={logo} alt='NFTChain logo' />
+      </div>
+
+      <div className='nav__left-box'>
+        <div className='nav__left-search'>
+          <OutlinedInput
+            style={{
+              width: '100%',
+              fontSize: '1.6rem',
+              height: '4rem',
+              borderRadius: '5rem',
+              color: '#434343',
+            }}
+            id='outlined-adornment-password'
+            type={'text'}
+            value={search}
+            onChange={handleSearchChange}
+            endAdornment={
+              <InputAdornment position='end'>
+                <SearchIcon
+                  aria-label='toggle password visibility'
+                  edge='end'
+                />
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
+        </div>
+      </div>
+
+      <div className='nav__right-box'>
+        <ul className='nav__right-box-items'>
+          <li className='nav__right-box-item'>
+            <a href='#' className='nav__right-box-link'>
+              Discover
+            </a>
+          </li>
+          <li className='nav__right-box-item'>
+            <a href='#' className='nav__right-box-link'>
+              Holdings
+            </a>
+          </li>
+          <li className='nav__right-box-item'>
+            <a href='#' className='nav__right-box-link'>
+              Create
+            </a>
+          </li>
+        </ul>
+
+        <div className='nav__right-buttons'>
+          <Link className='nav__right-buttons-link' to='/createNFT'>
+            <Button text={'Upload'} className='button--blue' />
+          </Link>
+          <Button text={'Connect Wallet'} className='button' />
+        </div>
+      </div>
+
+      {/* <div className='nav-marketplace__left-side'>
         <div className='nav-marketplace__logo-container'>
           <Link to='/' className='nav-marketplace__logo-link'>
             <img
@@ -70,7 +128,7 @@ const Nav = () => {
         </Link>
 
         <Button text={'Connect Wallet'} className='button' />
-      </div>
+      </div> */}
     </nav>
   );
 };
