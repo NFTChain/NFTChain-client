@@ -18,6 +18,7 @@
 
   &__copyright-text {
     font-size: 1.3rem;
+    color: $text-light;
   }
 
   &__copyright-link,
@@ -26,7 +27,7 @@
     text-decoration: none;
     color: $footer-brand;
     padding: 0 0.2rem;
-    transition: all 0.2s;
+    transition: all 0.2s ease;
   }
 
   &__copyright-link:hover {
