@@ -59,19 +59,19 @@ const Nav = () => {
       <div className='nav__right-box'>
         <ul className='nav__right-box-items'>
           <li className='nav__right-box-item'>
-            <a href='#' className='nav__right-box-link'>
+            <Link to='/marketplace' className='nav__right-box-link'>
               Discover
-            </a>
+            </Link>
           </li>
           <li className='nav__right-box-item'>
-            <a href='#' className='nav__right-box-link'>
+            <Link to='/holdings' className='nav__right-box-link'>
               Holdings
-            </a>
+            </Link>
           </li>
           <li className='nav__right-box-item'>
-            <a href='#' className='nav__right-box-link'>
+            <Link to='/' className='nav__right-box-link'>
               Create
-            </a>
+            </Link>
           </li>
         </ul>
 

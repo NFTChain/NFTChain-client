@@ -197,6 +197,7 @@ const PaintingFactory = () => {
           width: '90vmin',
           margin: '0 auto',
           marginBottom: 16,
+          marginTop: 120,
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -249,7 +250,6 @@ const PaintingFactory = () => {
           style={{
             width: '90vmin',
             margin: '0 auto',
-            marginTop: '4vh',
             display: 'inline-flex',
             justifyContent: 'center',
             alignItems: 'center',
