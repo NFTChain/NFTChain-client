@@ -28,7 +28,6 @@ const Nav = () => {
       <div className='nav__logo-box'>
         <img className='nav__logo-img' src={logo} alt='NFTChain logo' />
       </div>
-
       <div className='nav__left-box'>
         <div className='nav__left-search'>
           <OutlinedInput
@@ -41,6 +40,7 @@ const Nav = () => {
             }}
             id='outlined-adornment-password'
             type={'text'}
+            placeholder='Search by artist or collectable'
             value={search}
             onChange={handleSearchChange}
             endAdornment={

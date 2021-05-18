@@ -1,7 +1,7 @@
 .holdings {
   @include flex(column);
   // flex-wrap: wrap;
-  min-height: 93vh;
+  min-height: 100vh;
   margin-top: 1rem;
 
   &__container {
@@ -25,5 +25,5 @@
   @include flex(column);
   margin: 0px;
   padding: 0px;
-  min-height: 93vh;
+  min-height: 100vh;
 }
