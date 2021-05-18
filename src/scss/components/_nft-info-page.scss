@@ -1,6 +1,6 @@
 .info-page {
   @include flex;
-  min-height: 93vh;
+  min-height: 100vh;
   padding: 0 2rem;
 
   &__image-container {
@@ -31,7 +31,6 @@
   &__info-navigator {
     @include flex(row, space-evenly, center);
     border-radius: 1.6rem;
-    // border: 2px solid $primary-text-1;
     padding: 0.3rem;
     margin: 1rem 0;
   }
@@ -44,7 +43,7 @@
 .artist-and-owner {
   @include flex;
   &__card {
-    border-bottom: thin solid $primary-text-1;
+    border-bottom: thin solid $base-border;
     @include flex;
     margin: 1rem;
     padding-bottom: 1rem;

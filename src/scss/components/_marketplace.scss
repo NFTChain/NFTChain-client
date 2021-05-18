@@ -1,11 +1,11 @@
 .marketplace {
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: 'DM Sans', system-ui, sans-serif;
   color: #263238;
   display: grid;
   grid-template-rows: auto 1fr auto;
   min-height: 100vh;
+  margin-top: 8rem;
 
   &__content {
     width: 100%;
@@ -13,13 +13,6 @@
 
   &__title-box {
     margin: 0 1.5rem;
-  }
-
-  &__title {
-    font-size: 3rem;
-    font-weight: 500;
-    padding: 2rem 0;
-    color: $primary-text-3;
   }
 
   &__card-list {

@@ -25,11 +25,11 @@
 
   &__icon {
     font-size: 1.8rem;
-    color: $marketplace-social-links;
+    color: $text-light;
   }
 
   &__link:hover {
-    background: $primary-text-3;
+    background: $base-text-color;
   }
 
   &__link:hover &__icon {

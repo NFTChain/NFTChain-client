@@ -14,7 +14,6 @@ import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import { BEP721ContractString } from '../../utils/getContract';
 import { utils } from 'ethers';
 import Loader from 'views/Loader';
-import Filters from './Filters';
 import { createNotification } from 'utils/createNotification';
 import { H1 } from 'components';
 import { v4 as uuidv4 } from 'uuid';
@@ -176,9 +175,8 @@ const Marketplace = ({
     <section className='marketplace'>
       <div className='marketplace__content container'>
         <div className='marketplace__title-box'>
-          <h1 className='marketplace__title'>Discover</h1>
+          <h1 className='marketplace__title heading-primary'>Discover</h1>
         </div>
-        <Filters />
 
         <div className='marketplace__card-list'>
           <NFTCardList NFTS={currentNFTS} />

@@ -1,11 +1,3 @@
-@mixin clearfix {
-  &::after {
-    content: '';
-    display: table;
-    clear: both;
-  }
-}
-
 @mixin flex($dir: row, $jc: center, $ai: center) {
   display: flex;
   flex-direction: $dir;
@@ -13,13 +5,6 @@
   align-items: $ai;
 }
 
-@mixin bgGradient {
-  background-image: linear-gradient(
-    to right bottom,
-    rgba($primary-dark-7, 0.95),
-    rgba($primary-dark-7, 0.95)
-  );
-}
 @mixin boxShadow {
   box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
     rgba(0, 0, 0, 0.05) 0px 5px 10px;

@@ -2,20 +2,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../../../../assets/onlyLogo.png';
-import { H3, H6 } from '../../../../components/Headings';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import Badge from '@material-ui/core/Badge';
-import MailIcon from '@material-ui/icons/Mail';
-import { withStyles } from '@material-ui/core/styles';
 import Button from '../../../../components/Button';
-
-const StyledBadge = withStyles((theme) => ({
-  badge: {
-    backgroundColor: '#00ab55',
-  },
-}))(Badge);
 
 const Nav = () => {
   const [search, setSearch] = useState('');
@@ -24,52 +14,65 @@ const Nav = () => {
   };
 
   return (
-    <nav className='nav-marketplace'>
-      <div className='nav-marketplace__left-side'>
-        <div className='nav-marketplace__logo-container'>
-          <Link to='/' className='nav-marketplace__logo-link'>
-            <img
-              className='nav-marketplace__logo-img'
-              src={logo}
-              alt='NFTChain logo'
-            />
-            <H3 text={'NFTChain'} />
-          </Link>
-        </div>
-        <div className='nav-marketplace__discover-how'>
-          <Link to='/marketplace' className='nav-marketplace__link'>
-            <H6 text={'Discover'} style={{ color: '#101b32' }} />
-          </Link>
-          <Link to='/holdings' className='nav-marketplace__link'>
-            <H6 text={'Holdings'} />
-          </Link>
-          <Link to='/' className='nav-marketplace__link'>
-            <H6 text={'Create art'} style={{ color: '#101b32' }} />
-          </Link>
+    <nav className='nav'>
+      <div className='nav__logo-box'>
+        <Link to='/marketplace'>
+          <img className='nav__logo-img' src={logo} alt='NFTChain logo' />
+        </Link>
+      </div>
+      <div className='nav__left-box'>
+        <div className='nav__left-search'>
+          <OutlinedInput
+            style={{
+              width: '100%',
+              fontSize: '1.6rem',
+              height: '4rem',
+              borderRadius: '5rem',
+              color: '#434343',
+            }}
+            id='outlined-adornment-password'
+            type={'text'}
+            placeholder='Search by artist or collectable'
+            value={search}
+            onChange={handleSearchChange}
+            endAdornment={
+              <InputAdornment position='end'>
+                <SearchIcon
+                  aria-label='toggle password visibility'
+                  edge='end'
+                />
+              </InputAdornment>
+            }
+            labelWidth={70}
+          />
         </div>
       </div>
-      <div className='nav-marketplace__right-side'>
-        <OutlinedInput
-          style={{ height: '3rem' }}
-          id='outlined-adornment-password'
-          type={'text'}
-          value={search}
-          onChange={handleSearchChange}
-          endAdornment={
-            <InputAdornment position='end'>
-              <SearchIcon aria-label='toggle password visibility' edge='end' />
-            </InputAdornment>
-          }
-          labelWidth={70}
-        />
-        <StyledBadge variant='dot'>
-          <MailIcon style={{ fontSize: 25 }} />
-        </StyledBadge>
-        <Link to='/createNFT' style={{ textDecoration: 'none' }}>
-          <Button text={'Upload'} className='button--blue' />
-        </Link>
 
-        <Button text={'Connect Wallet'} className='button' />
+      <div className='nav__right-box'>
+        <ul className='nav__right-box-items'>
+          <li className='nav__right-box-item'>
+            <Link to='/marketplace' className='nav__right-box-link'>
+              Discover
+            </Link>
+          </li>
+          <li className='nav__right-box-item'>
+            <Link to='/holdings' className='nav__right-box-link'>
+              Holdings
+            </Link>
+          </li>
+          <li className='nav__right-box-item'>
+            <Link to='/' className='nav__right-box-link'>
+              Create
+            </Link>
+          </li>
+        </ul>
+
+        <div className='nav__right-buttons'>
+          <Link className='nav__right-buttons-link' to='/createNFT'>
+            <Button text={'Upload'} className='button--blue' />
+          </Link>
+          <Button text={'Connect Wallet'} className='button' />
+        </div>
       </div>
     </nav>
   );
