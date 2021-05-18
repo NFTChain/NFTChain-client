@@ -175,7 +175,7 @@ const Marketplace = ({
     <section className='marketplace'>
       <div className='marketplace__content container'>
         <div className='marketplace__title-box'>
-          <h1 className='marketplace__title'>Discover</h1>
+          <h1 className='marketplace__title heading-primary'>Discover</h1>
         </div>
 
         <div className='marketplace__card-list'>
