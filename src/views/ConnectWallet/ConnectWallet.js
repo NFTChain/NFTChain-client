@@ -7,10 +7,11 @@ import {
   setConnection,
 } from '../../store/actions/uiActions';
 import { BEP20ContractString, BEP721ContractString } from 'utils/getContract';
-import Loader from 'views/Loader';
-import metamaskLogo from '../../assets/metamask.png';
-import { Button, H1 } from 'components';
 import { marginTopAndBottom } from 'utils/globalStyles';
+import metamaskLogo from '../../assets/metamask.png';
+import Loader from 'views/Loader';
+import { Button, H1 } from 'components';
+import { ErrorPage } from 'components';
 // We need to handle here still different edge cases, what is when the user is for example on a different network
 // or declines the connection to our site, we need to test and handle all cases appopiate
 
@@ -46,7 +47,7 @@ const ConnectWallet = ({
   if (loading) {
     return <Loader />;
   } else if (error) {
-    return <H1 text={error} />;
+    return <ErrorPage error={error} />;
   }
 
   return (
