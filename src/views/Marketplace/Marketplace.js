@@ -1,9 +1,12 @@
 /* eslint-disable  no-unused-vars */
 import React, { useState, useEffect } from 'react';
-import NFTCardList from './NFTCardList';
-import Pagination from './Pagination';
-import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
+import { v4 as uuidv4 } from 'uuid';
+import { utils } from 'ethers';
 import { connect } from 'react-redux';
+import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
+import { BEP721ContractString } from '../../utils/getContract';
+import { createNotification } from 'utils/createNotification';
+import NFTCardList from './NFTCardList';
 import { connectToContract } from '../../store/actions/contractActions';
 import {
   startAction,
@@ -11,12 +14,9 @@ import {
   setError,
 } from '../../store/actions/uiActions';
 import { setAllNFTs } from '../../store/actions/marketplaceActions';
-import { BEP721ContractString } from '../../utils/getContract';
-import { utils } from 'ethers';
 import Loader from 'views/Loader';
-import { createNotification } from 'utils/createNotification';
-import { H1 } from 'components';
-import { v4 as uuidv4 } from 'uuid';
+import Pagination from './Pagination';
+import { ErrorPage } from 'components';
 
 const Marketplace = ({
   BEP721Contract,
@@ -169,7 +169,7 @@ const Marketplace = ({
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
   if (loading) return <Loader />;
-  else if (error) return <H1 text={error} />; // lets create an something went wrong screen for such cases
+  else if (error) return <ErrorPage error={error}></ErrorPage>; // lets create an something went wrong screen for such cases
 
   return (
     <section className='marketplace'>

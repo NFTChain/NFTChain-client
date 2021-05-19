@@ -1,0 +1,25 @@
+.error__page {
+  min-height: 100vh;
+  @include flex;
+
+  &-content {
+    @include flex(column, space-between);
+  }
+
+  &-title {
+    font-size: 3rem;
+  }
+
+  &-message {
+    font-size: 1.8rem;
+    margin: 2rem 0;
+    color: $text-light;
+    font-weight: 300;
+    text-align: center;
+    width: 80%;
+  }
+
+  &-home {
+    text-decoration: none;
+  }
+}
