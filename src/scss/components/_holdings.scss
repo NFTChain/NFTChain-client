@@ -2,7 +2,7 @@
   @include flex(column);
   // flex-wrap: wrap;
   min-height: 100vh;
-  margin-top: 1rem;
+  margin-top: 8rem;
 
   &__container {
     @include flex(column);
