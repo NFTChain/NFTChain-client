@@ -1,4 +1,5 @@
 /* eslint-disable quotes */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
