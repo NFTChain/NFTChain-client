@@ -228,7 +228,7 @@ const PaintingFactory = () => {
             }
           />
 
-          <Button
+          {/* <Button
             style={{ marginLeft: '1rem' }}
             onClick={() => {
               drawingCanvas.current.loadSaveData(LZ.decompress(drawing), false);
@@ -239,7 +239,7 @@ const PaintingFactory = () => {
                 <PlaySquareOutlined /> PLAY
               </div>
             }
-          />
+          /> */}
         </div>
       </div>
     );
