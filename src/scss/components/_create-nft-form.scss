@@ -4,6 +4,10 @@
   min-height: 100vh;
   padding: 4rem 0;
 
+  @include respond(tab-land) {
+    margin-top: 6.5rem;
+  }
+
   &__left-side {
     width: 70%;
     padding: 1.5rem;

@@ -1,18 +1,19 @@
 /* eslint  no-unused-vars: 0 */ // --> OFF
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+import { Empty } from 'antd';
+import 'antd/lib/empty/style/index.css';
 import { connectToContract } from '../../store/actions/contractActions';
 import { startAction, stopAction } from '../../store/actions/uiActions';
-import Loader from '../Loader';
 import { utils } from 'ethers';
 import { createNotification } from 'utils/createNotification';
 import NFTCard from 'views/Marketplace/NFTCard';
 import ConnectWallet from 'views/ConnectWallet';
-import { v4 as uuidv4 } from 'uuid';
 import { H1 } from 'components';
-import { Empty } from 'antd';
-import 'antd/lib/empty/style/index.css';
+import Loader from '../Loader';
 import ChangePriceModal from './components';
+import { ErrorPage } from 'components';
 
 const Holdings = ({
   BEP721Contract,
@@ -255,7 +256,7 @@ const Holdings = ({
   } else if (loading) {
     return <Loader />;
   } else if (error) {
-    return <H1 text={error} />;
+    return <ErrorPage error={error} />;
   } else if (unmintedHoldings.length === 0 && mintedHoldings.length === 0) {
     return (
       <div className='empty-holdings'>
