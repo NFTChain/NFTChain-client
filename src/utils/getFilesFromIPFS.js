@@ -1,8 +1,13 @@
 const axios = require('axios');
 
-export const getFilesFromIPFS = () => {
+export const getFilesFromIPFS = (pinStartDate, pinEndDate) => {
   // parameter of this func should the queryParams => implement here search logic with passing queryParams object with filter logic
-  const queryParams = { selectedPinStatus: 'pinned', pageLimit: 15 }; // here we can decide how many nfts we want to get
+  const queryParams = {
+    selectedPinStatus: 'pinned',
+    pageLimit: 10,
+    pinStartDate,
+    pinEndDate,
+  }; // here we can decide how many nfts we want to get
   let queryString = '?';
   if (queryParams.hashContains) {
     queryString = queryString + `hashContains=${queryParams.hashContains}&`;
