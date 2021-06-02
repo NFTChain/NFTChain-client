@@ -27,8 +27,7 @@ const getContract = async (contractType, readOnly) => {
       if (chainId !== 80001) {
         // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
         return {
-          error:
-            'You are on the wrong network. Please connect to the Mumbai Testnet network via you MetaMask wallet and refresh this page',
+          error: 'wrong-network',
         };
       }
       const token = new Contract(Token.address, Token.abi, provider);
@@ -46,8 +45,7 @@ const getContract = async (contractType, readOnly) => {
       if (chainId !== 80001) {
         // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
         return {
-          error:
-            'You are on the wrong network. Please connect to the Matic Mainnet network via you MetaMask wallet and refresh this page',
+          error: 'wrong-network',
         };
       }
 
