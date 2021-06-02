@@ -60,6 +60,11 @@ const getContract = async (contractType, readOnly) => {
 
       return { signerAddress, token };
     }
+  } else {
+    return {
+      error:
+        'Right now we just support Metamask, please download Metamask and come back :). A lot of more wallet implementations are planned and will be soon implemented!',
+    };
   }
 };
 

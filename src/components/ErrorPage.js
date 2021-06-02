@@ -1,17 +1,12 @@
 /* eslint-disable indent */
 /* eslint-disable react/jsx-no-target-blank */
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Button } from 'components';
 
 const ErrorPage = ({ error }) => {
-  const currentPath = window.location.href.split('app')[1];
   return (
     <div className='error__page'>
-      <section
-        className='error__page-content'
-        style={error === 'wrong-network' && { textAlign: 'left' }}
-      >
+      <section className='error__page-content'>
         <h1 className='error__page-title '>Oops something went wrong.</h1>
         <h3 className='error__page-message'>
           {error === 'wrong-network' ? (
@@ -46,9 +41,11 @@ const ErrorPage = ({ error }) => {
           )}
         </h3>
 
-        <Link className='error__page-home' to={currentPath ? currentPath : '/'}>
-          <Button className='button--blue' text={'Refresh'}></Button>
-        </Link>
+        <Button
+          className='button--blue'
+          text={'Refresh'}
+          onClick={() => window.location.reload()}
+        ></Button>
       </section>
     </div>
   );
