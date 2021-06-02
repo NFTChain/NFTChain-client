@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { utils } from 'ethers';
 import { connect } from 'react-redux';
 import { getFilesFromIPFS } from '../../utils/getFilesFromIPFS';
-import { BEP721ContractString } from '../../utils/getContract';
 import { createNotification } from 'utils/createNotification';
 import NFTCardList from './NFTCardList';
 import { connectToContract } from '../../store/actions/contractActions';
@@ -17,10 +16,10 @@ import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import Loader from 'views/Loader';
 import Pagination from './Pagination';
 import { ErrorPage } from 'components';
+import ConnectWallet from 'views/ConnectWallet';
 
 const Marketplace = ({
   BEP721Contract,
-  connectToContract,
   allNFTs,
   setAllNFTs,
   loading,
@@ -28,6 +27,7 @@ const Marketplace = ({
   startAction,
   setError,
   error,
+  isConnected,
 }) => {
   const [NFTs, setNFTs] = useState([]);
   const [NFTPerPage] = useState(10);
@@ -35,14 +35,11 @@ const Marketplace = ({
 
   useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
-    if (BEP721Contract) {
+    if (isConnected) {
       startAction();
       fetchOnSaleNFTs();
-    } else {
-      startAction();
-      connectToContract(BEP721ContractString, true); // true for readOnly contract, because we dont need the signer
     }
-  }, [BEP721Contract]);
+  }, [isConnected]);
 
   // THIS WHOLE FUNCTION NEEDS A COMPLETE REFACTOR
   // WE NEED TO SPLIT THE DIFFERENT TASKS INTO SUB FUNCTIONS
@@ -168,8 +165,13 @@ const Marketplace = ({
   const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
-  if (loading) return <Loader />;
-  else if (error) return <ErrorPage error={error}></ErrorPage>; // lets create an something went wrong screen for such cases
+  if (!isConnected) {
+    return <ConnectWallet />;
+  } else if (error) {
+    return <ErrorPage error={error}></ErrorPage>;
+  } else if (loading) {
+    return <Loader />;
+  }
 
   return (
     <section className='marketplace'>
@@ -198,6 +200,7 @@ const mapStateToProps = (state) => {
     allNFTs: state.marketplace.allNFTs,
     loading: state.ui.loading,
     error: state.ui.error,
+    isConnected: state.ui.isConnected,
   };
 };
 
