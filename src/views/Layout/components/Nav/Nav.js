@@ -1,16 +1,25 @@
 /* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import logo from '../../../../assets/onlyLogo.png';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from '../../../../components/Button';
 
-const Nav = () => {
+const Nav = ({ isConnected, BEP20Balance }) => {
   const [search, setSearch] = useState('');
   const handleSearchChange = (event) => {
     setSearch(event.target.value);
+  };
+
+  const formatBalance = (balance) => {
+    if (balance == '0.0') {
+      return 0;
+    }
+
+    return Number(balance).toFixed(2);
   };
 
   return (
@@ -71,11 +80,30 @@ const Nav = () => {
           <Link className='nav__right-buttons-link' to='/createNFT'>
             <Button text={'Upload'} className='button--blue' />
           </Link>
-          <Button text={'Connect Wallet'} className='button' />
+          {isConnected ? (
+            <button className='button'>
+              {BEP20Balance == '0.0' ? (
+                <span className='nav__balance'>
+                  {formatBalance(BEP20Balance)} NFTC
+                </span>
+              ) : (
+                <span className='nav__balance'>
+                  {formatBalance(BEP20Balance)} NFTC
+                </span>
+              )}
+            </button>
+          ) : (
+            <Button text={'Connect Wallet'} className='button' />
+          )}
         </div>
       </div>
     </nav>
   );
 };
 
-export default Nav;
+const mapStateToProps = (state) => ({
+  isConnected: state.ui.isConnected,
+  BEP20Balance: state.contracts.BEP20Balance,
+});
+
+export default connect(mapStateToProps, undefined)(Nav);
