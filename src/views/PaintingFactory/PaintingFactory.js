@@ -3,6 +3,7 @@
 /* eslint-disable react/no-children-prop */
 import React, { useRef, useState } from 'react';
 import CanvasDraw from 'react-canvas-draw';
+import { connect } from 'react-redux';
 import {
   SketchPicker,
   CirclePicker,
@@ -24,11 +25,12 @@ import {
   BorderOutlined,
 } from '@ant-design/icons';
 import CreateNFT from 'views/CreateNFT';
-import { Button } from 'components';
+import { Button, ErrorPage } from 'components';
+import ConnectWallet from 'views/ConnectWallet';
 
 const pickers = [CirclePicker, TwitterPicker, SketchPicker];
 
-const PaintingFactory = () => {
+const PaintingFactory = ({ error, isConnected }) => {
   const calculatedVmin = Math.min(window.innerWidth, window.innerHeight);
   const [size, setSize] = useState([
     0.6 * calculatedVmin,
@@ -351,6 +353,10 @@ const PaintingFactory = () => {
 
   if (wantToCreateArt) {
     return <CreateNFT artFile={file} />;
+  } else if (!isConnected) {
+    return <ConnectWallet />;
+  } else if (error) {
+    return <ErrorPage error={error}></ErrorPage>;
   }
 
   return (
@@ -386,4 +392,11 @@ const PaintingFactory = () => {
   );
 };
 
-export default PaintingFactory;
+const mapStateToProps = (state) => {
+  return {
+    isConnected: state.ui.isConnected,
+    error: state.ui.error,
+  };
+};
+
+export default connect(mapStateToProps)(PaintingFactory);
