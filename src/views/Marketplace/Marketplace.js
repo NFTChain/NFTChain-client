@@ -14,8 +14,8 @@ import {
 } from '../../store/actions/uiActions';
 import { setAllNFTs } from '../../store/actions/marketplaceActions';
 import Loader from 'views/Loader';
-import Pagination from './Pagination';
-import { ErrorPage } from 'components';
+// import Pagination from './Pagination';
+import { ErrorPage, Button } from 'components';
 import ConnectWallet from 'views/ConnectWallet';
 
 const Marketplace = ({
@@ -30,8 +30,12 @@ const Marketplace = ({
   isConnected,
 }) => {
   const [NFTs, setNFTs] = useState([]);
-  const [NFTPerPage] = useState(10);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pinStartDate, setPinStartDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 7)).toISOString(),
+  ); // these values are for our query where we get the data from
+  const [pinEndDate, setPinEndDate] = useState(new Date().toISOString());
+  // const [NFTPerPage] = useState(10);
+  // const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     // only try to get smart contract info if BEP721 contract is available and got updated
@@ -47,10 +51,11 @@ const Marketplace = ({
   const fetchOnSaleNFTs = async () => {
     try {
       // fetch NFTs from IPFS to be able to modify the data how we need it
-      let getNFTs = await getFilesFromIPFS();
+      let getNFTs = await getFilesFromIPFS(pinStartDate, pinEndDate);
+
       getNFTs = getNFTs.rows;
       // array where we push matches into
-      const NFTInfoArray = [];
+      let NFTInfoArray = [];
 
       // Promise.all because we have a list of promises
       await Promise.all(
@@ -143,27 +148,60 @@ const Marketplace = ({
           }
         }),
       );
+      // when the user presses the load more button we show already the nfts and need to remove duplicates from the existing NFTs we display
+      if (NFTs.length > 0) {
+        for (let i = 0, len = NFTs.length; i < len; i++) {
+          for (let j = 0, len2 = NFTInfoArray.length; j < len2; j++) {
+            if (NFTs[i].image === NFTInfoArray[j].image) {
+              NFTInfoArray.splice(j, 1);
+              len2 = NFTInfoArray.length;
+            }
+          }
+        }
+        if (NFTInfoArray.length < 1) {
+          createNotification('info', 'No NFTs found, please try again', 3000)();
+        }
+        NFTInfoArray = NFTInfoArray.concat(NFTs);
+      }
+
       setNFTs(NFTInfoArray);
       setAllNFTs(NFTInfoArray);
+      updatePinDates();
     } catch (error) {
       console.log(error);
       debugger;
-      setError(
-        'Something went wrong getting the art, please refresh the site.',
-      );
-      createNotification(
-        'error',
-        'Something went wrong getting the NFTs, please reload the site',
-        10000,
-      )();
+      // when the user has already some NFTs loaded show just an error message that we reached the limit
+      if (NFTs.length > 0) {
+        createNotification(
+          'error',
+          'We reached the limit of getting new NFTs from our IPFS service, this will sometimes happen. Please try in some seconds again and reach out to support if this happens more often.',
+          5000,
+        )();
+      } else {
+        setError(
+          'Something went wrong getting the art, please refresh the site.',
+        );
+        createNotification(
+          'error',
+          'Something went wrong getting the NFTs, please reload the site',
+          10000,
+        )();
+      }
     } finally {
       stopAction();
     }
   };
 
-  const indexOfLastNFT = currentPage * NFTPerPage;
-  const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
-  const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
+  const updatePinDates = () => {
+    setPinEndDate(pinStartDate);
+    const currentDate = new Date(pinStartDate);
+    const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
+    setPinStartDate(oneWeekAgo.toISOString());
+  };
+
+  // const indexOfLastNFT = currentPage * NFTPerPage;
+  // const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
+  // const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
 
   if (!isConnected) {
     return <ConnectWallet />;
@@ -181,15 +219,22 @@ const Marketplace = ({
         </div>
 
         <div className='marketplace__card-list'>
-          <NFTCardList NFTS={currentNFTS} />
+          <NFTCardList NFTS={NFTs} />
         </div>
       </div>
-      <Pagination
+      {/* <Pagination
         setCurrentPage={setCurrentPage}
         totalNFTS={NFTs.length}
         NFTPerPage={NFTPerPage}
         currentPage={currentPage}
-      />
+      /> */}
+      <div className='marketplace__button-container'>
+        <Button
+          text='Load more'
+          onClick={fetchOnSaleNFTs}
+          className='button--blue'
+        />
+      </div>
     </section>
   );
 };
