@@ -30,16 +30,14 @@ const Marketplace = ({
   isConnected,
 }) => {
   const [NFTs, setNFTs] = useState([]);
-  const [pinStartDate, setPinStartDate] = useState(); // these values are for our query where we get the data from
-  const [pinEndDate, setPinEndDate] = useState();
+  const [pinStartDate, setPinStartDate] = useState(
+    new Date(new Date().setDate(new Date().getDate() - 7)).toISOString(),
+  ); // these values are for our query where we get the data from
+  const [pinEndDate, setPinEndDate] = useState(new Date().toISOString());
   // const [NFTPerPage] = useState(10);
   // const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    const currentDate = new Date();
-    setPinEndDate(currentDate.toISOString());
-    const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
-    setPinStartDate(oneWeekAgo.toISOString());
     // only try to get smart contract info if BEP721 contract is available and got updated
     if (isConnected) {
       startAction();
@@ -159,6 +157,9 @@ const Marketplace = ({
               len2 = NFTInfoArray.length;
             }
           }
+        }
+        if (NFTInfoArray.length < 1) {
+          createNotification('info', 'No NFTs found, please try again', 3000)();
         }
         NFTInfoArray = NFTInfoArray.concat(NFTs);
       }

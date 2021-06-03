@@ -4,7 +4,7 @@ export const getFilesFromIPFS = (pinStartDate, pinEndDate) => {
   // parameter of this func should the queryParams => implement here search logic with passing queryParams object with filter logic
   const queryParams = {
     selectedPinStatus: 'pinned',
-    pageLimit: 10,
+    pageLimit: 30,
     pinStartDate,
     pinEndDate,
   }; // here we can decide how many nfts we want to get
