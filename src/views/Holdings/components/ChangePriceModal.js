@@ -62,8 +62,7 @@ export default function ChangePriceModal({
       }}
     >
       <Text
-        text=' Please type into the input the price you want to change to and press
-          the button'
+        text=' Please type into the input the price you want to set and click Set Price'
         style={marginBottom}
       />
 
