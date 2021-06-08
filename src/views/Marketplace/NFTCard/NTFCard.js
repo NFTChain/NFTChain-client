@@ -7,6 +7,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { setCurrentNFT } from '../../../store/actions/marketplaceActions';
+import Blockies from 'react-blockies';
 
 const NFTCard = ({
   image,
@@ -43,7 +44,18 @@ const NFTCard = ({
       <div className='card__body'>
         <div className='card__top'>
           <div className='card__owner'>
-            <div className='card__avatar'></div>
+            <div className='card__avatar'>
+              <Blockies
+                seed={
+                  owner &&
+                  artist &&
+                  (owner === artist ? artist : owner).toLowerCase()
+                }
+                // size={12}
+                // scale={6}
+                className='holdings_blockie'
+              />
+            </div>
             <div className='card__user'>
               <span className='card__user__title'>Owned by</span>
               <span className='card__user__code'>
@@ -54,7 +66,14 @@ const NFTCard = ({
             </div>
           </div>
           <div className='card__creator'>
-            <div className='card__avatar'></div>
+            <div className='card__avatar'>
+              <Blockies
+                seed={artist.toLowerCase()}
+                // size={12}
+                // scale={6}
+                className='holdings_blockie'
+              />
+            </div>
             <div className='card__user'>
               <span className='card__user__title'>Created by</span>
               <span className='card__user__code'>{artist.slice(0, 5)}</span>
