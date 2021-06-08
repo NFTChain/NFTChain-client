@@ -235,7 +235,7 @@ const NFTInfoPage = ({
           />
         </div>
         {currentInfoComponent}
-        <BuyContainer buyNFT={buyNFT} />
+        <BuyContainer buyNFT={buyNFT} history={history} />
       </div>
     </div>
   );

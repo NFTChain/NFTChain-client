@@ -71,4 +71,5 @@
 
 .buy-container {
   margin-top: 1rem;
+  @include flex;
 }
