@@ -267,8 +267,8 @@ const Holdings = ({
   return (
     <div className='holdings'>
       {unmintedHoldings.length > 0 && (
-        <div className='holdings__container container'>
-          <H1 text='Unsold Holdings' />
+        <div className='holdings__content container'>
+          <h1 className='holdings__title'>Unsold Holdings</h1>
 
           <div className='holdings__card-list' style={{ margin: 0 }}>
             {unmintedHoldings.map((item) => {
@@ -297,8 +297,8 @@ const Holdings = ({
       )}
 
       {mintedHoldings.length > 0 && (
-        <div className='holdings__container'>
-          <H1 text='Minted Holdings' />
+        <div className='holdings__content container'>
+          <h1 className='holdings__title heading-primary'>Minted Holdings</h1>
 
           <div className='holdings__card-list'>
             {mintedHoldings.map((item) => {

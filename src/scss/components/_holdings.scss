@@ -1,12 +1,18 @@
 .holdings {
-  @include flex(column);
-  // flex-wrap: wrap;
   min-height: calc(100vh - 6.6rem);
   margin-top: 8rem;
 
-  &__container {
+  &__content {
     @include flex(column);
     flex-wrap: wrap;
+  }
+
+  &__title {
+    margin: 0 1.5rem;
+  }
+
+  &__holdings {
+    justify-self: flex-start;
   }
 
   &__card-list {
