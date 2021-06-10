@@ -4,17 +4,18 @@
 
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import { connectToContract } from '../../../store/actions/contractActions';
+import { startAction, stopAction } from 'store/actions/uiActions';
 import { utils } from 'ethers';
 import ConnectWallet from 'views/ConnectWallet';
 import { marginTopAndBottom } from 'utils/globalStyles';
+import { createNotification } from 'utils/createNotification';
 import { H1, ComingSoon, Text, Button } from 'components';
 import ArtistAndOwner from './components/ArtistAndOwner';
 import BuyContainer from './components/BuyContainer';
-import { createNotification } from 'utils/createNotification';
-import { startAction, stopAction } from 'store/actions/uiActions';
+import Chat from './components/Chat';
 import Loader from 'views/Loader';
-import { withRouter } from 'react-router-dom';
 
 const NFTInfoPage = ({
   BEP20Contract,
@@ -122,7 +123,7 @@ const NFTInfoPage = ({
         return;
       case 'Chat':
         setCurrentInfoView(2);
-        setCurrentInfoComponent(<ComingSoon />);
+        setCurrentInfoComponent(<Chat />);
 
         return;
       case 'Owner':
@@ -143,99 +144,105 @@ const NFTInfoPage = ({
   }
 
   return (
-    <div className='info-page container'>
-      <div className='info-page__image-container'>
-        <img src={image} alt='NFT art' />
-      </div>
-      <div className='info-page__info-container'>
-        <H1
-          text={title}
-          style={{
-            color: '#434343',
-            fontSize: '4rem',
-            textAlign: 'center',
-            marginBottom: '1rem',
-          }}
-        />
-        <div className='info-page__price-limit' style={marginTopAndBottom}>
-          <Text
-            text={`${price}0 NFTC`}
-            style={{
-              borderRadius: '3px',
-              color: '#00ab55',
-              border: '2px solid #00ab55',
-              fontWeight: 900,
-              padding: '0.3rem',
-              marginRight: '1rem',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '1rem',
-            }}
-          />
-          <Text
-            text={`$${Math.ceil(price * 0.1)}.00`} // later we need to make an api call to get the current price of our token and make the calculation
-            style={{
-              borderRadius: '3px',
-              // color: '#00ab55',
-              border: '2px solid',
-              fontWeight: 900,
-              padding: '0.3rem',
-              marginRight: '1rem',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              fontSize: '1rem',
-            }}
-          />
-          <Text
-            text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
-          />
+    <div className='info-page'>
+      <div className='info-page__section-top'>
+        <div className='info-page__image-container'>
+          <img src={image} alt='NFT art' />
         </div>
-        <Text
-          style={{ textAlign: 'center', margin: '1rem 0' }}
-          text={description}
-        />
-        <div className='info-page__info-navigator'>
-          <Button
-            className='info-page__button button'
-            onClick={handleInfoViewChange}
-            text={'Info'}
+        <div className='info-page__info-container'>
+          <H1
+            text={title}
             style={{
-              backgroundColor: currentInfoView === 1 ? '#959595' : '#FFFFFF',
-              color: currentInfoView === 1 ? '#FFF' : '#959595',
+              color: '#434343',
+              fontSize: '4rem',
+              textAlign: 'center',
+              marginBottom: '1rem',
             }}
           />
-          <Button
-            className='info-page__button button'
-            onClick={handleInfoViewChange}
-            text={'Chat'}
+          <div className='info-page__price-limit' style={marginTopAndBottom}>
+            <Text
+              text={`${price}0 NFTC`}
+              style={{
+                borderRadius: '3px',
+                color: '#00ab55',
+                border: '2px solid #00ab55',
+                fontWeight: 900,
+                padding: '0.3rem',
+                marginRight: '1rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '1rem',
+              }}
+            />
+            <Text
+              text={`$${Math.ceil(price * 0.1)}.00`} // later we need to make an api call to get the current price of our token and make the calculation
+              style={{
+                borderRadius: '3px',
+                // color: '#00ab55',
+                border: '2px solid',
+                fontWeight: 900,
+                padding: '0.3rem',
+                marginRight: '1rem',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '1rem',
+              }}
+            />
+            <Text
+              text={`${limit - count} of ${limit}`} // this logic works for only for unminted NFT - Take care of minted NFT!!!
+            />
+          </div>
+          <Text
             style={{
-              backgroundColor: currentInfoView === 2 ? '#959595' : '#FFFFFF',
-              color: currentInfoView === 2 ? '#FFF' : '#959595',
+              textAlign: 'center',
+              margin: '1rem 0',
+              fontSize: '1.4rem',
             }}
+            text={description}
           />
-          <Button
-            className='info-page__button button'
-            onClick={handleInfoViewChange}
-            text={'Owner'}
-            style={{
-              backgroundColor: currentInfoView === 3 ? '#959595' : '#FFFFFF',
-              color: currentInfoView === 3 ? '#FFF' : '#959595',
-            }}
-          />
-          <Button
-            className='info-page__button button'
-            onClick={handleInfoViewChange}
-            text={'History'}
-            style={{
-              backgroundColor: currentInfoView === 4 ? '#959595' : '#FFFFFF',
-              color: currentInfoView === 4 ? '#FFF' : '#959595',
-            }}
-          />
+          <div className='info-page__info-navigator'>
+            <Button
+              className='info-page__button button'
+              onClick={handleInfoViewChange}
+              text={'Info'}
+              style={{
+                backgroundColor: currentInfoView === 1 ? '#959595' : '#FFFFFF',
+                color: currentInfoView === 1 ? '#FFF' : '#959595',
+              }}
+            />
+            <Button
+              className='info-page__button button'
+              onClick={handleInfoViewChange}
+              text={'Chat'}
+              style={{
+                backgroundColor: currentInfoView === 2 ? '#959595' : '#FFFFFF',
+                color: currentInfoView === 2 ? '#FFF' : '#959595',
+              }}
+            />
+            <Button
+              className='info-page__button button'
+              onClick={handleInfoViewChange}
+              text={'Owner'}
+              style={{
+                backgroundColor: currentInfoView === 3 ? '#959595' : '#FFFFFF',
+                color: currentInfoView === 3 ? '#FFF' : '#959595',
+              }}
+            />
+            <Button
+              className='info-page__button button'
+              onClick={handleInfoViewChange}
+              text={'History'}
+              style={{
+                backgroundColor: currentInfoView === 4 ? '#959595' : '#FFFFFF',
+                color: currentInfoView === 4 ? '#FFF' : '#959595',
+              }}
+            />
+          </div>
+          {currentInfoComponent}
+          <BuyContainer buyNFT={buyNFT} history={history} />
         </div>
-        {currentInfoComponent}
-        <BuyContainer buyNFT={buyNFT} history={history} />
       </div>
     </div>
   );
