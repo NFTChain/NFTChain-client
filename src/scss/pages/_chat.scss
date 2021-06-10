@@ -1,0 +1,26 @@
+.chat {
+  min-height: 100vh;
+  margin-top: 6.6rem;
+
+  &__box {
+    height: 40rem;
+    width: 40rem;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3);
+    border-radius: 3px;
+    @include flex(column, space-between, flex-start);
+    padding: 1rem;
+  }
+
+  &__form {
+    @include flex(row, space-between, stretch);
+    width: 100%;
+  }
+
+  &__input {
+    flex: 1;
+    margin-right: 0.7rem;
+    padding: 0 1rem;
+    border-radius: 3px;
+    border: 1px solid $base-border;
+  }
+}

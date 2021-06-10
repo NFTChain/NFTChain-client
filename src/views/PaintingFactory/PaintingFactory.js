@@ -191,23 +191,11 @@ const PaintingFactory = ({ error, isConnected }) => {
 
   const PickerDisplay = pickers[picker % pickers.length];
 
-  let top, bottom;
+  let left, right;
   if (true) {
-    top = (
-      <div
-        style={{
-          width: '90vmin',
-          margin: '0 auto',
-          marginBottom: 16,
-          marginTop: 120,
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <Button text='Create art' onClick={createInk} />
-        <div className='container' style={{ marginTop: 16, display: 'flex' }}>
+    left = (
+      <div className='painting__left'>
+        <div className='button-box'>
           <Button
             onClick={() => undo()}
             children={
@@ -216,9 +204,9 @@ const PaintingFactory = ({ error, isConnected }) => {
               </div>
             }
           />
-
+        </div>
+        <div className='button-box'>
           <Button
-            style={{ marginLeft: '1rem' }}
             onClick={() => {
               drawingCanvas.current.clear();
               setDrawing();
@@ -229,8 +217,9 @@ const PaintingFactory = ({ error, isConnected }) => {
               </div>
             }
           />
+        </div>
 
-          {/* <Button
+        {/* <Button
             style={{ marginLeft: '1rem' }}
             onClick={() => {
               drawingCanvas.current.loadSaveData(LZ.decompress(drawing), false);
@@ -242,13 +231,8 @@ const PaintingFactory = ({ error, isConnected }) => {
               </div>
             }
           /> */}
-        </div>
-      </div>
-    );
 
-    bottom = (
-      <div style={{ marginTop: 16 }}>
-        <Row
+        {/* <Row
           style={{
             width: '90vmin',
             margin: '0 auto',
@@ -256,121 +240,23 @@ const PaintingFactory = ({ error, isConnected }) => {
             justifyContent: 'center',
             alignItems: 'center',
           }}
-        >
-          <Space>
-            <PickerDisplay color={color} onChangeComplete={updateColor} />
-            <Button
-              onClick={() => {
-                setPicker(picker + 1);
-              }}
-              children={<HighlightOutlined />}
-            />
-          </Space>
-        </Row>
-        <Row
-          style={{
-            width: '90vmin',
-            margin: '0 auto',
-            marginTop: '4vh',
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Col
-            span={12}
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+        > */}
+        <Space>
+          <PickerDisplay color={color} onChangeComplete={updateColor} />
+          <Button
+            onClick={() => {
+              setPicker(picker + 1);
             }}
-          >
-            <AlphaPicker onChangeComplete={updateColor} color={color} />
-          </Col>
-        </Row>
-        <Row
-          style={{
-            width: '90vmin',
-            margin: '0 auto',
-            marginTop: '4vh',
-            justifyContent: 'center',
-          }}
-        >
-          <Col span={12}>
-            <Slider
-              min={1}
-              max={100}
-              onChange={updateBrushRadius}
-              value={typeof brushRadius === 'number' ? brushRadius : 0}
-            />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={1}
-              max={100}
-              style={{ margin: '0 16px' }}
-              value={brushRadius}
-              onChange={updateBrushRadius}
-            />
-          </Col>
-        </Row>
-        <Row
-          style={{
-            width: '90vmin',
-            margin: '0 auto',
-            marginTop: '4vh',
-            justifyContent: 'center',
-          }}
-        >
-          <Space>
-            <Col span={4}>
-              <Button
-                onClick={() => fillBackground(color)}
-                children={
-                  <div>
-                    <BgColorsOutlined />
-                    Background
-                  </div>
-                }
-              />
-            </Col>
-            <Col span={4}>
-              <Button
-                onClick={() => drawFrame(color, brushRadius)}
-                children={
-                  <div>
-                    {' '}
-                    <BorderOutlined />
-                    Frame
-                  </div>
-                }
-              />
-            </Col>
-          </Space>
-        </Row>
+            children={<HighlightOutlined />}
+          />
+        </Space>
+        {/* </Row> */}
+        <Button text='Create art' onClick={createInk} />
       </div>
     );
-  }
 
-  if (wantToCreateArt) {
-    return <CreateNFT artFile={file} />;
-  } else if (!isConnected) {
-    return <ConnectWallet />;
-  } else if (error) {
-    return <ErrorPage error={error}></ErrorPage>;
-  }
-
-  return (
-    <div style={{ textAlign: 'center', margin: '4rem 0' }}>
-      {top}
-      <div
-        style={{
-          backgroundColor: '#666666',
-          width: size[0],
-          margin: '0 auto',
-          border: '1px solid #999999',
-          boxShadow: '2px 2px 8px #AAAAAA',
-        }}
-      >
+    right = (
+      <div className='canvas__container'>
         <CanvasDraw
           // key={props.mode + '' canvasKey}
           ref={drawingCanvas}
@@ -387,7 +273,125 @@ const PaintingFactory = ({ error, isConnected }) => {
           loadTimeOffset={3}
         />
       </div>
-      {bottom}
+    );
+
+    // right = (
+    //   <div style={{ marginTop: 16 }}>
+    //     <Row
+    //       style={{
+    //         width: '90vmin',
+    //         margin: '0 auto',
+    //         display: 'inline-flex',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //       }}
+    //     >
+    //       <Space>
+    //         <PickerDisplay color={color} onChangeComplete={updateColor} />
+    //         <Button
+    //           onClick={() => {
+    //             setPicker(picker + 1);
+    //           }}
+    //           children={<HighlightOutlined />}
+    //         />
+    //       </Space>
+    //     </Row>
+    //     <Row
+    //       style={{
+    //         width: '90vmin',
+    //         margin: '0 auto',
+    //         marginTop: '4vh',
+    //         justifyContent: 'center',
+    //         alignItems: 'center',
+    //       }}
+    //     >
+    //       <Col
+    //         span={12}
+    //         style={{
+    //           display: 'flex',
+    //           justifyContent: 'center',
+    //           alignItems: 'center',
+    //         }}
+    //       >
+    //         <AlphaPicker onChangeComplete={updateColor} color={color} />
+    //       </Col>
+    //     </Row>
+    //     <Row
+    //       style={{
+    //         width: '90vmin',
+    //         margin: '0 auto',
+    //         marginTop: '4vh',
+    //         justifyContent: 'center',
+    //       }}
+    //     >
+    //       <Col span={12}>
+    //         <Slider
+    //           min={1}
+    //           max={100}
+    //           onChange={updateBrushRadius}
+    //           value={typeof brushRadius === 'number' ? brushRadius : 0}
+    //         />
+    //       </Col>
+    //       <Col span={4}>
+    //         <InputNumber
+    //           min={1}
+    //           max={100}
+    //           style={{ margin: '0 16px' }}
+    //           value={brushRadius}
+    //           onChange={updateBrushRadius}
+    //         />
+    //       </Col>
+    //     </Row>
+    //     <Row
+    //       style={{
+    //         width: '90vmin',
+    //         margin: '0 auto',
+    //         marginTop: '4vh',
+    //         justifyContent: 'center',
+    //       }}
+    //     >
+    //       <Space>
+    //         <Col span={4}>
+    //           <Button
+    //             onClick={() => fillBackground(color)}
+    //             children={
+    //               <div>
+    //                 <BgColorsOutlined />
+    //                 Background
+    //               </div>
+    //             }
+    //           />
+    //         </Col>
+    //         <Col span={4}>
+    //           <Button
+    //             onClick={() => drawFrame(color, brushRadius)}
+    //             children={
+    //               <div>
+    //                 {' '}
+    //                 <BorderOutlined />
+    //                 Frame
+    //               </div>
+    //             }
+    //           />
+    //         </Col>
+    //       </Space>
+    //     </Row>
+    //   </div>
+    // );
+  }
+
+  if (wantToCreateArt) {
+    return <CreateNFT artFile={file} />;
+  } else if (!isConnected) {
+    return <ConnectWallet />;
+  } else if (error) {
+    return <ErrorPage error={error}></ErrorPage>;
+  }
+
+  return (
+    <div className='painting'>
+      {left}
+      {right}
     </div>
   );
 };

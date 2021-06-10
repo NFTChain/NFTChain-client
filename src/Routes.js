@@ -6,8 +6,10 @@ import Marketplace from './views/Marketplace';
 import NFTInfoPage from './views/Marketplace/NFTInfoPage';
 // import LandingPage from './views/LandingPage';
 import CreateNFT from './views/CreateNFT';
+import Chat from './views/Chat';
 // import Litepaper from './views/Litepaper';
 import PaintingFactory from './views/PaintingFactory';
+
 import Layout from './views/Layout';
 
 // // Authentication component
@@ -47,6 +49,7 @@ const Routes = () => {
         path='/'
         render={() => <Layout children={<PaintingFactory />} />}
       />
+      <Route path='/chat' render={() => <Layout children={<Chat />} />} />
       {/* <Route
         exact
         path='/login'
