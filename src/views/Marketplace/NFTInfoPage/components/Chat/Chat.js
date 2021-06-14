@@ -8,10 +8,10 @@ const Chat = () => {
   const [chat, setChat] = useState([]);
 
   useEffect(() => {
-    socket.on('message', (payload) => {
-      setChat([...chat, payload]);
+    socket.on('message', (message) => {
+      setChat([...chat, message]);
     });
-  });
+  }, [chat]);
 
   const sendMessage = (e) => {
     e.preventDefault();

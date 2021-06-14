@@ -14,7 +14,7 @@ import { createNotification } from 'utils/createNotification';
 import { H1, ComingSoon, Text, Button } from 'components';
 import ArtistAndOwner from './components/ArtistAndOwner';
 import BuyContainer from './components/BuyContainer';
-import Chat from './components/Chat';
+// import Chat from './components/Chat';
 import Loader from 'views/Loader';
 
 const NFTInfoPage = ({
@@ -123,7 +123,7 @@ const NFTInfoPage = ({
         return;
       case 'Chat':
         setCurrentInfoView(2);
-        setCurrentInfoComponent(<Chat />);
+        setCurrentInfoComponent(<ComingSoon />);
 
         return;
       case 'Owner':
