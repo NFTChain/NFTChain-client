@@ -2,21 +2,17 @@
   background-repeat: no-repeat;
   background-size: cover;
   color: #263238;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  margin-top: 8rem;
+  padding: 6.6rem 0;
+  @include flex(column, flex-start, stretch);
 
   &__content {
     width: 100%;
   }
 
   &__title-box {
-    margin: 0 1.5rem;
-
-    @include respond(tab-land) {
-      text-align: center;
-    }
+    margin: 1.15rem 1.5rem 0 1.5rem;
+    text-align: center;
   }
 
   &__card-list {
@@ -24,8 +20,8 @@
     flex-wrap: wrap;
     width: 100%;
   }
+
   &__button-container {
-    @include flex;
-    margin-bottom: 1rem;
+    margin: 0 auto;
   }
 }

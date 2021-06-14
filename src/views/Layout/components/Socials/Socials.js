@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-  FaTwitter,
-  FaTelegramPlane,
-  // FaFacebookF,
-  // FaRedditAlien,
-  // FaInstagram,
-} from 'react-icons/fa';
+import { FaTwitter, FaTelegramPlane } from 'react-icons/fa';
 
 const Socials = () => {
   return (
@@ -27,15 +21,6 @@ const Socials = () => {
         >
           <FaTelegramPlane className='socials-marketplace__icon' />
         </a>
-        {/* <a href='#' target='_blank' className='socials-marketplace__link'>
-          <FaFacebookF className='socials-marketplace__icon' />
-        </a>
-        <a href='#' target='_blank' className='socials-marketplace__link'>
-          <FaRedditAlien className='socials-marketplace__icon' />
-        </a>
-        <a href='#' target='_blank' className='socials-marketplace__link'>
-          <FaInstagram className='socials-marketplace__icon' />
-        </a> */}
       </div>
     </section>
   );
