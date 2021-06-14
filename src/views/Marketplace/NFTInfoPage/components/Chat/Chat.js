@@ -36,18 +36,20 @@ const Chat = () => {
             </p>
           ))}
         </div>
-        <form className='chat__form' onSubmit={sendMessage}>
-          <input
-            type='text'
-            className='chat__input'
-            placeholder='Type a message'
-            value={message}
-            onChange={handleInputChange}
-          />
-          <button type='submit' className='chat__button button--blue'>
-            Send
-          </button>
-        </form>
+        <div className='chat__form-container'>
+          <form className='chat__form' onSubmit={sendMessage}>
+            <input
+              type='text'
+              className='chat__input'
+              placeholder='Type a message'
+              value={message}
+              onChange={handleInputChange}
+            />
+            <button type='submit' className='chat__button button--blue'>
+              Send
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
