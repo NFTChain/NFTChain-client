@@ -1,6 +1,6 @@
 import { ethers, Contract } from 'ethers';
-import BEP20Token from './NftChainBEP20.json';
-import BEP721Token from './NftChainBEP721.json';
+import BEP20Token from './NftChainERC20.json';
+import BEP721Token from './NftChainERC721.json';
 
 export const BEP20ContractString = 'BEP20TokenContract';
 export const BEP721ContractString = 'BEP721TokenContract';
@@ -24,8 +24,8 @@ const getContract = async (contractType, readOnly) => {
 
       const { chainId } = await provider._networkPromise;
 
-      if (chainId !== 80001) {
-        // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
+      if (chainId !== 137) {
+        // mumbai testnet 8001
         return {
           error: 'wrong-network',
         };
@@ -42,8 +42,8 @@ const getContract = async (contractType, readOnly) => {
 
       const { chainId } = await provider._networkPromise;
 
-      if (chainId !== 80001) {
-        // check for the Mumbai testnet - change this later to the right Matic Mainnet ChainId
+      if (chainId !== 137) {
+        // mumbai testnet 8001
         return {
           error: 'wrong-network',
         };

@@ -20,6 +20,7 @@ import ConnectWallet from 'views/ConnectWallet';
 
 const Marketplace = ({
   BEP721Contract,
+  BEP20Contract,
   allNFTs,
   setAllNFTs,
   loading,
@@ -80,42 +81,11 @@ const Marketplace = ({
             // we need to check who bought the token and if the user already put it on sale
             // if its on sale we need to display it on the marketplace
             if (NFTInfoObject.count > 0) {
-              await [...Array(NFTInfoObject.count).keys()].map(
-                async (currentIndex) => {
-                  // Get the token id
-                  const tokenId = (
-                    await BEP721Contract.inkTokenByIndex(
-                      NFT.ipfs_pin_hash,
-                      currentIndex,
-                    )
-                  ).toString();
-
-                  // get the owner of the token (NFT)
-                  owner = await BEP721Contract.ownerOf(tokenId);
-
-                  // because the NFT is already minted - we need to check the tokenPrice and can't use the price from the unminted NFT
-                  const tokenPrice = (
-                    await BEP721Contract.tokenPriceByTokenId(tokenId)
-                  ).toString();
-
-                  // if price of token is higher than 0 we want to display it in the marketplace
-                  if (Number(tokenPrice) > 0) {
-                    NFTInfoArray.push({
-                      id: tokenId,
-                      key: uuidv4(),
-                      title: NFT.metadata.name,
-                      image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
-                      description: NFT.metadata.keyvalues.description,
-                      fileType: NFT.metadata.keyvalues.fileType,
-                      price: utils.formatEther(tokenPrice),
-                      owner: owner,
-                      artist: NFTInfoObject.artist,
-                      limit: 1,
-                      count: 0,
-                      isToken: true, // indicates this is a minted NFT
-                    });
-                  }
-                },
+              debugger;
+              NFTInfoArray = await getMintedNFTs(
+                NFT,
+                NFTInfoObject,
+                NFTInfoArray,
               );
             }
           } catch (error) {
@@ -150,14 +120,15 @@ const Marketplace = ({
       );
       // when the user presses the load more button we show already the nfts and need to remove duplicates from the existing NFTs we display
       if (NFTs.length > 0) {
-        for (let i = 0, len = NFTs.length; i < len; i++) {
-          for (let j = 0, len2 = NFTInfoArray.length; j < len2; j++) {
-            if (NFTs[i].image === NFTInfoArray[j].image) {
-              NFTInfoArray.splice(j, 1);
-              len2 = NFTInfoArray.length;
-            }
-          }
-        }
+        debugger;
+        // for (let i = 0, len = NFTs.length; i < len; i++) {
+        //   for (let j = 0, len2 = NFTInfoArray.length; j < len2; j++) {
+        //     if (NFTs[i].image === NFTInfoArray[j].image) {
+        //       NFTInfoArray.splice(j, 1);
+        //       len2 = NFTInfoArray.length;
+        //     }
+        //   }
+        // }
         if (NFTInfoArray.length < 1) {
           createNotification('info', 'No NFTs found, please try again', 3000)();
         }
@@ -165,7 +136,9 @@ const Marketplace = ({
       }
 
       setNFTs(NFTInfoArray);
+      debugger;
       setAllNFTs(NFTInfoArray);
+      debugger;
       updatePinDates();
     } catch (error) {
       console.log(error);
@@ -197,6 +170,47 @@ const Marketplace = ({
     const currentDate = new Date(pinStartDate);
     const oneWeekAgo = new Date(currentDate.setDate(currentDate.getDate() - 7));
     setPinStartDate(oneWeekAgo.toISOString());
+  };
+
+  const getMintedNFTs = async (NFT, NFTInfoObject, NFTInfoArray) => {
+    await Promise.all(
+      [...Array(NFTInfoObject.count).keys()].map(async (currentIndex) => {
+        // Get the token id
+        const tokenId = (
+          await BEP721Contract.inkTokenByIndex(NFT.ipfs_pin_hash, currentIndex)
+        ).toString();
+        debugger;
+
+        // get the owner of the token (NFT)
+        const owner = await BEP721Contract.ownerOf(tokenId);
+        debugger;
+        // because the NFT is already minted - we need to check the tokenPrice and can't use the price from the unminted NFT
+        const tokenPrice = (
+          await BEP721Contract.tokenPriceByTokenId(tokenId)
+        ).toString();
+        debugger;
+
+        // if price of token is higher than 0 we want to display it in the marketplace
+        if (Number(tokenPrice) > 0) {
+          debugger;
+          NFTInfoArray.push({
+            id: tokenId,
+            key: uuidv4(),
+            title: NFT.metadata.name,
+            image: `https://ipfs.io/ipfs/${NFT.ipfs_pin_hash}`,
+            description: NFT.metadata.keyvalues.description,
+            fileType: NFT.metadata.keyvalues.fileType,
+            price: utils.formatEther(tokenPrice),
+            owner: owner,
+            artist: NFTInfoObject.artist,
+            limit: 1,
+            count: 0,
+            isToken: true, // indicates this is a minted NFT
+          });
+        }
+      }),
+    );
+    return NFTInfoArray;
   };
 
   // const indexOfLastNFT = currentPage * NFTPerPage;
@@ -242,6 +256,7 @@ const Marketplace = ({
 const mapStateToProps = (state) => {
   return {
     BEP721Contract: state.contracts.BEP721Contract,
+    BEP20Contract: state.contracts.BEP20Contract,
     allNFTs: state.marketplace.allNFTs,
     loading: state.ui.loading,
     error: state.ui.error,
