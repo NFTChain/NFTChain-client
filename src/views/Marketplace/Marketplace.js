@@ -20,7 +20,6 @@ import ConnectWallet from 'views/ConnectWallet';
 
 const Marketplace = ({
   BEP721Contract,
-  BEP20Contract,
   allNFTs,
   setAllNFTs,
   loading,
@@ -120,7 +119,6 @@ const Marketplace = ({
       );
       // when the user presses the load more button we show already the nfts and need to remove duplicates from the existing NFTs we display
       if (NFTs.length > 0) {
-        debugger;
         // for (let i = 0, len = NFTs.length; i < len; i++) {
         //   for (let j = 0, len2 = NFTInfoArray.length; j < len2; j++) {
         //     if (NFTs[i].image === NFTInfoArray[j].image) {
@@ -130,15 +128,19 @@ const Marketplace = ({
         //   }
         // }
         if (NFTInfoArray.length < 1) {
-          createNotification('info', 'No NFTs found, please try again', 3000)();
+          createNotification(
+            'info',
+            'No NFTs found for this timeframe, please create an NFT for less than 0.01$ and make the marketplace more full :)',
+            5000,
+          )();
         }
         NFTInfoArray = NFTInfoArray.concat(NFTs);
       }
 
       setNFTs(NFTInfoArray);
-      debugger;
+
       setAllNFTs(NFTInfoArray);
-      debugger;
+
       updatePinDates();
     } catch (error) {
       console.log(error);

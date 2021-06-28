@@ -11,29 +11,29 @@ const ErrorPage = ({ error }) => {
         <h3 className='error__page-message'>
           {error === 'wrong-network' ? (
             <p>
-              You are on the wrong network. Please connect to the Mumbai Testnet
+              You are on the wrong network. Please connect to the Matic mainnet
               network via you MetaMask wallet and refresh this page. Here is a
-              tutorial how you can connect to the Mumbai Testnet:{' '}
+              tutorial how you can connect to the Matic mainnet network:{' '}
               <a
                 target='_blank'
-                href='https://blog.pods.finance/guide-connecting-mumbai-testnet-to-your-metamask-87978071aca8'
+                href='https://docs.matic.network/docs/develop/metamask/config-matic/'
               >
-                https://blog.pods.finance/guide-connecting-mumbai-testnet-to-your-metamask-87978071aca8
+                https://docs.matic.network/docs/develop/metamask/config-matic/
               </a>
               <br />
               <br />
-              To be able to use the platform fully you will need to send some
-              fake Matic tokens to your wallet here:{' '}
-              <a target='_blank' href='https://faucet.matic.network/'>
-                https://faucet.matic.network/
-              </a>
+              To be able to create NFTs you will need to have some Matic tokens
+              in your wallet to cover the GAS costs of the transaction: <br />
               <br />
-              <br />
-              To be able to buy a NFT on the marketplace you will need some of
-              our own created tokens $NFTC. Please reach out to the admins in
-              the Telegram channel and ask for the $NFTC token:
-              <a target='_blank' href='https://t.me/NFT_Chain'>
-                https://t.me/NFT_Chain
+              To be able to buy an NFT on the marketplace you will need to have
+              our token $NFTC which you can get here (we will add a fiat gateway
+              soon!):
+              <a
+                target='_blank'
+                href=' https://quickswap.exchange/#/swap?outputCurrency=0x0cab7cb67e909c373350d5532c3ce50a11bd6e7c
+'
+              >
+                https://quickswap.exchange/#/swap?outputCurrency=0x0cab7cb67e909c373350d5532c3ce50a11bd6e7c
               </a>
             </p>
           ) : (
