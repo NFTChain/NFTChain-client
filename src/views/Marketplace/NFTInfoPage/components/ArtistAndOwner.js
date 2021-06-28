@@ -8,7 +8,6 @@ const ArtistAndOwner = ({ artist, owner }) => {
     <div className='artist-and-owner'>
       <div className='artist-and-owner__card'>
         <div className='artist-and-owner__avatar'>
-          {' '}
           <Blockies
             seed={owner && owner.toLowerCase()}
             className='holdings_blockie'

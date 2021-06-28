@@ -1,12 +1,18 @@
 .holdings {
-  @include flex(column);
-  // flex-wrap: wrap;
   min-height: calc(100vh - 6.6rem);
   margin-top: 8rem;
 
-  &__container {
+  &__content {
     @include flex(column);
     flex-wrap: wrap;
+  }
+
+  &__title {
+    margin: 0 1.5rem;
+  }
+
+  &__holdings {
+    justify-self: flex-start;
   }
 
   &__card-list {
@@ -26,4 +32,10 @@
   margin: 0px;
   padding: 0px;
   min-height: 100vh;
+}
+
+.holdings_blockie {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
 }

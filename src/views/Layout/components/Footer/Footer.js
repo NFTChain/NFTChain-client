@@ -5,7 +5,7 @@ import Socials from '../Socials';
 const Footer = () => {
   return (
     <div className='footer-marketplace'>
-      <div className='footer-marketplace__content container'>
+      <div className='footer-marketplace__content'>
         <div className='footer-marketplace__row'>
           <div className='footer-marketplace__copyright'>
             <p className='footer-marketplace__copyright-text'>

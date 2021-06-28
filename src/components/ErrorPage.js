@@ -6,7 +6,7 @@ import { Button } from 'components';
 const ErrorPage = ({ error }) => {
   return (
     <div className='error__page'>
-      <section className='error__page-content'>
+      <section className='error__page-content container'>
         <h1 className='error__page-title '>Oops something went wrong.</h1>
         <h3 className='error__page-message'>
           {error === 'wrong-network' ? (
