@@ -20,6 +20,7 @@ import ConnectWallet from 'views/ConnectWallet';
 
 const Marketplace = ({
   BEP721Contract,
+  // BEP20Contract,
   allNFTs,
   setAllNFTs,
   loading,
@@ -215,6 +216,16 @@ const Marketplace = ({
     return NFTInfoArray;
   };
 
+  // const sendMassToken = (index, array, amount) => {
+  //   amount = utils.parseEther(amount);
+  //   BEP20Contract.transfer(array[index], amount);
+  //   if (index !== array.length) {
+  //     setTimeout(() => {
+  //       sendMassToken(index + 1, array, '123');
+  //     }, 5000);
+  //   }
+  // };
+
   // const indexOfLastNFT = currentPage * NFTPerPage;
   // const indexOfFirstNFT = indexOfLastNFT - NFTPerPage;
   // const currentNFTS = NFTs.slice(indexOfFirstNFT, indexOfLastNFT);
@@ -230,6 +241,53 @@ const Marketplace = ({
   return (
     <section className='marketplace'>
       <div className='marketplace__content container'>
+        {/* <Button
+          text='send'
+          onClick={() =>
+            sendMassToken(
+              0,
+              [
+                '0xCF030628E90A346EDc8bd092c68673900cC457da',
+                '0x170F7E6C476277036cC70EF791B4643CDCc3b84B',
+                '0xd77612E5e732DB06E0E0cb1e1c585e1baFcB00Ac',
+                '0xC019cA4B47C10811F0a63a878C678B9d8863832e',
+                '0x610d57A24125Ec8eD64918a2Dc2809dDFD13D11C',
+                '0x81Ffaa75b411660628115c07ce696033179e1296',
+                '0x76bDA052854CAf34B431144AdcB50532d127904d',
+                '0x7CF0A266139734D257d015BCED2E7e2bE6F418AB',
+                '0x241E7C465e15006bC977daA53c8E9A52422da838',
+                '0xEfb2FF1A684f906e29802b7ee405C9e77c004A30',
+                '0x5A8FA79585732396E17713db711744F3D61ef3ff',
+                '0x5A8FA79585732396E17713db711744F3D61ef3ff',
+                '0xD1d524bc73f83c33D89f1386CDd1d21117C27ead',
+                '0xdc7F67cDBdc999B06817c81C9ac8b4b50bf1EB4d',
+                '0xCe2f7B616312b86D373110f1fa3d4195BD254F51',
+                '0x84daAF3FD047AD6B6ebA771cba20F2bF7b1B9e41',
+                '0x45a6CC0367c3B7C00f4289A94613dB997bDa4A27',
+                '0x583C473770Ec628384488C2Ce16aC0A537b80147',
+                '0x6EF2bBb2661CfAd66FB2B2776d249276Cbd1Fd94',
+                '0xD1Eb4dF40381ea7f0AFbCDBc4c36A314546cf076',
+                '0xBA9f9D4dB6570767fC86f01cDf45460818d38cc8',
+                '0x94A725E10c90D8A114cD5De17C7b94De57B721cE',
+                '0x56BbB1F51c926cdb70fe184D1B88AA51670ea12c',
+                '0x9bE60b78EBBBD97253e95FAe2b54190D716d998F',
+                '0xb9dC0659914D8feE88Bde2a5ad69A25B959aCe87',
+                '0xFefAD28A6015e52C60757E5f47E8b5e210A704cD',
+                '0x205a8DEa85780FA6c3Af148F6ee704e861B37A63',
+                '0xb9c5Ca63FE129B1a89F36e6BA464A71d9c4E1a66',
+                '0x065523F2833b759daA98830536CAf0dEb698646E',
+                '0x6e7aF2E8a6DAB90DF5732a44C77492b4F4ac4260',
+                '0x124C443d0d6B94A877F891e508E1d69bb0e2015d',
+                '0x7c343d0482890aa92CfBA7ca7AB1729D9b0f5920',
+                '0xbB47a735d42E7112FbAD32A13097015430985d9C',
+                '0x678f06ADF8e9721063AE2888288a28DDAB100bdE',
+                '0xd078D4bD079F47424C9f8bc921D85f43697e360c',
+              ],
+              '123',
+            )
+          }
+          className='button--blue'
+        /> */}
         <div className='marketplace__title-box'>
           <h1 className='marketplace__title heading-primary'>Discover</h1>
         </div>
